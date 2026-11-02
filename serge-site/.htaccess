@@ -1,0 +1,8 @@
+# Apache (Open Server). Сервер по умолчанию отдаёт 404 через 404.php, sitemap.xml формируется скриптом.
+ErrorDocument 404 /404.php
+RewriteEngine On
+RewriteRule ^sitemap\.xml$ sitemap.php [L]
+RewriteRule ^robots\.txt$ robots.php [L]
+
+# закрываем служебные папки от прямого просмотра (api/ открыт, его вызывает калькулятор)
+RewriteRule ^(includes|data|database)/ - [F,L]

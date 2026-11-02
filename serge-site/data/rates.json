@@ -1,0 +1,30 @@
+{
+  "area_min": 10,
+  "area_max": 1000,
+  "floors_max": 3,
+  "delta": 5,
+  "round_step": 100,
+  "k_reg": 1.0,
+  "k_floors_many": 1.15,
+  "date": "01.10.2023",
+  "materials": {
+    "gazobeton": {
+      "name": "Газобетон",
+      "price": 35000
+    },
+    "brus": {
+      "name": "Брус",
+      "price": 45000
+    }
+  },
+  "foundations": {
+    "svai": {
+      "name": "Свайно-ростверковый",
+      "price": 15000
+    },
+    "lenta": {
+      "name": "Ленточный",
+      "price": 12000
+    }
+  }
+}
