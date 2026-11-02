@@ -20,7 +20,7 @@ $put = array(
 <section class="pervyj">
     <div class="vnutri pervyj__vnutri poyavlenie">
         <div class="nadpis">СТРОИТЕЛЬСТВО ДОМОВ В ЯКУТИИ</div>
-        <h1>Дом, рассчитанный<br>на Север.</h1>
+        <h1>Дом, рассчитанный на Север.</h1>
         <p class="podzag">Проектируем и строим частные дома в Якутии — от первого эскиза до ключей. Выберите проект и узнайте предварительную стоимость за пару минут.</p>
         <div class="knopki">
             <a class="knopka knopka--derevo" href="calculator.php">Спроектировать дом →</a>

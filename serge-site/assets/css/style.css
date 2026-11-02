@@ -140,7 +140,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
     min-height: 100vh;
     display: flex;
     align-items: center;
-    background: var(--grafit) url('../img/hero.webp') center/cover no-repeat;
+    background: var(--grafit) url('../img/hero.webp') 62% center / cover no-repeat;
     color: #fff;
     padding: 130px 0 80px;
 }
@@ -173,6 +173,22 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .cifry b { display: block; font-size: 34px; font-weight: 800; line-height: 1.1; }
 .cifry span { font-size: 14px; color: rgba(255,255,255,.7); }
 .demo { margin-top: 22px; font-size: 12px; color: rgba(255,255,255,.45); }
+
+/* на широких экранах: текст слева на тёмном, фото занимает правую часть и растворяется к тексту */
+@media (min-width: 1025px) {
+    .pervyj { background: var(--grafit); }
+    .pervyj::before {
+        inset: 0 0 0 auto;
+        /* левый край фото = левый край контейнера + 420px, чтобы текст не заезжал на дом при любой ширине */
+        width: calc(100% - max(0px, (100% - 1200px) / 2) - 420px);
+        background:
+            linear-gradient(180deg, rgba(17,18,17,.65) 0%, rgba(17,18,17,0) 22%),
+            url('../img/hero.webp') 62% center / cover no-repeat;
+        -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 26%);
+        mask-image: linear-gradient(90deg, transparent 0%, #000 26%);
+    }
+    .pervyj__vnutri > * { max-width: 580px; }
+}
 
 /* ---------- общие блоки ---------- */
 .blok { padding: 100px 0; }
@@ -546,3 +562,7 @@ h3 { font-size: 20px; line-height: 1.25; font-weight: 700; }
     .rez-summa { font-size: 30px; }
     .cena b { font-size: 21px; }
 }
+
+/* шапка на средних ширинах: не переносим слова, телефон убираем (он есть в подвале и на нижней панели) */
+.menyu a, .shapka__knopka { white-space: nowrap; }
+@media (max-width: 1180px) { .tel { display: none; } }
