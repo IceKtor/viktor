@@ -620,8 +620,7 @@ h3, .h3 { font-size: 20px; line-height: 1.25; font-weight: 700; }
 .vybor__foto { aspect-ratio: 16 / 9; background: var(--led) center / cover no-repeat; }
 .vybor__foto { overflow: hidden; }
 .vybor__foto img { width: 100%; height: 100%; object-fit: cover; }
-.vybor__foto--shema { background: #E9E5DC; }
-.vybor__foto--shema img { object-fit: contain; }
+.vybor__foto--shema { background: #F7F6F2; border-bottom: 1px solid var(--liniya); }
 .vybor__tekst { padding: 24px 26px 28px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
 .vybor__tekst p { color: var(--seryj); font-size: 15px; }
 .vybor__dlya b { color: var(--grafit); }

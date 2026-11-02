@@ -52,7 +52,7 @@ $voprosy = array(
             </div>
             <div class="vybor poyavlenie">
                 <article class="vybor__karta">
-                    <div class="vybor__foto vybor__foto--shema"><img src="assets/img/fund-svai.svg" alt="Схема: дом на ростверке, сваи уходят сквозь слой оттаивания в вечную мерзлоту, под домом проветриваемое подполье" width="640" height="360" loading="lazy"></div>
+                    <div class="vybor__foto vybor__foto--shema"><img src="assets/img/fund-svai.webp" alt="Чертёж в разрезе: дом на ростверке, сваи проходят сквозь талый слой в вечную мерзлоту, под полом проветриваемое подполье" width="1280" height="720" loading="lazy"></div>
                     <div class="vybor__tekst">
                         <h3><?= e($f['svai']['name']) ?></h3>
                         <p>Сваи уходят ниже слоя сезонного оттаивания, дом стоит над землёй на ростверке. Проветриваемое подполье не даёт теплу дома подтапливать мерзлоту.</p>
@@ -61,7 +61,7 @@ $voprosy = array(
                     </div>
                 </article>
                 <article class="vybor__karta">
-                    <div class="vybor__foto vybor__foto--shema"><img src="assets/img/fund-lenta.svg" alt="Схема: дом на бетонной ленте, заглублённой в песчаный грунт без мерзлоты" width="640" height="360" loading="lazy"></div>
+                    <div class="vybor__foto vybor__foto--shema"><img src="assets/img/fund-lenta.webp" alt="Чертёж в разрезе: дом на бетонной ленте с подошвой, заглублённой в песчаный грунт" width="1280" height="720" loading="lazy"></div>
                     <div class="vybor__tekst">
                         <h3><?= e($f['lenta']['name']) ?></h3>
                         <p>Монолитная железобетонная лента по периметру и под несущими стенами. Проще и дешевле в устройстве, но требовательна к грунту.</p>
