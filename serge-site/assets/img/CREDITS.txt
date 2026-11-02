@@ -2,7 +2,7 @@
 свободное использование, в том числе коммерческое; указание автора не обязательно, но принято.
 Файлы пережаты (WebP) и обрезаны под блоки сайта.
 
-hero.webp         - Dmitrii Shirnin, https://unsplash.com/photos/an-old-log-cabin-in-the-winter-with-snow-on-the-ground-uTgtbp3HcZg (изба с наличниками, сибирская деревня)
+hero.webp         - Clay Banks, https://unsplash.com/photos/modern-house-with-wooden-deck-in-snowy-landscape-Wd8Nm8iXglQ (современный дом с террасой в снегу)
 klimat.webp       - Sijmen van Hooff, https://unsplash.com/photos/wooden-cabin-in-a-snowy-landscape-with-distant-houses-JRQZP7X_-vk
 osnovanie.webp    - Troy Mortier, https://unsplash.com/photos/a-house-being-built-with-wooden-framing-dUYELbt-H-E
 etap.webp         - Troy Mortier (тот же снимок, другой кадр)
@@ -12,7 +12,7 @@ inzheneriya.webp  - Mark Kats, https://unsplash.com/photos/white-circuit-breaker
 Проекты (assets/img/serge-N-1.webp фасад, serge-N-2.webp интерьер; serge-N-3.svg планировка - собственный чертёж):
 serge-120-1  - Troy Mortier, https://unsplash.com/photos/modern-two-story-house-with-a-dark-garage-door-HckCpdBDeDk
 serge-140-1  - Stephan Bechert, https://unsplash.com/photos/landscape-photo-of-2-storey-house-yFV39g6AZ5o
-serge-100-1  - Clay Banks, https://unsplash.com/photos/modern-house-with-wooden-deck-in-snowy-landscape-Wd8Nm8iXglQ
+serge-100-1  - Sean C Davis, https://unsplash.com/photos/cozy-cabin-glowing-in-the-snowy-woods-at-night-EwwVAaxZ4DM
 serge-90-1   - Jon Flobrant, https://unsplash.com/photos/a-small-wooden-house-surrounded-by-trees-on-a-sunny-day-zSu5hgaEx2Q
 serge-160-1  - Aldo Vukaj, https://unsplash.com/photos/log-cabin-with-brown-timber-walls-tm1qqeuhbLE
 serge-200-1  - Eli Chamoun, https://unsplash.com/photos/modern-house-with-deck-and-patio-iJ6uh2pJD9U
