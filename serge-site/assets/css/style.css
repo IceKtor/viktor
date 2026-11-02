@@ -31,6 +31,10 @@ body.menyu-otkryto { overflow: hidden; }
 img { display: block; max-width: 100%; }
 a { color: inherit; text-decoration: none; }
 button, input, select { font-family: inherit; font-size: inherit; }
+/* Safari на iPhone красит текст кнопок в системный синий, а полоски бургера рисуются цветом текста - берём цвет родителя */
+button { color: inherit; -webkit-appearance: none; appearance: none; }
+/* без синей вспышки при нажатии на телефонах (Android/iOS) */
+a, button, summary, .shag { -webkit-tap-highlight-color: transparent; }
 [hidden] { display: none !important; }
 
 .vnutri {
