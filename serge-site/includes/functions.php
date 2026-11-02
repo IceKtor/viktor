@@ -104,9 +104,9 @@ foreach ($houses as $i => $h) {
     $r = raschet($h['area'], $h['floors'], $h['material'], $h['foundation'], $rates);
     $houses[$i]['price'] = $r['total'];
     $houses[$i]['gallery'] = array(
-        'assets/img/' . $h['id'] . '-1.svg',
-        'assets/img/' . $h['id'] . '-2.svg',
-        'assets/img/' . $h['id'] . '-3.svg'
+        'assets/img/' . $h['id'] . '-1.webp',   // фасад (фото)
+        'assets/img/' . $h['id'] . '-2.webp',   // интерьер (фото)
+        'assets/img/' . $h['id'] . '-3.svg'     // планировка (чертёж)
     );
 }
 
@@ -137,7 +137,7 @@ function karto4ka($h, $rates) {
        data-material="<?= e($h['material']) ?>" data-foundation="<?= e($h['foundation']) ?>"
        data-bedrooms="<?= (int)$h['bedrooms'] ?>" data-garage="<?= (int)$h['garage'] ?>" data-terrace="<?= (int)$h['terrace'] ?>"
        data-price="<?= (int)$h['price'] ?>">
-        <div class="dom__foto"><img src="<?= e($h['gallery'][0]) ?>" alt="<?= e($h['name']) ?>" width="800" height="600" loading="lazy"></div>
+        <div class="dom__foto"><img src="<?= e($h['gallery'][0]) ?>" alt="<?= e($h['name']) ?>" width="1000" height="750" loading="lazy"></div>
         <div class="dom__tekst">
             <h3><?= e($h['name']) ?></h3>
             <div class="para">
