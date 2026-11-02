@@ -28,20 +28,42 @@ function repo_houses() {
     return repo_read_json('houses.json');
 }
 
-// записи журнала для страницы "Журнал"
+// записи журнала для страницы "Журнал" (data/journal.json), новые сверху
 function repo_journal_posts() {
     if (USE_DB) {
-        // TODO(DB): SELECT id, title, slug, preview, published_at FROM journal_posts WHERE is_published = 1
+        // TODO(DB): SELECT slug, title, preview, image, category, read_min, body, published_at
+        //           FROM journal_posts WHERE is_published = 1 ORDER BY published_at DESC
     }
-    return array(); // пока записей нет, страница показывает заглушку
+    $posts = repo_read_json('journal.json');
+    usort($posts, function ($a, $b) { return strcmp($b['published_at'], $a['published_at']); });
+    return $posts;
 }
 
-// данные страницы "О компании" (цифры, текст)
+// одна статья журнала по slug, null если нет
+function repo_journal_post($slug) {
+    if (USE_DB) {
+        // TODO(DB): SELECT ... FROM journal_posts WHERE slug = ? AND is_published = 1 (подготовленный запрос!)
+    }
+    foreach (repo_journal_posts() as $p) {
+        if ($p['slug'] === $slug) return $p;
+    }
+    return null;
+}
+
+// данные страницы "О компании": текст, цифры, принципы, команда, контакты (data/company.json)
 function repo_company() {
     if (USE_DB) {
-        // TODO(DB): SELECT из таблицы company_info
+        // TODO(DB): SELECT из таблиц company_info, team (database/schema.sql)
     }
-    return array(); // пока на странице заглушка
+    return repo_read_json('company.json');
+}
+
+// этапы строительства для главной и страницы "Строительство" (data/stages.json)
+function repo_stages() {
+    if (USE_DB) {
+        // TODO(DB): SELECT title, short, text, time FROM stages ORDER BY sort_order
+    }
+    return repo_read_json('stages.json');
 }
 
 // заявки с сайта. В ТЗ форма заявки не входит (допущение А-08, сбор ПДн).

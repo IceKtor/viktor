@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-label="Схема ленточного фундамента">
+  <rect width="640" height="360" fill="#E9E5DC"/>
+  <rect y="180" width="640" height="180" fill="#D8CBB5"/>
+  <g fill="#C4B49B">
+    <circle cx="60" cy="230" r="4"/><circle cx="140" cy="300" r="3"/><circle cx="250" cy="260" r="4"/><circle cx="380" cy="320" r="3"/><circle cx="520" cy="240" r="4"/><circle cx="590" cy="310" r="3"/><circle cx="300" cy="335" r="4"/><circle cx="90" cy="340" r="3"/>
+  </g>
+  <g fill="#6B6E6A" font-family="Arial, sans-serif" font-size="15">
+    <text x="20" y="345">непучинистый песчаный грунт, мерзлоты нет</text>
+  </g>
+  <g fill="#6B5845">
+    <rect x="166" y="150" width="30" height="120"/>
+    <rect x="444" y="150" width="30" height="120"/>
+    <rect x="156" y="262" width="50" height="14"/>
+    <rect x="434" y="262" width="50" height="14"/>
+  </g>
+  <rect x="166" y="150" width="308" height="22" fill="#111211"/>
+  <rect x="172" y="70" width="296" height="80" fill="#806A54"/>
+  <path d="M160 74 L320 22 L480 74 Z" fill="#111211"/>
+  <rect x="212" y="92" width="40" height="36" fill="#F3F1EB"/>
+  <rect x="388" y="92" width="40" height="36" fill="#F3F1EB"/>
+  <path d="M482 220 H556" stroke="#111211" stroke-width="1.5"/>
+  <g fill="#111211" font-family="Arial, sans-serif" font-size="15" font-weight="700">
+    <text x="562" y="225">лента</text>
+  </g>
+</svg>

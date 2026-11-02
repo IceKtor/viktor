@@ -42,9 +42,34 @@ CREATE TABLE IF NOT EXISTS journal_posts (
     slug         VARCHAR(100) NOT NULL UNIQUE,
     title        VARCHAR(200) NOT NULL,
     preview      TEXT,
-    body         MEDIUMTEXT,
+    image        VARCHAR(200),
+    category     VARCHAR(60),
+    read_min     TINYINT,
+    body         MEDIUMTEXT,             -- абзацы; строка с '## ' в начале = подзаголовок
     published_at DATETIME,
     is_published TINYINT(1) NOT NULL DEFAULT 0
 );
 
--- TODO(DB): таблицы company_info и leads добавить, когда решим про страницу "О компании" и форму заявки (ПДн!)
+-- этапы строительства (главная и страница "Строительство"), сейчас data/stages.json
+CREATE TABLE IF NOT EXISTS stages (
+    id         INT AUTO_INCREMENT PRIMARY KEY,
+    title      VARCHAR(100) NOT NULL,
+    short      VARCHAR(255) NOT NULL,
+    text       TEXT,
+    time       VARCHAR(40),
+    sort_order INT NOT NULL DEFAULT 0
+);
+
+-- страница "О компании", сейчас data/company.json. Простые поля - пары ключ/значение, списки - отдельные таблицы
+CREATE TABLE IF NOT EXISTS company_info (
+    k VARCHAR(50) PRIMARY KEY,
+    v TEXT NOT NULL
+);
+CREATE TABLE IF NOT EXISTS team (
+    id         INT AUTO_INCREMENT PRIMARY KEY,
+    name       VARCHAR(100) NOT NULL,
+    role       VARCHAR(100) NOT NULL,
+    sort_order INT NOT NULL DEFAULT 0
+);
+
+-- TODO(DB): таблицу leads добавить вместе с формой заявки (ПДн, 152-ФЗ!)

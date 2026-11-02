@@ -12,7 +12,7 @@
 Телефон, адрес и цифры на главной - демо, заменить на настоящие.
 
 ---- Что добавлено по макету и ТЗ ----
-Меню как в макете: Дома, Строительство, Проекты, О компании, Журнал. Страницы stroitelstvo.php, company.php, zhurnal.php - пока заглушки.
+Меню как в макете: Дома, Строительство, Проекты, О компании, Журнал. Разделы stroitelstvo.php, company.php, zhurnal.php и statya.php заполнены примерным содержимым: данные лежат в data/stages.json, data/company.json, data/journal.json (демо-данные, заменить на настоящие; при переходе на БД - таблицы stages, company_info, team, journal_posts).
 Каталог: фильтры по этажности, спальням, материалу, фундаменту, цене, гаражу и террасе + сортировка.
 404.php, robots.txt и sitemap.xml (через .htaccess -> robots.php и sitemap.php), canonical, Schema.org хлебные крошки.
 Для 404 и sitemap в Open Server должен работать mod_rewrite (по умолчанию включён).

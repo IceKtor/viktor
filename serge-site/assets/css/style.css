@@ -76,12 +76,23 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
     top: 0; left: 0; right: 0;
     z-index: 50;
     background: rgba(243,241,235,.94);
-    backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--liniya);
     transition: background .3s, box-shadow .3s;
 }
-.shapka--temnaya { background: transparent; border-bottom-color: transparent; backdrop-filter: none; color: #fff; }
-.shapka--temnaya.shapka--prokrutka { background: rgba(17,18,17,.94); backdrop-filter: blur(10px); }
+/* размытие фона - на отдельном слое: backdrop-filter у самой шапки сделал бы её "контейнером"
+   для position: fixed, и мобильное меню сжималось бы до высоты шапки */
+.shapka::before {
+    content: '';
+    position: absolute; inset: 0;
+    z-index: -1;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    pointer-events: none;
+}
+.shapka--temnaya { background: transparent; border-bottom-color: transparent; color: #fff; }
+.shapka--temnaya::before { display: none; }
+.shapka--temnaya.shapka--prokrutka { background: rgba(17,18,17,.94); }
+.shapka--temnaya.shapka--prokrutka::before { display: block; }
 .shapka--prokrutka { box-shadow: 0 2px 18px rgba(0,0,0,.08); }
 
 .shapka__vnutri {
@@ -265,6 +276,7 @@ h3, .h3 { font-size: 20px; line-height: 1.25; font-weight: 700; }
 .para { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 14px; color: var(--seryj); }
 .para span + span::before { content: '·'; margin-right: 14px; color: var(--liniya); }
 .para--melko { font-size: 13px; }
+.para--tekst { display: block; }
 .cena { font-size: 15px; margin-top: auto; padding-top: 6px; }
 .cena b { font-size: 24px; font-weight: 800; }
 .ssylka { font-weight: 700; font-size: 14px; color: var(--derevo); }
@@ -482,7 +494,10 @@ h3, .h3 { font-size: 20px; line-height: 1.25; font-weight: 700; }
     .menyu a:not(.knopka) { font-size: 22px; padding: 18px 0; border-bottom: 1px solid var(--liniya); }
     .menyu a.aktiv { border-bottom-color: var(--derevo); }
     .menyu__knopka { display: inline-flex; margin-top: 26px; }
-    .menyu-otkryto .shapka--temnaya { background: var(--teplyj); color: var(--grafit); }
+    .menyu-otkryto .shapka, .menyu-otkryto .shapka--temnaya { background: var(--teplyj); color: var(--grafit); border-bottom-color: var(--liniya); }
+    .menyu { visibility: hidden; transition: transform .3s ease, visibility 0s .3s; }
+    .menyu-otkryto .menyu { visibility: visible; transition: transform .3s ease; }
+    .menyu-otkryto .nizpanel { display: none; }
 
     .pervyj h1 { font-size: 56px; }
     h2 { font-size: 36px; }
@@ -519,7 +534,17 @@ h3, .h3 { font-size: 20px; line-height: 1.25; font-weight: 700; }
     .golova .knopka { width: 100%; }
 
     .shagi, .doma, .standart { grid-template-columns: 1fr; }
-    .shag { min-height: 0; }
+    /* на телефоне наведения нет: показываем описание всех шагов, карточки компактные */
+    .shagi { gap: 10px; }
+    .shag { min-height: 0; padding: 18px 20px; display: grid; grid-template-columns: 34px 1fr; column-gap: 8px; cursor: default; }
+    .shag i { margin: 2px 0 0; grid-row: span 2; }
+    .shag b { font-size: 17px; margin-bottom: 4px; }
+    .shag p { max-height: none; opacity: 1; }
+    .shag.aktiv { background: var(--sneg); color: var(--grafit); transform: none; }
+    .shag.aktiv i { color: var(--derevo); }
+    .shag.aktiv p { color: var(--seryj); }
+    .standart { gap: 28px; }
+    .st__foto { aspect-ratio: 16 / 10; }
     .prizyv h3 { font-size: 22px; }
     .prizyv .knopka { width: 100%; }
 
@@ -573,3 +598,141 @@ h3, .h3 { font-size: 20px; line-height: 1.25; font-weight: 700; }
 /* первый экран: облегчённые фоны для планшета и телефона */
 @media (max-width: 1024px) { .pervyj { background-image: url('../img/hero-t.webp'); } }
 @media (max-width: 640px) { .pervyj { background-image: url('../img/hero-m.webp'); } }
+
+/* =================== разделы «Строительство», «О компании», «Журнал» =================== */
+.blok--vnutr { padding: 90px 0; }
+.vnutri--uzko { max-width: 860px; }
+.metka { display: inline-block; padding: 4px 12px; border-radius: 99px; background: rgba(128,106,84,.12); color: var(--derevo-temn); font-size: 13px; font-weight: 700; white-space: nowrap; }
+
+/* этапы строительства: вертикальная линия с номерами */
+.etapy { list-style: none; margin-top: 46px; position: relative; }
+.etapy::before { content: ''; position: absolute; left: 27px; top: 28px; bottom: 28px; width: 2px; background: var(--liniya); }
+.etapy__punkt { position: relative; display: flex; gap: 26px; padding-bottom: 22px; }
+.etapy__nomer { flex-shrink: 0; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: var(--grafit); color: #fff; font-weight: 800; font-size: 15px; position: relative; }
+.etapy__punkt:last-child .etapy__nomer { background: var(--derevo); }
+.etapy__tekst { flex: 1; background: var(--sneg); border: 1px solid var(--liniya); border-radius: 20px; padding: 20px 24px; }
+.etapy__verh { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 6px; }
+.etapy__tekst p { color: var(--seryj); font-size: 15px; }
+
+/* две карточки выбора: фундаменты, материалы */
+.vybor { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.vybor__karta { background: var(--sneg); border: 1px solid var(--liniya); border-radius: 24px; overflow: hidden; display: flex; flex-direction: column; }
+.vybor__foto { aspect-ratio: 16 / 9; background: var(--led) center / cover no-repeat; }
+.vybor__foto { overflow: hidden; }
+.vybor__foto img { width: 100%; height: 100%; object-fit: cover; }
+.vybor__foto--shema { background: #E9E5DC; }
+.vybor__foto--shema img { object-fit: contain; }
+.vybor__tekst { padding: 24px 26px 28px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.vybor__tekst p { color: var(--seryj); font-size: 15px; }
+.vybor__dlya b { color: var(--grafit); }
+.vybor__cena { margin-top: auto; padding-top: 8px; font-size: 14px; color: var(--seryj); }
+.vybor__cena b { font-size: 22px; color: var(--grafit); }
+
+/* цифры-факты */
+.fakty { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 56px; }
+.fakty div { background: var(--grafit); color: #fff; border-radius: 22px; padding: 26px 24px; }
+.fakty b { display: block; font-size: 34px; font-weight: 800; line-height: 1.1; margin-bottom: 8px; }
+.fakty span { font-size: 14px; color: rgba(255,255,255,.7); }
+.blok--verh0 .fakty { margin-top: 0; }
+
+/* вопросы-ответы */
+.voprosy { margin-top: 28px; border-top: 1px solid var(--liniya); max-width: 860px; }
+.vopros { border-bottom: 1px solid var(--liniya); }
+.vopros summary { list-style: none; cursor: pointer; padding: 22px 44px 22px 0; font-weight: 700; font-size: 18px; position: relative; }
+.vopros summary::-webkit-details-marker { display: none; }
+.vopros summary::after { content: '+'; position: absolute; right: 4px; top: 50%; transform: translateY(-50%); font-size: 26px; font-weight: 400; color: var(--derevo); transition: transform .2s; }
+.vopros[open] summary::after { transform: translateY(-50%) rotate(45deg); }
+.vopros summary:focus-visible { outline: 3px solid var(--derevo); outline-offset: 2px; }
+.vopros p { padding: 0 0 22px; color: var(--seryj); max-width: 720px; }
+
+/* тёмная карточка-призыв внизу страниц */
+.kartochka-prizyv { display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; background: var(--grafit); color: #fff; border-radius: 28px; padding: 40px 44px; margin-top: 20px; }
+.kartochka-prizyv p { color: rgba(255,255,255,.7); margin-top: 8px; }
+
+/* о компании */
+.o-nas { display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: center; margin-top: 28px; }
+.o-nas__tekst p { font-size: 18px; color: var(--seryj); margin-bottom: 16px; }
+.o-nas__tekst p:first-child { color: var(--grafit); }
+.o-nas__tekst .knopki { margin-top: 26px; }
+.o-nas__foto img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 26px; }
+.principy { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.princip { background: var(--sneg); border: 1px solid var(--liniya); border-radius: 20px; padding: 24px; }
+.princip i { display: block; font-style: normal; font-weight: 700; font-size: 13px; color: var(--derevo); margin-bottom: 22px; }
+.princip h3 { margin-bottom: 8px; font-size: 18px; }
+.princip p { color: var(--seryj); font-size: 14px; }
+.komanda { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.chelovek { display: flex; flex-direction: column; gap: 4px; background: var(--sneg); border: 1px solid var(--liniya); border-radius: 20px; padding: 24px; }
+.chelovek__ava { width: 84px; height: 84px; border-radius: 50%; margin-bottom: 14px; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 800; color: #fff; background: linear-gradient(140deg, var(--derevo) 0%, var(--grafit) 100%); }
+.chelovek:nth-child(2n) .chelovek__ava { background: linear-gradient(140deg, #6f8589 0%, var(--grafit) 100%); }
+.chelovek span { color: var(--seryj); font-size: 14px; }
+.kontakty { display: grid; grid-template-columns: 1fr 1.3fr; gap: 40px; background: var(--sneg); border: 1px solid var(--liniya); border-radius: 28px; padding: 40px 44px; }
+.kontakty .seryj { margin-top: 10px; }
+.kontakty__spisok div { display: grid; grid-template-columns: 140px 1fr; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--liniya); }
+.kontakty__spisok div:last-child { border-bottom: 0; }
+.kontakty__spisok dt { color: var(--seryj); font-size: 14px; }
+.kontakty__spisok dd { font-weight: 600; }
+.kontakty__spisok a { text-decoration: underline; text-underline-offset: 3px; }
+
+/* журнал */
+.statya__meta { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; font-size: 14px; color: var(--seryj); }
+.statya-glavnaya { display: grid; grid-template-columns: 1.2fr 1fr; background: var(--sneg); border: 1px solid var(--liniya); border-radius: 28px; overflow: hidden; margin: 40px 0 24px; transition: box-shadow .25s; }
+.statya-glavnaya:hover, .statya-karta:hover { box-shadow: 0 16px 36px rgba(17,18,17,.12); }
+.statya-glavnaya__foto img { width: 100%; height: 100%; min-height: 320px; object-fit: cover; }
+.statya-glavnaya__tekst { padding: 40px; display: flex; flex-direction: column; gap: 16px; justify-content: center; }
+.statya-glavnaya h2 { font-size: 34px; }
+.stati { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.statya-karta { display: flex; flex-direction: column; background: var(--sneg); border: 1px solid var(--liniya); border-radius: 24px; overflow: hidden; transition: box-shadow .25s; }
+.statya-karta__foto { aspect-ratio: 16 / 10; overflow: hidden; background: var(--led); }
+.statya-karta__foto img { width: 100%; height: 100%; object-fit: cover; }
+.statya-karta__tekst { padding: 22px 24px 26px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.statya-karta__tekst p { color: var(--seryj); font-size: 14px; }
+.statya-karta .ssylka { margin-top: auto; }
+.statya .statya__meta { margin-bottom: 4px; }
+.statya__lid { font-size: 20px; color: var(--seryj); margin-bottom: 30px; }
+.statya__oblozhka { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 24px; margin-bottom: 36px; }
+.statya__tekst { font-size: 18px; line-height: 1.7; margin-bottom: 40px; }
+.statya__tekst h2 { font-size: 28px; margin: 36px 0 12px; }
+.statya__tekst p + p { margin-top: 14px; }
+
+@media (max-width: 1024px) {
+    .vybor { grid-template-columns: 1fr; }
+    .fakty, .principy, .komanda { grid-template-columns: repeat(2, 1fr); }
+    .o-nas, .kontakty { grid-template-columns: 1fr; gap: 28px; }
+    .statya-glavnaya { grid-template-columns: 1fr; }
+    .statya-glavnaya__foto img { min-height: 0; aspect-ratio: 16 / 9; }
+    .stati { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+    .blok--vnutr { padding: 60px 0; }
+    .etapy { margin-top: 32px; }
+    .etapy::before { left: 19px; }
+    .etapy__punkt { gap: 14px; padding-bottom: 14px; }
+    .etapy__nomer { width: 40px; height: 40px; font-size: 13px; }
+    .etapy__tekst { padding: 16px 18px; }
+    .vybor__tekst { padding: 20px; }
+    .fakty { gap: 10px; margin-top: 36px; }
+    .fakty div { padding: 20px 18px; border-radius: 18px; }
+    .fakty b { font-size: 26px; }
+    .fakty span { font-size: 13px; }
+    .principy { grid-template-columns: 1fr; gap: 10px; }
+    .princip i { margin-bottom: 10px; }
+    .komanda { gap: 14px; }
+    .chelovek { padding: 18px 16px; }
+    .chelovek__ava { width: 60px; height: 60px; font-size: 21px; }
+    .chelovek b { font-size: 15px; }
+    .chelovek span { font-size: 13px; }
+    .o-nas__tekst p { font-size: 16px; }
+    .o-nas__tekst .knopka { width: 100%; }
+    .kontakty, .kartochka-prizyv { padding: 26px 20px; border-radius: 22px; }
+    .kontakty__spisok div { grid-template-columns: 1fr; gap: 2px; }
+    .kartochka-prizyv .knopki, .kartochka-prizyv .knopka { width: 100%; }
+    .vopros summary { font-size: 16px; padding: 18px 40px 18px 0; }
+    .statya-glavnaya { margin-top: 28px; border-radius: 22px; }
+    .statya-glavnaya__tekst { padding: 22px 20px 26px; }
+    .statya-glavnaya h2 { font-size: 24px; }
+    .stati { grid-template-columns: 1fr; }
+    .statya__lid { font-size: 17px; }
+    .statya__tekst { font-size: 16px; }
+    .statya__tekst h2 { font-size: 22px; }
+    .statya__oblozhka { border-radius: 18px; }
+}

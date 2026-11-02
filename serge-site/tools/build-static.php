@@ -22,6 +22,7 @@ function render($root, $file, $id = null) {
 // ссылки: house.php?id=X -> house-X.html, остальное *.php -> *.html
 function fix($s) {
     $s = preg_replace('~house\.php\?id=([A-Za-z0-9_-]+)~', 'house-$1.html', $s);
+    $s = preg_replace('~statya\.php\?id=([A-Za-z0-9_-]+)~', 'statya-$1.html', $s);
     return preg_replace('~\b(index|catalog|calculator|stroitelstvo|company|zhurnal|404)\.php\b~', '$1.html', $s);
 }
 
@@ -37,11 +38,16 @@ foreach (glob($out . '/assets/js/*.js') as $f) file_put_contents($f, fix(file_ge
 $houses = json_decode(file_get_contents($root . '/data/houses.json'), true);
 if (isset($houses['houses'])) $houses = $houses['houses'];
 $pages = array('index', 'catalog', 'calculator', 'stroitelstvo', 'company', 'zhurnal', '404');
-$urls = array('index.html' => '', 'catalog.html' => 'catalog.html', 'calculator.html' => 'calculator.html');
+$urls = array('', 'catalog.html', 'calculator.html', 'stroitelstvo.html', 'company.html', 'zhurnal.html');
 foreach ($pages as $p) file_put_contents("$out/$p.html", fix(render($root, "$p.php")));
 foreach ($houses as $h) {
     file_put_contents("$out/house-{$h['id']}.html", fix(render($root, 'house.php', $h['id'])));
-    $urls["house-{$h['id']}.html"] = "house-{$h['id']}.html";
+    $urls[] = "house-{$h['id']}.html";
+}
+$posts = json_decode(file_get_contents($root . '/data/journal.json'), true);
+foreach ($posts as $p) {
+    file_put_contents("$out/statya-{$p['slug']}.html", fix(render($root, 'statya.php', $p['slug'])));
+    $urls[] = "statya-{$p['slug']}.html";
 }
 
 $sm = '<?xml version="1.0" encoding="UTF-8"?>' . "\n" . '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
@@ -49,4 +55,4 @@ foreach ($urls as $u) $sm .= '  <url><loc>' . htmlspecialchars($site . '/' . $u,
 file_put_contents("$out/sitemap.xml", $sm . "</urlset>\n");
 file_put_contents("$out/robots.txt", "User-agent: *\nAllow: /\n\nSitemap: $site/sitemap.xml\n");
 file_put_contents("$out/.nojekyll", '');
-echo "Готово: $out, страниц: " . (count($pages) + count($houses)) . "\n";
+echo "Готово: $out, страниц: " . (count($pages) + count($houses) + count($posts)) . "\n";

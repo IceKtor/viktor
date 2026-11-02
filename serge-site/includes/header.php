@@ -8,11 +8,11 @@ if (!isset($active)) $active = '';
 if (!isset($dark)) $dark = false;
 if (!isset($crumbs)) $crumbs = null;      // хлебные крошки для Schema.org (не на главной)
 if (!isset($noindex)) $noindex = false;
-if (!isset($base_href)) $base_href = false; // true на 404.php: он открывается по любому адресу, пути надо считать от корня   // true для 404 и заглушек
+if (!isset($base_href)) $base_href = false; // true на 404.php: он открывается по любому адресу, пути надо считать от корня
 // canonical: адрес страницы без лишних параметров (кроме id дома)
 $canon_file = basename($_SERVER['SCRIPT_NAME']);
 $canonical = site_url() . '/' . (($canon_file === 'index.php') ? '' : $canon_file);
-if ($canon_file === 'house.php' && isset($_GET['id'])) $canonical .= '?id=' . rawurlencode($_GET['id']);
+if (($canon_file === 'house.php' || $canon_file === 'statya.php') && isset($_GET['id'])) $canonical .= '?id=' . rawurlencode($_GET['id']);
 
 function pun($name, $active, $href, $text) {
     $cls = ($name === $active) ? ' class="aktiv" aria-current="page"' : '';

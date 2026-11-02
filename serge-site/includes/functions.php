@@ -144,11 +144,35 @@ function karto4ka($h, $rates, $hl = 3) {
                 <span><?= (int)$h['area'] ?> м²</span>
                 <span><?= floors_text($h['floors']) ?></span>
                 <span><?= bedrooms_text($h['bedrooms']) ?></span>
-                <span><?= e($mat) ?></span>
             </div>
-            <div class="para para--melko"><span>Фундамент: <?= e(mb_strtolower($fnd)) ?></span></div>
+            <div class="para para--melko para--tekst"><?= e($mat) ?> · фундамент <?= e(mb_strtolower($fnd)) ?></div>
             <div class="cena">от <b><?= rub($h['price']) ?></b></div>
             <span class="ssylka">Смотреть дом →</span>
+        </div>
+    </a>
+    <?php
+    return ob_get_clean();
+}
+
+// дата из базы/JSON (2026-09-14) по-русски: 14 сентября 2026
+function data_ru($ymd) {
+    $mes = array(1 => 'января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря');
+    $t = explode('-', $ymd);
+    if (count($t) !== 3) return e($ymd);
+    return (int)$t[2] . ' ' . $mes[(int)$t[1]] . ' ' . (int)$t[0];
+}
+
+// карточка статьи журнала (журнал и "Читайте также")
+function karto4ka_stati($p, $hl = 2) {
+    ob_start();
+    ?>
+    <a class="statya-karta" href="statya.php?id=<?= e($p['slug']) ?>">
+        <div class="statya-karta__foto"><img src="<?= e($p['image']) ?>" alt="" width="1000" height="750" loading="lazy"></div>
+        <div class="statya-karta__tekst">
+            <div class="statya__meta"><span class="metka"><?= e($p['category']) ?></span><?= data_ru($p['published_at']) ?></div>
+            <h<?= (int)$hl ?> class="h3"><?= e($p['title']) ?></h<?= (int)$hl ?>>
+            <p><?= e($p['preview']) ?></p>
+            <span class="ssylka">Читать →</span>
         </div>
     </a>
     <?php
