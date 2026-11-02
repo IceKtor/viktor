@@ -13,7 +13,7 @@ define('DB_CHARSET', 'utf8mb4');
 
 // полный адрес сайта без слэша в конце. Пусто = определять автоматически (для Open Server).
 // TODO: при публикации на хостинге вписать, например 'https://example.ru'
-define('SITE_URL', '');
+define('SITE_URL', getenv('SERGE_SITE_URL') ?: '');   // для статической выгрузки адрес берётся из переменной окружения
 
 // true = подключать *.min.css и *.min.js, если они есть (создаются скриптом tools/minify.sh); false = исходные файлы
 define('ASSET_MIN', true);

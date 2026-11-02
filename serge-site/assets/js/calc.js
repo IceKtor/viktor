@@ -1,4 +1,5 @@
 // калькулятор: проверка полей, запрос на api/calc.php, вывод результата, сохранение в localStorage
+// в статической выгрузке (GitHub Pages, PHP нет) форма содержит data-rates и расчёт делается тут же, по тем же формулам, что в includes/functions.php
 
 (function () {
     var forma = document.getElementById('calc-form');
@@ -16,6 +17,54 @@
     var knopka = document.getElementById('btn-raschet');
     var obshaya = document.getElementById('err-obshaya');
     var gotovo = false;
+    var stavki = null;
+    try { stavki = JSON.parse(forma.getAttribute('data-rates') || 'null'); } catch (e) { stavki = null; }
+
+    // расчёт по ТЗ 8.3 (копия raschet() из includes/functions.php) - только для статической выгрузки
+    function raschetLokalno(d) {
+        var area = Number(String(d.area).replace(',', '.'));
+        var floors = parseInt(d.floors, 10);
+        var mat = stavki.materials[d.material];
+        var fnd = stavki.foundations[d.foundation];
+        var sZas = area / floors;
+        var cSt = area * mat.price;
+        var cF = sZas * fnd.price;
+        var c0 = cSt + cF;
+        var kEt = (floors === 1) ? 1 : stavki.k_floors_many;
+        var c1 = c0 * kEt * stavki.k_reg;
+        var step = stavki.round_step;
+        var itog = Math.round(c1 / step) * step;
+        var dl = stavki.delta / 100;
+        function r2(x) { return Math.round(x * 100) / 100; }
+        return {
+            area: area, floors: floors, material: mat.name, material_price: mat.price,
+            foundation: fnd.name, foundation_price: fnd.price, s_zas: r2(sZas),
+            c_st: Math.round(cSt), c_f: Math.round(cF), c0: Math.round(c0), k_et: kEt, k_reg: stavki.k_reg,
+            c1: Math.round(c1), total: itog,
+            low: Math.round(r2(itog * (1 - dl)) / step) * step,
+            high: Math.round(r2(itog * (1 + dl)) / step) * step,
+            delta: stavki.delta, step: step, date: stavki.date
+        };
+    }
+
+    // параметры из адреса (?area=120&floors=2...): в PHP-версии их подставляет сервер, в статической - этот код
+    function izAdresa() {
+        var q = window.location.search.replace(/^\?/, '');
+        if (!q) return false;
+        var nashli = false;
+        q.split('&').forEach(function (par) {
+            var kv = par.split('=');
+            var k = decodeURIComponent(kv[0] || '');
+            var v = decodeURIComponent((kv[1] || '').replace(/\+/g, ' '));
+            if (polya.indexOf(k) !== -1 && v !== '') {
+                var el = document.getElementById(k);
+                if (el && el.value === '') { el.value = v; nashli = true; }
+            }
+        });
+        var podskazka = document.getElementById('podskazka-karto4ka');
+        if (nashli && podskazka) podskazka.hidden = false;
+        return nashli;
+    }
 
     // ---------- localStorage (в try, потому что в приватном режиме может падать) ----------
     function sohranit() {
@@ -161,8 +210,16 @@
         gotovo = false;
         knopka.textContent = 'Считаем…';
 
-        fetch(forma.getAttribute('action'), { method: 'POST', body: dannye })
-            .then(function (otvet) { return otvet.json(); })
+        var zapros;
+        if (stavki) {
+            var ob = {};
+            polya.forEach(function (p) { ob[p] = document.getElementById(p).value; });
+            zapros = Promise.resolve({ ok: true, result: raschetLokalno(ob) });
+        } else {
+            zapros = fetch(forma.getAttribute('action'), { method: 'POST', body: dannye })
+                .then(function (otvet) { return otvet.json(); });
+        }
+        zapros
             .then(function (j) {
                 if (j.ok) {
                     pokazatRezultat(j.result);
@@ -211,5 +268,6 @@
         document.getElementById('area').focus();
     });
 
+    izAdresa();
     zagruzit();
 })();

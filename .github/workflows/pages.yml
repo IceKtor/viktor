@@ -1,0 +1,35 @@
+# Публикация сайта на GitHub Pages: PHP-страницы выгружаются в статический HTML (serge-site/tools/build-static.php)
+# и кладутся в ветку gh-pages, откуда их отдаёт Pages.
+name: Публикация на GitHub Pages
+on:
+  push:
+    branches: [claude/serge-site-figma, master, main]
+    paths: ['serge-site/**', '.github/workflows/pages.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: pages-publish
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+      - name: Сборка статической версии
+        run: |
+          OWNER=${GITHUB_REPOSITORY_OWNER,,}
+          REPO=${GITHUB_REPOSITORY#*/}
+          SERGE_SITE_URL="https://${OWNER}.github.io/${REPO}" php serge-site/tools/build-static.php "$RUNNER_TEMP/dist"
+      - name: Публикация в ветку gh-pages
+        run: |
+          cd "$RUNNER_TEMP/dist"
+          git init -q -b gh-pages
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Публикация сайта: ${GITHUB_SHA::7}"
+          git push -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git" gh-pages

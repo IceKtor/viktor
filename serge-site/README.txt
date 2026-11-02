@@ -31,3 +31,11 @@ database/schema.sql (заготовка таблиц для phpMyAdmin, не и�
 
 ---- Документация ----
 В папке docs (в корне репозитория): отчёт о разработке, описание программы, руководство пользователя, программа и методика испытаний.
+
+ПУБЛИКАЦИЯ НА GITHUB PAGES (статическая версия)
+GitHub Pages не выполняет PHP, поэтому сайт выгружается в HTML:
+  SERGE_SITE_URL=https://<логин>.github.io/<репозиторий> php serge-site/tools/build-static.php ../dist
+Скрипт tools/build-static.php прогоняет страницы через PHP, меняет ссылки *.php на *.html (house.php?id=X -> house-X.html),
+создаёт sitemap.xml и robots.txt. Калькулятор в этой версии считает в браузере (calc.js, атрибут data-rates)
+по тем же формулам, что api/calc.php. Автоматически это делает .github/workflows/pages.yml (ветка gh-pages).
+Основная (PHP) версия для Open Server и будущей БД не меняется.
