@@ -127,7 +127,7 @@ function bedrooms_text($n) {
 }
 
 // карточка дома, используется на главной и в каталоге
-function karto4ka($h, $rates) {
+function karto4ka($h, $rates, $hl = 3) {
     $mat = $rates['materials'][$h['material']]['name'];
     $fnd = $rates['foundations'][$h['foundation']]['name'];
     ob_start();
@@ -139,7 +139,7 @@ function karto4ka($h, $rates) {
        data-price="<?= (int)$h['price'] ?>">
         <div class="dom__foto"><img src="<?= e($h['gallery'][0]) ?>" alt="<?= e($h['name']) ?>" width="1000" height="750" loading="lazy"></div>
         <div class="dom__tekst">
-            <h3><?= e($h['name']) ?></h3>
+            <h<?= (int)$hl ?> class="h3"><?= e($h['name']) ?></h<?= (int)$hl ?>>
             <div class="para">
                 <span><?= (int)$h['area'] ?> м²</span>
                 <span><?= floors_text($h['floors']) ?></span>
@@ -173,4 +173,14 @@ function breadcrumbs_ld($crumbs) {
     }
     $ld = array('@context' => 'https://schema.org', '@type' => 'BreadcrumbList', 'itemListElement' => $items);
     return '<script type="application/ld+json">' . json_encode($ld, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . '</script>';
+}
+
+// путь к CSS/JS: если рядом есть минимизированная версия (tools/minify.sh), берём её; добавляем версию для сброса кэша
+function asset($path) {
+    $root = __DIR__ . '/../';
+    if (defined('ASSET_MIN') && ASSET_MIN) {
+        $min = preg_replace('/\.(css|js)$/', '.min.$1', $path);
+        if ($min !== $path && is_file($root . $min)) $path = $min;
+    }
+    return is_file($root . $path) ? $path . '?v=' . filemtime($root . $path) : $path;
 }

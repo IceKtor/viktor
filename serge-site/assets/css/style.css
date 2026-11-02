@@ -197,7 +197,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 
 h2 { font-size: 46px; line-height: 1.1; font-weight: 800; letter-spacing: -1px; }
 .h2--malenkij { font-size: 32px; }
-h3 { font-size: 20px; line-height: 1.25; font-weight: 700; }
+h3, .h3 { font-size: 20px; line-height: 1.25; font-weight: 700; }
 
 .golova {
     display: flex;
@@ -393,9 +393,12 @@ h3 { font-size: 20px; line-height: 1.25; font-weight: 700; }
 .karusel__strelka--nazad { left: 14px; }
 .karusel__strelka--vpered { right: 14px; }
 .karusel__niz { display: flex; justify-content: space-between; align-items: center; margin-top: 14px; }
-.karusel__tochki { display: flex; gap: 8px; }
-.karusel__tochka { width: 10px; height: 10px; border-radius: 50%; border: 0; background: var(--liniya); cursor: pointer; padding: 0; transition: width .25s, background .25s; }
-.karusel__tochka.aktiv { background: var(--derevo); width: 28px; border-radius: 99px; }
+.karusel__tochki { display: flex; gap: 0; }
+.karusel__tochka { position: relative; width: 24px; height: 24px; border: 0; background: transparent; cursor: pointer; padding: 0; transition: width .25s; }
+/* сама кнопка 24x24 px (WCAG 2.2, размер цели), видимая точка рисуется внутри */
+.karusel__tochka::after { content: ''; position: absolute; top: 50%; left: 50%; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%; background: var(--liniya); transition: width .25s, margin .25s, background .25s; }
+.karusel__tochka.aktiv { width: 40px; }
+.karusel__tochka.aktiv::after { width: 28px; margin-left: -14px; border-radius: 99px; background: var(--derevo); }
 .karusel__podpis { font-size: 14px; font-weight: 600; color: var(--seryj); }
 
 .dom-cena { font-size: 34px; font-weight: 800; margin: 22px 0 4px; }
@@ -428,7 +431,7 @@ h3 { font-size: 20px; line-height: 1.25; font-weight: 700; }
 .rezultat { background: var(--grafit); color: #fff; border-radius: 24px; padding: 34px; }
 .rezultat:focus { outline: none; }
 .rezultat--pusto { background: transparent; color: var(--seryj); border: 1.5px dashed var(--liniya); }
-.rezultat--pusto h3 { color: var(--grafit); margin-bottom: 8px; }
+.rezultat--pusto .h3 { color: var(--grafit); margin-bottom: 8px; }
 .rez-metka { font-size: 12px; font-weight: 700; letter-spacing: 2px; color: var(--led); }
 .rez-summa { font-size: 52px; font-weight: 800; line-height: 1.1; margin: 8px 0; letter-spacing: -1px; }
 .rez-diapazon { color: rgba(255,255,255,.75); font-size: 15px; margin-bottom: 24px; }
@@ -446,7 +449,7 @@ h3 { font-size: 20px; line-height: 1.25; font-weight: 700; }
 .futer__brend b { font-size: 26px; letter-spacing: 2px; }
 .futer__brend p { margin-top: 8px; color: rgba(255,255,255,.6); }
 .futer__kol { display: flex; flex-direction: column; gap: 9px; font-size: 14px; color: rgba(255,255,255,.7); }
-.futer__kol h4 { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--led); margin-bottom: 6px; }
+.futer__kol .futer__zag { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--led); margin-bottom: 6px; }
 .futer__kol a:hover { color: #fff; }
 .futer__niz { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-top: 50px; padding-top: 22px; border-top: 1px solid rgba(255,255,255,.12); font-size: 12px; color: rgba(255,255,255,.45); }
 
@@ -566,3 +569,7 @@ h3 { font-size: 20px; line-height: 1.25; font-weight: 700; }
 /* шапка на средних ширинах: не переносим слова, телефон убираем (он есть в подвале и на нижней панели) */
 .menyu a, .shapka__knopka { white-space: nowrap; }
 @media (max-width: 1180px) { .tel { display: none; } }
+
+/* первый экран: облегчённые фоны для планшета и телефона */
+@media (max-width: 1024px) { .pervyj { background-image: url('../img/hero-t.webp'); } }
+@media (max-width: 640px) { .pervyj { background-image: url('../img/hero-m.webp'); } }

@@ -85,11 +85,11 @@ $scripts = array('catalog.js');
         <div class="naideno">Найдено проектов: <b id="naideno"><?= count($houses) ?></b></div>
 
         <div class="doma doma--katalog" id="spisok">
-            <?php foreach ($houses as $h) echo karto4ka($h, $rates); ?>
+            <?php foreach ($houses as $h) echo karto4ka($h, $rates, 2); ?>
         </div>
 
         <div class="pusto" id="pusto" hidden>
-            <h3>По таким параметрам ничего не нашлось</h3>
+            <h2 class="h3">По таким параметрам ничего не нашлось</h2>
             <p>Попробуйте убрать часть фильтров.</p>
             <button class="knopka knopka--cher" id="pusto-sbros" type="button">Сбросить фильтры</button>
         </div>

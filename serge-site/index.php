@@ -3,6 +3,7 @@ $page_title = 'СЭРГЭ — строительство домов в Якут�
 $page_desc = 'Проектируем и строим частные дома в Якутии. Подберите проект и рассчитайте предварительную стоимость дома онлайн.';
 $active = 'index';
 $dark = true;
+$preload_hero = true;   // фон первого экрана загружается с повышенным приоритетом (быстрее LCP)
 require_once 'includes/header.php';
 
 $put = array(
@@ -17,6 +18,7 @@ $put = array(
 );
 ?>
 
+<main>
 <section class="pervyj">
     <div class="vnutri pervyj__vnutri poyavlenie">
         <div class="nadpis">СТРОИТЕЛЬСТВО ДОМОВ В ЯКУТИИ</div>
@@ -142,5 +144,7 @@ $put = array(
         </div>
     </div>
 </section>
+
+</main>
 
 <?php require_once 'includes/footer.php'; ?>

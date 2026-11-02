@@ -2,7 +2,7 @@
 свободное использование, в том числе коммерческое; указание автора не обязательно, но принято.
 Файлы пережаты (WebP) и обрезаны под блоки сайта.
 
-hero.webp         - Clay Banks, https://unsplash.com/photos/modern-house-with-wooden-deck-in-snowy-landscape-Wd8Nm8iXglQ (современный дом с террасой в снегу)
+hero.webp, hero-t.webp, hero-m.webp - Clay Banks (три размера одного снимка: компьютер, планшет, телефон), https://unsplash.com/photos/modern-house-with-wooden-deck-in-snowy-landscape-Wd8Nm8iXglQ (современный дом с террасой в снегу)
 klimat.webp       - Sijmen van Hooff, https://unsplash.com/photos/wooden-cabin-in-a-snowy-landscape-with-distant-houses-JRQZP7X_-vk
 osnovanie.webp    - Troy Mortier, https://unsplash.com/photos/a-house-being-built-with-wooden-framing-dUYELbt-H-E
 etap.webp         - Troy Mortier (тот же снимок, другой кадр)

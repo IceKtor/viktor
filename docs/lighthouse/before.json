@@ -1,0 +1,218 @@
+{
+ "calc_desktop": {
+  "perf": 100,
+  "a11y": 98,
+  "bp": 100,
+  "seo": 100,
+  "fcp": 0.46,
+  "lcp": 0.46,
+  "tbt": 0,
+  "cls": 0.004,
+  "si": 0.46,
+  "fails": [
+   [
+    "heading-order",
+    "Heading elements are not in a sequentially-descending order"
+   ],
+   [
+    "network-dependency-tree-insight",
+    "Network dependency tree"
+   ]
+  ]
+ },
+ "calc_mobile": {
+  "perf": 100,
+  "a11y": 98,
+  "bp": 100,
+  "seo": 100,
+  "fcp": 1.44,
+  "lcp": 1.44,
+  "tbt": 0,
+  "cls": 0,
+  "si": 2.37,
+  "fails": [
+   [
+    "heading-order",
+    "Heading elements are not in a sequentially-descending order"
+   ],
+   [
+    "forced-reflow-insight",
+    "Forced reflow"
+   ],
+   [
+    "network-dependency-tree-insight",
+    "Network dependency tree"
+   ]
+  ]
+ },
+ "catalog_desktop": {
+  "perf": 99,
+  "a11y": 98,
+  "bp": 100,
+  "seo": 100,
+  "fcp": 0.49,
+  "lcp": 0.84,
+  "tbt": 0,
+  "cls": 0.016,
+  "si": 0.5,
+  "fails": [
+   [
+    "heading-order",
+    "Heading elements are not in a sequentially-descending order"
+   ],
+   [
+    "lcp-discovery-insight",
+    "LCP request discovery"
+   ],
+   [
+    "network-dependency-tree-insight",
+    "Network dependency tree"
+   ]
+  ]
+ },
+ "catalog_mobile": {
+  "perf": 99,
+  "a11y": 98,
+  "bp": 100,
+  "seo": 100,
+  "fcp": 1.62,
+  "lcp": 1.62,
+  "tbt": 0,
+  "cls": 0,
+  "si": 2.48,
+  "fails": [
+   [
+    "heading-order",
+    "Heading elements are not in a sequentially-descending order"
+   ],
+   [
+    "forced-reflow-insight",
+    "Forced reflow"
+   ],
+   [
+    "network-dependency-tree-insight",
+    "Network dependency tree"
+   ]
+  ]
+ },
+ "house_desktop": {
+  "perf": 100,
+  "a11y": 95,
+  "bp": 100,
+  "seo": 100,
+  "fcp": 0.51,
+  "lcp": 0.56,
+  "tbt": 0,
+  "cls": 0.001,
+  "si": 0.53,
+  "fails": [
+   [
+    "target-size",
+    "Touch targets do not have sufficient size or spacing."
+   ],
+   [
+    "forced-reflow-insight",
+    "Forced reflow"
+   ],
+   [
+    "lcp-discovery-insight",
+    "LCP request discovery"
+   ],
+   [
+    "network-dependency-tree-insight",
+    "Network dependency tree"
+   ]
+  ]
+ },
+ "house_mobile": {
+  "perf": 91,
+  "a11y": 95,
+  "bp": 100,
+  "seo": 100,
+  "fcp": 1.46,
+  "lcp": 3.22,
+  "tbt": 0,
+  "cls": 0,
+  "si": 3.81,
+  "fails": [
+   [
+    "target-size",
+    "Touch targets do not have sufficient size or spacing."
+   ],
+   [
+    "forced-reflow-insight",
+    "Forced reflow"
+   ],
+   [
+    "lcp-discovery-insight",
+    "LCP request discovery"
+   ],
+   [
+    "network-dependency-tree-insight",
+    "Network dependency tree"
+   ]
+  ]
+ },
+ "index_desktop": {
+  "perf": 100,
+  "a11y": 95,
+  "bp": 100,
+  "seo": 100,
+  "fcp": 0.5,
+  "lcp": 0.82,
+  "tbt": 0,
+  "cls": 0.0,
+  "si": 0.56,
+  "fails": [
+   [
+    "heading-order",
+    "Heading elements are not in a sequentially-descending order"
+   ],
+   [
+    "landmark-one-main",
+    "Document does not have a main landmark."
+   ],
+   [
+    "lcp-discovery-insight",
+    "LCP request discovery"
+   ],
+   [
+    "network-dependency-tree-insight",
+    "Network dependency tree"
+   ]
+  ]
+ },
+ "index_mobile": {
+  "perf": 81,
+  "a11y": 96,
+  "bp": 100,
+  "seo": 100,
+  "fcp": 1.66,
+  "lcp": 4.65,
+  "tbt": 6,
+  "cls": 0,
+  "si": 3.99,
+  "fails": [
+   [
+    "heading-order",
+    "Heading elements are not in a sequentially-descending order"
+   ],
+   [
+    "landmark-one-main",
+    "Document does not have a main landmark."
+   ],
+   [
+    "forced-reflow-insight",
+    "Forced reflow"
+   ],
+   [
+    "lcp-discovery-insight",
+    "LCP request discovery"
+   ],
+   [
+    "network-dependency-tree-insight",
+    "Network dependency tree"
+   ]
+  ]
+ }
+}

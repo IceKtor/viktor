@@ -12,7 +12,7 @@ require_once __DIR__ . '/header.php';
         <div class="nadpis nadpis--derevo"><?= e($stub_label) ?></div>
         <h1 class="zag-stranicy"><?= e($stub_title) ?></h1>
         <div class="zaglushka">
-            <h3>Раздел в разработке</h3>
+            <h2 class="h3">Раздел в разработке</h2>
             <p><?= e($stub_text) ?></p>
             <div class="knopki">
                 <a class="knopka knopka--cher" href="catalog.php">Смотреть проекты →</a>

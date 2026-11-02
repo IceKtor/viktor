@@ -1,0 +1,154 @@
+{
+ "calc_desktop": {
+  "perf": 100,
+  "a11y": 100,
+  "bp": 100,
+  "seo": 100,
+  "fcp": 0.31,
+  "lcp": 0.31,
+  "tbt": 0,
+  "cls": 0.004,
+  "si": 0.31,
+  "fails": [
+   [
+    "network-dependency-tree-insight",
+    "Network dependency tree"
+   ]
+  ]
+ },
+ "calc_mobile": {
+  "perf": 100,
+  "a11y": 100,
+  "bp": 100,
+  "seo": 100,
+  "fcp": 0.9,
+  "lcp": 0.9,
+  "tbt": 0,
+  "cls": 0.009,
+  "si": 0.9,
+  "fails": [
+   [
+    "network-dependency-tree-insight",
+    "Network dependency tree"
+   ]
+  ]
+ },
+ "catalog_desktop": {
+  "perf": 100,
+  "a11y": 100,
+  "bp": 100,
+  "seo": 100,
+  "fcp": 0.24,
+  "lcp": 0.33,
+  "tbt": 0,
+  "cls": 0.015,
+  "si": 0.24,
+  "fails": [
+   [
+    "lcp-discovery-insight",
+    "LCP request discovery"
+   ],
+   [
+    "network-dependency-tree-insight",
+    "Network dependency tree"
+   ]
+  ]
+ },
+ "catalog_mobile": {
+  "perf": 100,
+  "a11y": 100,
+  "bp": 100,
+  "seo": 100,
+  "fcp": 1.0,
+  "lcp": 1.0,
+  "tbt": 18,
+  "cls": 0.011,
+  "si": 1.0,
+  "fails": [
+   [
+    "network-dependency-tree-insight",
+    "Network dependency tree"
+   ]
+  ]
+ },
+ "house_desktop": {
+  "perf": 100,
+  "a11y": 100,
+  "bp": 100,
+  "seo": 100,
+  "fcp": 0.31,
+  "lcp": 0.54,
+  "tbt": 0,
+  "cls": 0.001,
+  "si": 0.31,
+  "fails": [
+   [
+    "forced-reflow-insight",
+    "Forced reflow"
+   ],
+   [
+    "network-dependency-tree-insight",
+    "Network dependency tree"
+   ]
+  ]
+ },
+ "house_mobile": {
+  "perf": 98,
+  "a11y": 100,
+  "bp": 100,
+  "seo": 100,
+  "fcp": 0.94,
+  "lcp": 2.48,
+  "tbt": 0,
+  "cls": 0.0,
+  "si": 0.94,
+  "fails": [
+   [
+    "forced-reflow-insight",
+    "Forced reflow"
+   ],
+   [
+    "network-dependency-tree-insight",
+    "Network dependency tree"
+   ]
+  ]
+ },
+ "index_desktop": {
+  "perf": 100,
+  "a11y": 100,
+  "bp": 100,
+  "seo": 100,
+  "fcp": 0.25,
+  "lcp": 0.8,
+  "tbt": 0,
+  "cls": 0.002,
+  "si": 0.26,
+  "fails": [
+   [
+    "forced-reflow-insight",
+    "Forced reflow"
+   ],
+   [
+    "network-dependency-tree-insight",
+    "Network dependency tree"
+   ]
+  ]
+ },
+ "index_mobile": {
+  "perf": 99,
+  "a11y": 100,
+  "bp": 100,
+  "seo": 100,
+  "fcp": 0.92,
+  "lcp": 2.03,
+  "tbt": 4,
+  "cls": 0.002,
+  "si": 0.92,
+  "fails": [
+   [
+    "network-dependency-tree-insight",
+    "Network dependency tree"
+   ]
+  ]
+ }
+}

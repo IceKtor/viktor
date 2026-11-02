@@ -10,7 +10,7 @@ if (!isset($scripts)) $scripts = array();
                 <p>Дом, рассчитанный на Север.</p>
             </div>
             <div class="futer__kol">
-                <h4>Разделы</h4>
+                <div class="futer__zag">Разделы</div>
                 <a href="index.php">Главная</a>
                 <a href="catalog.php">Каталог проектов</a>
                 <a href="calculator.php">Калькулятор стоимости</a>
@@ -19,13 +19,13 @@ if (!isset($scripts)) $scripts = array();
                 <a href="zhurnal.php">Журнал</a>
             </div>
             <div class="futer__kol">
-                <h4>Проекты</h4>
+                <div class="futer__zag">Проекты</div>
                 <?php foreach (array_slice($houses, 0, 4) as $h): ?>
                     <a href="house.php?id=<?= e($h['id']) ?>"><?= e($h['name']) ?></a>
                 <?php endforeach; ?>
             </div>
             <div class="futer__kol">
-                <h4>Контакты</h4>
+                <div class="futer__zag">Контакты</div>
                 <a href="tel:+79999999999">+7 (999) 999-99-99</a>
                 <a href="mailto:info@serge-house.ru">info@serge-house.ru</a>
                 <span>г. Якутск, ул. Ленина, 1</span>
@@ -44,9 +44,9 @@ if (!isset($scripts)) $scripts = array();
     <a class="nizpanel__schet" href="calculator.php">Рассчитать</a>
 </div>
 
-<script src="assets/js/main.js" defer></script>
+<script src="<?= e(asset('assets/js/main.js')) ?>" defer></script>
 <?php foreach ($scripts as $s): ?>
-<script src="assets/js/<?= e($s) ?>" defer></script>
+<script src="<?= e(asset('assets/js/' . $s)) ?>" defer></script>
 <?php endforeach; ?>
 </body>
 </html>

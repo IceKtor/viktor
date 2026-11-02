@@ -31,9 +31,17 @@ function pun($name, $active, $href, $text) {
     <meta property="og:description" content="<?= e($page_desc) ?>">
     <?php if ($noindex): ?><meta name="robots" content="noindex"><?php else: ?><link rel="canonical" href="<?= e($canonical) ?>"><?php endif; ?>
     <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+    <?php if (!empty($preload_hero)): ?>
+    <link rel="preload" as="image" href="assets/img/hero.webp" media="(min-width: 1025px)" fetchpriority="high">
+    <link rel="preload" as="image" href="assets/img/hero-t.webp" media="(min-width: 641px) and (max-width: 1024px)" fetchpriority="high">
+    <link rel="preload" as="image" href="assets/img/hero-m.webp" media="(max-width: 640px)" fetchpriority="high">
+    <?php endif; ?>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <?php /* шрифт подгружается без блокировки отрисовки; пока он не пришёл, показывается Arial (display=swap) */ ?>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"></noscript>
+    <link rel="stylesheet" href="<?= e(asset('assets/css/style.css')) ?>">
     <script>document.documentElement.className += ' js';</script>
     <?php if ($crumbs) echo breadcrumbs_ld($crumbs), "\n"; ?>
 </head>

@@ -51,7 +51,7 @@ $ssylka_calc = 'calculator.php?' . http_build_query(array(
                     <div class="karusel__lenta" id="lenta">
                         <?php foreach ($h['gallery'] as $i => $src): ?>
                         <div class="karusel__slaid">
-                            <img src="<?= e($src) ?>" width="1000" height="750" alt="<?= e($h['name'] . ' — ' . mb_strtolower($podpisi[$i])) ?>">
+                            <img src="<?= e($src) ?>" width="1000" height="750"<?= $i === 0 ? ' fetchpriority="high"' : ' loading="lazy"' ?> alt="<?= e($h['name'] . ' — ' . mb_strtolower($podpisi[$i])) ?>">
                         </div>
                         <?php endforeach; ?>
                     </div>
