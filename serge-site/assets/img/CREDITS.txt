@@ -1,0 +1,13 @@
+Источники изображений (ТЗ, п. 9.5). Все фото - Unsplash, лицензия Unsplash (https://unsplash.com/license):
+свободное использование, в том числе коммерческое; указание автора не обязательно, но принято.
+Файлы пережаты (WebP) и обрезаны под блоки сайта.
+
+hero.webp         - Yann Allegre, https://unsplash.com/photos/brown-wooden-house-in-the-middle-of-icy-surface-uHIEJx_S8JE
+klimat.webp       - Sijmen van Hooff, https://unsplash.com/photos/wooden-cabin-in-a-snowy-landscape-with-distant-houses-JRQZP7X_-vk
+osnovanie.webp    - Troy Mortier, https://unsplash.com/photos/a-house-being-built-with-wooden-framing-dUYELbt-H-E
+etap.webp         - Troy Mortier (тот же снимок, другой кадр)
+teplo.webp        - Julian Hochgesang, https://unsplash.com/photos/ihx1LdtnGXw
+inzheneriya.webp  - Mark Kats, https://unsplash.com/photos/white-circuit-breakers-oj1zW_PNI4k
+
+serge-*.svg       - собственные схематичные иллюстрации проектов (не фото), favicon.svg - собственный.
+Фото на главной - иллюстративные, не показывают реальные объекты СЭРГЭ и не находятся в Якутии.
