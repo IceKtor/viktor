@@ -735,3 +735,100 @@ h3, .h3 { font-size: 20px; line-height: 1.25; font-weight: 700; }
     .statya__tekst h2 { font-size: 22px; }
     .statya__oblozhka { border-radius: 18px; }
 }
+
+/* =====================================================================
+   ТОНКАЯ ДОВОДКА: структура, палитра и тексты прежние (ТЗ и макет),
+   меняются только детали - типографика, ритм, линии, скругления, анимации
+   ===================================================================== */
+:root {
+    --ease: cubic-bezier(.2, .7, .2, 1);
+    --tonkaya: rgba(17,18,17,.09);          /* волосяная линия вместо плотной бежевой */
+    --ten: 0 28px 56px -28px rgba(17,18,17,.28);
+    --r-karta: 18px;
+}
+::selection { background: var(--derevo); color: #fff; }
+body { text-rendering: optimizeLegibility; }
+h1, h2, h3, .h3, .zag-stranicy { text-wrap: balance; }
+p { text-wrap: pretty; }
+
+/* заголовки: чуть легче и плотнее - выглядит собраннее */
+.pervyj h1 { font-weight: 700; letter-spacing: -0.035em; }
+h2, .zag-stranicy { font-weight: 700; letter-spacing: -0.03em; }
+h3, .h3 { letter-spacing: -0.01em; }
+
+/* надпись над заголовком с тонкой чертой */
+.nadpis { display: inline-flex; align-items: center; gap: 12px; letter-spacing: .22em; }
+.nadpis::before { content: ''; width: 28px; height: 1px; background: currentColor; opacity: .7; }
+
+/* цифры одной ширины - суммы не "пляшут" */
+.cena b, .dom-cena, .rez-summa, .rez-tablica td, .procent, .cifry b, .fakty b, .vybor__cena b, .tablica td { font-variant-numeric: tabular-nums; }
+.cena { color: var(--seryj); }
+.cena b { color: var(--grafit); letter-spacing: -0.01em; }
+
+/* кнопки: без подпрыгивания, плавная смена цвета, стрелка уезжает вправо */
+.knopka { transition: background .35s var(--ease), color .35s var(--ease), border-color .35s var(--ease), box-shadow .35s var(--ease); letter-spacing: .01em; }
+.knopka:hover { transform: none; }
+.knopka--derevo:hover, .knopka--cher:hover { box-shadow: 0 10px 24px -12px rgba(17,18,17,.45); }
+.strelka { display: inline-block; transition: transform .35s var(--ease); }
+a:hover .strelka { transform: translateX(4px); }
+
+/* карточки: тоньше рамка, сдержаннее скругление, мягкая тень вместо прыжка */
+.dom, .shag, .vybor__karta, .statya-karta, .statya-glavnaya, .princip, .chelovek, .etapy__tekst, .forma, .filtry, .zaglushka {
+    border-color: var(--tonkaya);
+}
+.dom, .vybor__karta, .statya-karta { border-radius: var(--r-karta); }
+.dom { transition: box-shadow .5s var(--ease); }
+.dom:hover { transform: none; box-shadow: var(--ten); }
+.statya-glavnaya:hover, .statya-karta:hover { box-shadow: var(--ten); }
+.dom__foto img, .statya-karta__foto img, .statya-glavnaya__foto img { transition: transform 1.2s var(--ease); }
+.dom:hover .dom__foto img, .statya-karta:hover .statya-karta__foto img, .statya-glavnaya:hover .statya-glavnaya__foto img { transform: scale(1.03); }
+.shag { border-radius: 16px; transition: background .4s var(--ease), color .4s var(--ease); }
+.shag.aktiv { transform: none; }
+
+/* единая мягкая цветокоррекция фотографий: стоковые снимки выглядят как одна серия */
+.dom__foto img, .karusel__slaid img, .st__foto, .vybor__foto img, .statya-karta__foto img,
+.statya-glavnaya__foto img, .statya__oblozhka, .o-nas__foto img {
+    filter: saturate(.86) contrast(1.04) brightness(.99);
+}
+.vybor__foto--shema img { filter: none; }
+.karusel__okno, .o-nas__foto img, .statya__oblozhka, .st__foto { border-radius: 20px; }
+
+/* поля формы: мягкое кольцо фокуса */
+.pole input, .pole select, .filtry select { border-color: var(--tonkaya); border-width: 1px; transition: border-color .25s, box-shadow .25s; }
+.pole input:focus, .pole select:focus, .filtry select:focus { border-color: var(--derevo); box-shadow: 0 0 0 4px rgba(128,106,84,.14); outline: none; }
+.pole.est-oshibka input, .pole.est-oshibka select { border-color: var(--krasnyj); box-shadow: 0 0 0 4px rgba(179,38,30,.10); }
+
+/* таблицы характеристик - волосяные линии */
+.tablica td { border-bottom-color: var(--tonkaya); }
+.vopros, .voprosy, .kontakty__spisok div { border-color: var(--tonkaya); }
+
+/* появление блоков: медленнее и короче сдвиг */
+.js .poyavlenie { transform: translateY(16px); transition: opacity 1s var(--ease), transform 1s var(--ease); }
+
+/* подвал: подчёркивание есть (ТЗ 9.6), но тонкое и приглушённое */
+.futer__kol a { text-decoration-color: rgba(255,255,255,.28); text-decoration-thickness: 1px; transition: color .25s, text-decoration-color .25s; }
+.futer__kol a:hover { text-decoration-color: #fff; }
+.futer__brend b { font-size: 30px; letter-spacing: .14em; }
+.futer__niz, .futer__setka + .futer__niz { border-top-color: rgba(255,255,255,.09); }
+
+/* только для широких экранов */
+@media (min-width: 1025px) {
+    .blok { padding: 120px 0; }
+    .blok--verh0 { padding-top: 0; }
+    .golova { margin-bottom: 52px; }
+    /* шапка становится ниже при прокрутке */
+    .shapka__vnutri { transition: height .4s var(--ease); }
+    .shapka--prokrutka .shapka__vnutri { height: 64px; }
+    /* подчёркивание пункта меню вырастает от центра */
+    .menyu a:not(.knopka) { border-bottom: 0; background: linear-gradient(currentColor, currentColor) center bottom / 0 1.5px no-repeat; transition: background-size .35s var(--ease), color .25s; }
+    .menyu a:not(.knopka):hover, .menyu a.aktiv { background-size: 100% 1.5px; }
+    /* цифры на первом экране разделены тонкими линиями */
+    .cifry { gap: 0; }
+    .cifry > div { padding-right: 40px; }
+    .cifry > div + div { padding-left: 40px; border-left: 1px solid rgba(255,255,255,.18); }
+}
+/* «Другие проекты» на странице дома отделены от характеристик воздухом и тонкой линией */
+.blok--drugie { padding-top: 0; }
+.blok--drugie .vnutri::before { content: ''; display: block; border-top: 1px solid var(--tonkaya); margin-bottom: 72px; }
+.stranica + .blok--drugie, .stranica .blok--drugie { margin-top: 72px; }
+@media (max-width: 640px) { .blok--drugie .vnutri::before { margin-bottom: 44px; } .stranica .blok--drugie { margin-top: 44px; } }

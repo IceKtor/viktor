@@ -66,6 +66,20 @@
         bloki.forEach(function (b) { b.classList.add('vid'); });
     }
 
+    // стрелка в конце кнопок и ссылок оборачивается в span, чтобы при наведении она чуть сдвигалась (стиль .strelka)
+    document.querySelectorAll('.knopka, .ssylka, .nazad').forEach(function (el) {
+        var t = el.lastChild;
+        if (!t || t.nodeType !== 3) return;
+        var m = t.nodeValue.match(/^([\s\S]*?)\s*(→)\s*$/);
+        if (!m) return;
+        t.nodeValue = m[1] + '\u00a0';
+        var s = document.createElement('span');
+        s.className = 'strelka';
+        s.setAttribute('aria-hidden', 'true');
+        s.textContent = '→';
+        el.appendChild(s);
+    });
+
     // шаги на главной: активный один
     var shagi = document.querySelectorAll('.shag');
     function sdelatAktivnym(shag) {

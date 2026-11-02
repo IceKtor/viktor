@@ -94,7 +94,7 @@ $ssylka_calc = 'calculator.php?' . http_build_query(array(
         </div>
     </div>
 
-    <section class="blok blok--verh0 blok--malo">
+    <section class="blok blok--malo blok--drugie">
         <div class="vnutri">
             <div class="golova">
                 <h2 class="h2--malenkij">Другие проекты</h2>
