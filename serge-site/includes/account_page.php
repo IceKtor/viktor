@@ -19,3 +19,4 @@ if (!ACCOUNTS_ENABLED || !repo_db_ok()) {
     exit;
 }
 require_once __DIR__ . '/auth.php';
+require_once __DIR__ . '/notify.php';

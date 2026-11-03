@@ -32,8 +32,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $pass = gen_password();
         db_exec('UPDATE users SET password_hash = ?, must_change_password = 1 WHERE id = ?', array(password_hash($pass, PASSWORD_DEFAULT), $id));
         audit('password_reset', 'user', $id);
-        adm_cred_set($u['name'], $u['phone'] ? fmt_phone($u['phone']) : $u['email'], $pass);
-        adm_back('client.php?id=' . $id, 'ok', 'Выдан новый временный пароль');
+        $login = $u['phone'] ? fmt_phone($u['phone']) : $u['email'];
+        adm_cred_set($u['name'], $login, $pass);
+        $mailMsg = '';
+        if (post('send_mail') && $u['email'] && MAIL_ENABLED) {
+            $sent = notify_send('email', $u['email'], notify_access_text($u['name'], $login, $pass), 'Новый пароль для личного кабинета СЭРГЭ');
+            $mailMsg = $sent ? ' Письмо отправлено на ' . $u['email'] . '.' : ' Письмо отправить не удалось, передайте пароль вручную.';
+        }
+        adm_back('client.php?id=' . $id, 'ok', 'Выдан новый временный пароль.' . $mailMsg);
     } elseif ($u && $do === 'toggle') {
         db_exec('UPDATE users SET is_active = 1 - is_active WHERE id = ?', array($id));
         audit('client_toggle', 'user', $id);
@@ -72,7 +78,8 @@ adm_cred_show();
         <dt>Состояние</dt><dd><?= $u['is_active'] ? 'доступ включён' : 'доступ отключён' ?></dd>
     </dl>
     <div class="adm-actions" style="margin-top:14px">
-        <form method="post" onsubmit="return confirm('Выдать новый пароль? Старый перестанет работать.')"><?= csrf_field() ?><input type="hidden" name="do" value="reset"><button class="knopka knopka--derevo" type="submit">Сбросить пароль</button></form>
+        <form method="post" onsubmit="return confirm('Выдать новый пароль? Старый перестанет работать.')"><?= csrf_field() ?><input type="hidden" name="do" value="reset"><button class="knopka knopka--derevo" type="submit">Сбросить пароль</button>
+            <?php if ($u['email'] && MAIL_ENABLED): ?><?= chk('send_mail', 'отправить письмом на ' . $u['email'], 0) ?><?php endif; ?></form>
         <form method="post"><?= csrf_field() ?><input type="hidden" name="do" value="toggle"><button class="knopka knopka--ramka" type="submit"><?= $u['is_active'] ? 'Отключить доступ' : 'Включить доступ' ?></button></form>
         <form method="post" onsubmit="return confirm('Удалить клиента и все его объекты? Это нельзя отменить.')"><?= csrf_field() ?><input type="hidden" name="do" value="delete"><button class="knopka knopka--ramka adm-danger" type="submit">Удалить</button></form>
     </div>

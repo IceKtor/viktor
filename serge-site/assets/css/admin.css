@@ -72,3 +72,4 @@ body.adm { background: #ECEAE3; padding: 0; }
     .adm-kv { grid-template-columns: 1fr; gap: 2px; }
     .adm-kv dd { margin-bottom: 8px; }
 }
+.adm-pre { background: var(--grafit); color: #fff; padding: 14px 18px; border-radius: 12px; overflow-x: auto; font: 14px/1.6 'Courier New', monospace; margin: 12px 0; }

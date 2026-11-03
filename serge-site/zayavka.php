@@ -44,7 +44,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         rl_hit('lead', rl_ip()); rl_hit('lead', rl_key('ph|' . $phone));
         $source = $topic === 'reset' ? 'reset' : ($house ? 'house:' . $house['id'] : ($calc ? 'calculator' : 'site'));
         $params = $calc; if ($calc && $house) $params['house'] = $house['id'];
-        lead_save(array('name' => $v['name'], 'phone' => $phone, 'email' => $email, 'message' => $v['message'], 'source' => $source, 'params' => $params, 'user_id' => $u ? $u['id'] : null));
+        $lid = lead_save(array('name' => $v['name'], 'phone' => $phone, 'email' => $email, 'message' => $v['message'], 'source' => $source, 'params' => $params, 'user_id' => $u ? $u['id'] : null));
+        // подтверждение клиенту на почту (если указал и почта настроена); на один адрес не чаще 3 писем в сутки, чтобы форму нельзя было использовать для спама
+        if ($email && MAIL_ENABLED && $topic !== 'reset' && rl_count('mail', rl_key('em|' . $email), 86400) < 3) {
+            rl_hit('mail', rl_key('em|' . $email));
+            notify_lead_confirm($email, $v['name'], $lid, $calc ? $calc_text : '');
+        }
         redirect('zayavka.php?ok=1');
     }
 }

@@ -27,7 +27,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         db_exec("UPDATE leads SET user_id = ?, status = IF(status IN ('new','in_work'), 'deal', status), updated_at = NOW() WHERE id = ?", array($uid, $id));
         audit('client_create', 'user', $uid, 'из заявки ' . $id);
         adm_cred_set($l['name'], fmt_phone($l['phone']), $pass);
-        adm_back('lead.php?id=' . $id, 'ok', 'Кабинет клиента создан, статус заявки — «Договор заключён».');
+        $mailMsg = '';
+        if (post('send_mail') && $l['email'] && MAIL_ENABLED) {
+            $sent = notify_send('email', $l['email'], notify_access_text($l['name'], fmt_phone($l['phone']), $pass), 'Доступ в личный кабинет СЭРГЭ');
+            $mailMsg = $sent ? ' Письмо с доступом отправлено на ' . $l['email'] . '.' : ' Письмо отправить не удалось (проверьте почту на странице «Почта»), передайте доступ вручную.';
+        }
+        adm_back('lead.php?id=' . $id, 'ok', 'Кабинет клиента создан, статус заявки — «Договор заключён».' . $mailMsg);
     } elseif ($do === 'link') {
         $uid = post_int('user_id');
         if ($uid && db_val("SELECT id FROM users WHERE id = ? AND role = 'client'", array($uid))) {
@@ -86,7 +91,8 @@ adm_cred_show();
         <form method="post" class="adm-actions"><?= csrf_field() ?><input type="hidden" name="do" value="unlink"><button class="knopka knopka--ramka" type="submit">Снять привязку</button></form>
     <?php else: ?>
         <p>После того как клиент согласился на сделку, создайте ему кабинет: логин — этот номер телефона, пароль сгенерируется автоматически. Вы передадите его клиенту (звонок, мессенджер), при первом входе клиент заменит пароль на свой. Если клиент с таким телефоном уже зарегистрировался сам, заявка просто привяжется к нему.</p>
-        <form method="post" class="adm-actions"><?= csrf_field() ?><input type="hidden" name="do" value="make_account"><button class="knopka knopka--derevo" type="submit">Создать кабинет по этой заявке</button></form>
+        <form method="post" class="adm-actions"><?= csrf_field() ?><input type="hidden" name="do" value="make_account"><button class="knopka knopka--derevo" type="submit">Создать кабинет по этой заявке</button>
+            <?php if ($l['email'] && MAIL_ENABLED): ?><?= chk('send_mail', 'Отправить доступ письмом на ' . $l['email'], 0) ?><?php endif; ?></form>
         <?php if ($clients): ?>
         <form method="post" class="adm-actions" style="margin-top:14px"><?= csrf_field() ?><input type="hidden" name="do" value="link">
             <select name="user_id" aria-label="Клиент"><option value="">— или привязать к существующему клиенту —</option><?php foreach ($clients as $c): ?><option value="<?= (int)$c['id'] ?>"><?= h($c['name']) ?> · <?= h(fmt_phone($c['phone'])) ?></option><?php endforeach; ?></select>

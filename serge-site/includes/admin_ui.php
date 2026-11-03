@@ -41,7 +41,7 @@ function adm_head($title, $active) {
     $new = (int)db_val("SELECT COUNT(*) FROM leads WHERE status = 'new'");
     $nav = array('index' => array('Обзор', 'index.php'), 'leads' => array('Заявки', 'leads.php'), 'clients' => array('Клиенты', 'clients.php'), 'objects' => array('Объекты стройки', 'objects.php'),
         'houses' => array('Проекты домов', 'houses.php'), 'rates' => array('Расценки калькулятора', 'rates.php'), 'stages' => array('Этапы строительства', 'stages.php'),
-        'journal' => array('Журнал', 'journal.php'), 'company' => array('О компании', 'company.php'), 'admins' => array('Администраторы', 'admins.php'), 'audit' => array('Журнал действий', 'audit.php'));
+        'journal' => array('Журнал', 'journal.php'), 'company' => array('О компании', 'company.php'), 'mail' => array('Почта', 'mail.php'), 'admins' => array('Администраторы', 'admins.php'), 'audit' => array('Журнал действий', 'audit.php'));
     header('X-Robots-Tag: noindex'); header('X-Frame-Options: DENY');
     ?><!DOCTYPE html>
 <html lang="ru"><head>
