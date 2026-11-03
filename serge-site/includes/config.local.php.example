@@ -1,0 +1,9 @@
+<?php
+// Скопируйте этот файл в includes/config.local.php и впишите свои значения. config.local.php в git не добавляется.
+define('USE_DB', true);
+define('DB_HOST', 'localhost');
+define('DB_NAME', 'serge');
+define('DB_USER', 'root');          // Open Server: root без пароля; на хостинге - свой пользователь
+define('DB_PASS', '');
+define('SETUP_KEY', 'придумайте-длинный-ключ');   // нужен один раз на странице /install.php; после создания админа можно стереть
+// define('SITE_URL', 'https://example.ru');      // на хостинге: полный адрес для canonical и sitemap

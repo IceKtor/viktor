@@ -1,0 +1,74 @@
+/* админ-панель: опирается на переменные и кнопки из style.css */
+body.adm { background: #ECEAE3; padding: 0; }
+.adm-top { display: flex; justify-content: space-between; align-items: center; gap: 16px; background: var(--grafit); color: #fff; padding: 0 24px; height: 56px; position: sticky; top: 0; z-index: 20; }
+.adm-logo { font-size: 16px; letter-spacing: .12em; }
+.adm-logo span { font-size: 12px; opacity: .6; letter-spacing: .04em; margin-left: 8px; }
+.adm-user { display: flex; align-items: center; gap: 18px; font-size: 14px; }
+.adm-user a, .adm-user button { color: #fff; background: none; border: 0; cursor: pointer; font: inherit; opacity: .85; padding: 8px 0; }
+.adm-user a:hover, .adm-user button:hover { opacity: 1; text-decoration: underline; }
+.adm-wrap { display: grid; grid-template-columns: 230px 1fr; align-items: start; align-content: start; min-height: calc(100vh - 56px); }
+.adm-nav { position: sticky; top: 56px; display: flex; flex-direction: column; padding: 20px 12px; gap: 2px; }
+.adm-nav a { padding: 10px 14px; border-radius: 10px; font-size: 15px; font-weight: 600; display: flex; justify-content: space-between; align-items: center; }
+.adm-nav a:hover { background: rgba(17,18,17,.06); }
+.adm-nav a.aktiv { background: var(--grafit); color: #fff; }
+.adm-bubble { font-style: normal; background: var(--krasnyj); color: #fff; border-radius: 99px; font-size: 12px; padding: 1px 8px; }
+.adm-main { padding: 28px 32px 80px; min-width: 0; max-width: 1180px; }
+.adm-main h1 { font-size: 30px; margin-bottom: 22px; letter-spacing: -.02em; }
+.adm-main h2 { font-size: 20px; margin: 30px 0 12px; letter-spacing: -.01em; }
+.adm-main .uspeh, .adm-main .podskazka, .adm-main .oshibka--obshaya { max-width: none; margin: 0 0 18px; }
+
+.adm-card { background: var(--sneg); border: 1px solid var(--tonkaya); border-radius: 16px; padding: 22px 24px; margin-bottom: 20px; }
+.adm-card > h2:first-child { margin-top: 0; }
+.adm-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+.adm-grid--2 { grid-template-columns: 1fr 1fr; }
+.adm-grid--3 { grid-template-columns: repeat(3, 1fr); }
+.adm-stat { background: var(--sneg); border: 1px solid var(--tonkaya); border-radius: 16px; padding: 18px 22px; }
+.adm-stat b { display: block; font-size: 32px; font-weight: 800; line-height: 1.1; }
+.adm-stat span { color: var(--seryj); font-size: 14px; }
+.adm-form { display: flex; flex-direction: column; gap: 16px; }
+.adm-form .pole select { padding: 12px 14px; border: 1px solid var(--gran-pole); border-radius: 12px; background: #fff; font: inherit; width: 100%; }
+.adm-actions { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 4px; }
+.adm-actions .knopka, .adm-main .knopka { padding: 10px 20px; font-size: 14px; }
+.adm-danger { color: var(--krasnyj); border-color: var(--krasnyj); }
+.adm-danger:hover { background: var(--krasnyj) !important; color: #fff !important; }
+
+.atab { width: 100%; border-collapse: collapse; background: var(--sneg); border: 1px solid var(--tonkaya); border-radius: 14px; overflow: hidden; font-size: 14px; }
+.atab th { text-align: left; font-size: 12px; letter-spacing: .04em; text-transform: uppercase; color: var(--seryj); background: rgba(17,18,17,.04); padding: 10px 14px; white-space: nowrap; }
+.atab td { padding: 11px 14px; border-top: 1px solid var(--tonkaya); vertical-align: top; }
+.atab tr:hover td { background: rgba(128,106,84,.05); }
+.atab a { color: var(--derevo-temn); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+.atab input[type=text], .atab input[type=number], .atab input[type=date], .atab select { width: 100%; padding: 8px 10px; border: 1px solid var(--tonkaya); border-radius: 8px; background: #fff; font: inherit; }
+.adm-scroll { overflow-x: auto; }
+.st { display: inline-block; padding: 3px 10px; border-radius: 99px; font-size: 12px; font-weight: 700; background: rgba(17,18,17,.08); white-space: nowrap; }
+.st--new { background: rgba(179,38,30,.14); color: #8c1d17; }
+.st--in_work { background: rgba(128,106,84,.2); color: var(--derevo-temn); }
+.st--deal, .st--done { background: rgba(63,125,88,.18); color: #2a5a3f; }
+.st--building { background: rgba(185,198,201,.5); }
+.adm-filters { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; align-items: center; }
+.adm-filters input, .adm-filters select { padding: 9px 12px; border: 1px solid var(--tonkaya); border-radius: 10px; background: #fff; font: inherit; }
+.adm-pager { display: flex; gap: 6px; margin-top: 16px; flex-wrap: wrap; }
+.adm-pager a { min-width: 36px; text-align: center; padding: 7px 10px; border-radius: 8px; background: var(--sneg); border: 1px solid var(--tonkaya); font-weight: 600; }
+.adm-pager a.aktiv { background: var(--grafit); color: #fff; }
+.adm-cred { background: #fff; border: 2px solid var(--derevo); border-radius: 16px; padding: 20px 24px; margin-bottom: 20px; }
+.adm-cred h2 { margin-top: 0; }
+.adm-cred textarea { width: 100%; font: 15px/1.5 'Courier New', monospace; padding: 12px; border: 1px solid var(--tonkaya); border-radius: 10px; background: var(--teplyj); margin: 10px 0; }
+.adm-img { display: flex; gap: 14px; align-items: center; }
+.adm-img img { width: 120px; height: 90px; object-fit: cover; border-radius: 10px; border: 1px solid var(--tonkaya); background: var(--led); }
+.adm-kv { display: grid; grid-template-columns: 180px 1fr; gap: 8px 16px; font-size: 15px; }
+.adm-kv dt { color: var(--seryj); }
+.adm-main details { background: var(--sneg); border: 1px solid var(--tonkaya); border-radius: 12px; padding: 10px 16px; margin-bottom: 10px; }
+.adm-main summary { cursor: pointer; font-weight: 700; padding: 4px 0; }
+.melko-t { color: var(--seryj); font-size: 13px; }
+@media (max-width: 900px) {
+    .adm-top { padding: 0 14px; gap: 10px; }
+    .adm-logo span { display: none; }
+    .adm-user { gap: 12px; font-size: 13px; white-space: nowrap; }
+    .adm-user a:nth-child(2) { max-width: 110px; overflow: hidden; text-overflow: ellipsis; }
+    .adm-wrap { grid-template-columns: 1fr; }
+    .adm-nav { position: static; flex-direction: row; overflow-x: auto; padding: 10px 12px; gap: 6px; border-bottom: 1px solid var(--tonkaya); }
+    .adm-nav a { white-space: nowrap; flex-shrink: 0; }
+    .adm-main { padding: 20px 16px 60px; }
+    .adm-grid--2, .adm-grid--3 { grid-template-columns: 1fr; }
+    .adm-kv { grid-template-columns: 1fr; gap: 2px; }
+    .adm-kv dd { margin-bottom: 8px; }
+}

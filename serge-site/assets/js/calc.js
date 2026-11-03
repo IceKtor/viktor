@@ -178,6 +178,12 @@
         html += '</table>';
         html += '<div class="rez-data">Расценки актуальны на ' + esc(r.date) + ' · Демо-данные</div>';
         html += '<p class="rez-ogovorka">Расчёт предварительный и не является сметой или публичной офертой. Точная стоимость определяется после проектирования и осмотра участка.</p>';
+        // если на сайте включены заявки (PHP + база), предлагаем отправить расчёт менеджеру
+        var zayavka = forma.getAttribute('data-zayavka');
+        if (zayavka) {
+            var q = polya.map(function (p) { return p + '=' + encodeURIComponent(document.getElementById(p).value); }).join('&');
+            html += '<a class="knopka knopka--derevo rez-ssylka" href="' + zayavka + '?' + q + '">Получить точный расчёт →</a> ';
+        }
         html += '<a class="knopka knopka--kontur rez-ssylka" href="catalog.php">Сравнить с другими проектами →</a>';
 
         rezultat.innerHTML = html;

@@ -89,6 +89,7 @@ $ssylka_calc = 'calculator.php?' . http_build_query(array(
                 <div class="knopki knopki--dom">
                     <a class="knopka knopka--derevo" href="<?= e($ssylka_calc) ?>">Рассчитать для моего участка →</a>
                     <a class="knopka knopka--ramka" href="#gallery" data-slide="2">Получить планировку</a>
+                    <?php if (ACCOUNTS_ENABLED): ?><a class="knopka knopka--ramka" href="zayavka.php?house=<?= e($h['id']) ?>">Оставить заявку</a><?php endif; ?>
                 </div>
             </div>
         </div>

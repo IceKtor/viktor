@@ -26,21 +26,22 @@ if (!isset($scripts)) $scripts = array();
             </div>
             <div class="futer__kol">
                 <div class="futer__zag">Контакты</div>
-                <a href="tel:+79999999999">+7 (999) 999-99-99</a>
-                <a href="mailto:info@serge-house.ru">info@serge-house.ru</a>
-                <span>г. Якутск, ул. Ленина, 1</span>
-                <span>Пн–Сб, 9:00–19:00</span>
+                <a href="tel:<?= e(site_contacts()["phone_href"]) ?>"><?= e(site_contacts()["phone"]) ?></a>
+                <a href="mailto:<?= e(site_contacts()["email"]) ?>"><?= e(site_contacts()["email"]) ?></a>
+                <span><?= e(site_contacts()["address"]) ?></span>
+                <span><?= e(site_contacts()["hours"]) ?></span>
+                <?php if (ACCOUNTS_ENABLED): ?><a href="zayavka.php">Оставить заявку</a><?php endif; ?>
             </div>
         </div>
         <div class="futer__niz">
             <span>© СЭРГЭ, 2026</span>
-            <span>Контакты — демо-данные. Расчёт стоимости предварительный и не является сметой.</span>
+            <span>Контакты — демо-данные. Расчёт стоимости предварительный и не является сметой.<?php if (ACCOUNTS_ENABLED): ?> <a class="futer__ssylka" href="privacy.php">Политика конфиденциальности</a><?php endif; ?></span>
         </div>
     </div>
 </footer>
 
 <div class="nizpanel">
-    <a class="nizpanel__zvonok" href="tel:+79999999999">Позвонить</a>
+    <a class="nizpanel__zvonok" href="tel:<?= e(site_contacts()["phone_href"]) ?>">Позвонить</a>
     <a class="nizpanel__schet" href="calculator.php">Рассчитать</a>
 </div>
 

@@ -1,0 +1,8 @@
+# в папке загрузок исполнять скрипты нельзя, только отдавать картинки
+php_flag engine off
+RemoveHandler .php .phtml .php3 .php5 .php7 .phps
+RemoveType .php .phtml .php3 .php5 .php7 .phps
+<FilesMatch "\.(php|phtml|php\d|phar|pl|py|cgi|sh)$">
+    Require all denied
+</FilesMatch>
+Options -Indexes

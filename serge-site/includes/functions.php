@@ -7,6 +7,17 @@ require_once __DIR__ . '/repository.php';
 $rates = repo_rates();
 $houses = repo_houses();
 
+// контакты компании для шапки, подвала и нижней панели (редактируются в админ-панели: «О компании»)
+function site_contacts() {
+    static $c = null;
+    if ($c === null) {
+        $co = repo_company();
+        $d = array('phone' => '+7 (999) 999-99-99', 'phone_href' => '+79999999999', 'email' => 'info@serge-house.ru', 'address' => 'г. Якутск, ул. Ленина, 1', 'hours' => 'Пн–Сб, 9:00–19:00');
+        $c = (isset($co['contacts']) && is_array($co['contacts'])) ? array_merge($d, array_filter($co['contacts'], 'strlen')) : $d;
+    }
+    return $c;
+}
+
 // экранирование, чтоб ничего не сломали
 function e($s) {
     return htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8');
@@ -103,11 +114,17 @@ function raschet($area, $floors, $mat, $fnd, $rates) {
 foreach ($houses as $i => $h) {
     $r = raschet($h['area'], $h['floors'], $h['material'], $h['foundation'], $rates);
     $houses[$i]['price'] = $r['total'];
-    $houses[$i]['gallery'] = array(
-        'assets/img/' . $h['id'] . '-1.webp',   // фасад (фото)
-        'assets/img/' . $h['id'] . '-2.webp',   // интерьер (фото)
-        'assets/img/' . $h['id'] . '-3.svg'     // планировка (чертёж)
+    // картинки берутся из базы (админка), а если там пусто - по имени файла: <id>-1.webp, -2.webp, -3.svg;
+    // если и такого файла нет (новый проект без фото) - показываем фасад, а если и его нет - заглушку
+    $g = array(
+        !empty($h['img_facade']) ? $h['img_facade'] : 'assets/img/' . $h['id'] . '-1.webp',      // фасад (фото)
+        !empty($h['img_interior']) ? $h['img_interior'] : 'assets/img/' . $h['id'] . '-2.webp',  // интерьер (фото)
+        !empty($h['img_plan']) ? $h['img_plan'] : 'assets/img/' . $h['id'] . '-3.svg'            // планировка (чертёж)
     );
+    $root = dirname(__DIR__) . '/';
+    if (!is_file($root . $g[0])) $g[0] = 'assets/img/placeholder.svg';
+    for ($k = 1; $k < 3; $k++) if (!is_file($root . $g[$k])) $g[$k] = $g[0];
+    $houses[$i]['gallery'] = $g;
 }
 
 function naiti_dom($id) {
@@ -186,6 +203,7 @@ function site_url() {
     $host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'localhost';
     $dir = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'])), '/');
     if (substr($dir, -4) === '/api') $dir = substr($dir, 0, -4);
+    if (substr($dir, -6) === '/admin') $dir = substr($dir, 0, -6);
     return ($https ? 'https://' : 'http://') . $host . $dir;
 }
 

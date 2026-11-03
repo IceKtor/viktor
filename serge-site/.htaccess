@@ -5,4 +5,5 @@ RewriteRule ^sitemap\.xml$ sitemap.php [L]
 RewriteRule ^robots\.txt$ robots.php [L]
 
 # закрываем служебные папки от прямого просмотра (api/ открыт, его вызывает калькулятор)
-RewriteRule ^(includes|data|database)/ - [F,L]
+RewriteRule ^(includes|data|database|tools)/ - [F,L]
+Options -Indexes

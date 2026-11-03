@@ -1,6 +1,8 @@
 <?php
 // шапка, подключается на каждой странице. перед ней надо задать $page_title, $active и $dark
 require_once __DIR__ . '/functions.php';
+$hu = null;   // вошедший пользователь (если включены кабинеты)
+if (ACCOUNTS_ENABLED && repo_db_ok()) { require_once __DIR__ . '/auth.php'; $hu = current_user(); }
 
 if (!isset($page_title)) $page_title = 'СЭРГЭ — Дом, рассчитанный на Север';
 if (!isset($page_desc)) $page_desc = 'СЭРГЭ — проекты частных домов в Якутии и онлайн-калькулятор предварительной стоимости строительства.';
@@ -60,11 +62,17 @@ function pun($name, $active, $href, $text) {
             <?= pun('projects', $active, 'catalog.php', 'Проекты') ?>
             <?= pun('company', $active, 'company.php', 'О компании') ?>
             <?= pun('journal', $active, 'zhurnal.php', 'Журнал') ?>
+            <?php if (ACCOUNTS_ENABLED): ?>
+            <a class="menyu__vhod" href="<?= $hu ? ($hu['role'] === 'admin' ? 'admin/' : 'cabinet.php') : 'login.php' ?>"><?= $hu ? ($hu['role'] === 'admin' ? 'Админ-панель' : 'Личный кабинет') : 'Войти' ?></a>
+            <?php endif; ?>
             <a class="knopka knopka--derevo menyu__knopka" href="calculator.php">Рассчитать стоимость →</a>
         </nav>
 
         <div class="shapka__pravo">
-            <a class="tel" href="tel:+79999999999">+7 (999) 999-99-99</a>
+            <?php if (ACCOUNTS_ENABLED): ?>
+            <a class="vhod" href="<?= $hu ? ($hu['role'] === 'admin' ? 'admin/' : 'cabinet.php') : 'login.php' ?>"><?= $hu ? ($hu['role'] === 'admin' ? 'Админ-панель' : 'Кабинет') : 'Войти' ?></a>
+            <?php endif; ?>
+            <a class="tel" href="tel:<?= e(site_contacts()["phone_href"]) ?>"><?= e(site_contacts()["phone"]) ?></a>
             <a class="knopka knopka--cher shapka__knopka" href="calculator.php">Рассчитать стоимость →</a>
             <button class="gamburger" id="gamburger" type="button" aria-label="Открыть меню" aria-expanded="false">
                 <i></i><i></i><i></i>

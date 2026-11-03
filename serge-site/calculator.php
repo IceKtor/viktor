@@ -29,7 +29,7 @@ $iz_kartochki = ($z_area !== '' || $z_floors !== '' || $z_mat !== '' || $z_fnd !
         <div class="calc">
             <form class="forma" id="calc-form" action="api/calc.php" method="post" novalidate
                   data-area-min="<?= (int)$rates['area_min'] ?>" data-area-max="<?= (int)$rates['area_max'] ?>"
-                  data-step="<?= (int)$rates['round_step'] ?>"<?php if (defined('STATIC_BUILD')): ?> data-rates="<?= e(json_encode($rates, JSON_UNESCAPED_UNICODE)) ?>"<?php endif; ?>>
+                  data-step="<?= (int)$rates['round_step'] ?>"<?php if (ACCOUNTS_ENABLED): ?> data-zayavka="zayavka.php"<?php endif; ?><?php if (defined('STATIC_BUILD')): ?> data-rates="<?= e(json_encode($rates, JSON_UNESCAPED_UNICODE)) ?>"<?php endif; ?>>
 
                 <div class="pole" id="pole-area">
                     <label for="area">Общая площадь, м²</label>

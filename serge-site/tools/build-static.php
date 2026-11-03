@@ -29,6 +29,8 @@ function fix($s) {
 rrmdir($out);
 mkdir($out, 0777, true);
 rcopy($root . '/assets', $out . '/assets');
+// в статическую версию не нужны загрузки из админки и стили админ-панели
+rrmdir($out . '/assets/uploads'); @unlink($out . '/assets/css/admin.css');
 @unlink($out . '/assets/img/CREDITS.txt'); // оставляем: это лицензионные ссылки на фото
 copy($root . '/assets/img/CREDITS.txt', $out . '/assets/img/CREDITS.txt');
 
