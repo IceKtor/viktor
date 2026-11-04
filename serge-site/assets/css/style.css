@@ -1,4 +1,4 @@
-/* стили сайта СЭРГЭ. писал ночью, местами криво, но работает */
+/* стили сайта СЭРГЭ */
 
 /* шрифт Manrope (лицензия SIL OFL) отдаётся с нашего сервера: IP посетителя не уходит в Google */
 @font-face { font-family: 'Manrope'; font-style: normal; font-weight: 400 800; font-display: swap; src: url('../fonts/manrope-cyrillic-ext.woff2') format('woff2'); unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F; }
@@ -928,3 +928,52 @@ code { font-family: 'Courier New', monospace; background: rgba(17,18,17,.06); pa
 body.modal-otkryto { overflow: hidden; }
 @media (max-width: 520px) { .modal__okno { padding: 26px 20px 20px; border-radius: 20px; } .modal__knopki .knopka { flex: 1; } }
 .princip h3 + .tarif__spisok { margin-top: 14px; }
+
+/* =====================================================================
+   ЕДИНАЯ СИСТЕМА: скругления в два размера, одна толщина линий, одинаковые поля и кнопки.
+   Палитра, шрифт и структура прежние (макет и ТЗ)
+   ===================================================================== */
+:root { --r-blok: 24px; }
+
+/* мелкие карточки - 18px, крупные блоки - 24px (раньше было 16, 18, 20, 22, 24 и 28) */
+.shag, .princip, .chelovek, .etapy__tekst, .filtry, .zayavka, .vybor__karta { border-radius: var(--r-karta); }
+.forma, .rezultat, .panel, .kartochka-prizyv, .kontakty, .statya-glavnaya, .zaglushka, .pusto, .modal__okno { border-radius: var(--r-blok); }
+.fakty div { border-radius: var(--r-karta); }
+.kontakty, .pusto { border-color: var(--tonkaya); }
+.pusto, .zaglushka { border-width: 1px; }
+@media (max-width: 640px) {
+    .forma, .rezultat, .panel, .kartochka-prizyv, .kontakty, .statya-glavnaya, .modal__okno { border-radius: var(--r-karta); }
+}
+
+/* кнопки: нажатие и недоступное состояние */
+.knopka:active { transform: scale(.98); transition-duration: .08s; }
+.knopka:disabled, .knopka[aria-disabled="true"] { opacity: .5; cursor: not-allowed; pointer-events: none; }
+
+/* списки выбора: своя стрелка вместо системной, одинаковая высота в форме и в фильтрах */
+.pole select, .filtry select {
+    -webkit-appearance: none; appearance: none;
+    padding-right: 40px;
+    background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%236B6E6A' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1 1.5l5 5 5-5'/%3E%3C/svg%3E") no-repeat right 16px center / 12px 8px;
+    cursor: pointer;
+}
+.filtry select { padding: 14px 40px 14px 16px; border: 1px solid var(--gran-pole); border-radius: 14px; }
+.pole input::placeholder, .pole textarea::placeholder { color: var(--seryj); opacity: .8; }
+.pole label { letter-spacing: .01em; }
+.pole input:hover:not(:focus):not(:disabled), .pole select:hover:not(:focus), .pole textarea:hover:not(:focus), .filtry select:hover:not(:focus) { border-color: var(--seryj); }
+
+/* подсказка и сообщение об успехе: без цветной полосы слева, тонкая рамка того же цвета */
+.podskazka, .uspeh { border: 1px solid rgba(128,106,84,.28); border-left-width: 1px; border-radius: 14px; padding: 14px 18px; }
+.uspeh { border-color: rgba(63,125,88,.3); }
+.oshibka--obshaya { border: 1px solid rgba(179,38,30,.25); border-radius: 14px; padding: 12px 16px; }
+
+/* окно сообщения: цвета из палитры, а не отдельные оттенки */
+.modal[data-type="ok"] .modal__okno { border-top-color: var(--zelenyj); }
+.modal[data-type="err"] .modal__okno { border-top-color: var(--krasnyj); }
+.modal__fon { -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); }
+
+/* текст: комфортная длина строки и плотность в длинных блоках */
+.seryj--shirokij, .podzag { line-height: 1.6; }
+.princip p, .st p, .vybor__tekst p, .etapy__tekst p, .statya-karta__tekst p { line-height: 1.6; }
+.golova h2 + .seryj, .golova .nadpis + h2 { margin-top: 14px; }
+.melko { line-height: 1.5; }
+@media print { .shapka, .nizpanel, .futer { display: none; } }

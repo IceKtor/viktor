@@ -3,3 +3,4 @@ serge-site/includes/config.local.php
 serge-site/assets/uploads/*
 !serge-site/assets/uploads/.htaccess
 !serge-site/assets/uploads/.gitkeep
+~$*
