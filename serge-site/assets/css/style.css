@@ -839,8 +839,10 @@ a:hover .strelka { transform: translateX(4px); }
 @media (max-width: 640px) { .blok--drugie .vnutri::before { margin-bottom: 44px; } .stranica .blok--drugie { margin-top: 44px; } }
 
 /* =================== аккаунты: вход, регистрация, заявка, личный кабинет =================== */
-.vhod { font-weight: 700; font-size: 15px; white-space: nowrap; padding: 6px 0; border-bottom: 1.5px solid currentColor; transition: color .25s; }
-.vhod:hover { color: var(--derevo); }
+.vhod { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 42px; height: 42px; border-radius: 50%; border: 1px solid currentColor; color: inherit; opacity: .85; transition: background .25s, color .25s, border-color .25s, opacity .25s; }
+.vhod:hover, .vhod:focus-visible { background: var(--derevo); border-color: var(--derevo); color: #fff; opacity: 1; }
+.vhod--est::after { content: ''; position: absolute; top: 2px; right: 2px; width: 9px; height: 9px; border-radius: 50%; background: var(--derevo); border: 2px solid #fff; box-sizing: content-box; }
+.shapka--temnaya .vhod--est::after { border-color: #111211; }
 .menyu__vhod { display: none; }
 .vnutri--forma { max-width: 640px; margin: 0 auto; }
 .forma--uzkaya { margin-top: 28px; }
