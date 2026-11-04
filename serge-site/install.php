@@ -24,7 +24,7 @@ if (!$closed && $_SERVER['REQUEST_METHOD'] === 'POST') {
         redirect('admin/');
     }
 }
-$page_title = 'Установка — СЭРГЭ'; $active = '';
+$noindex = true; $page_title = 'Установка — СЭРГЭ'; $active = '';
 require __DIR__ . '/includes/header.php';
 ?>
 <main class="stranica"><div class="vnutri vnutri--forma">

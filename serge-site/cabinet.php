@@ -9,7 +9,7 @@ $objects = db_all('SELECT o.*, h.name AS house_name FROM objects o LEFT JOIN hou
 $leads = db_all('SELECT id, source, message, status, created_at, params FROM leads WHERE user_id = ? ORDER BY created_at DESC LIMIT 20', array($u['id']));
 $lead_text = array('new' => 'Принята, скоро перезвоним', 'in_work' => 'В работе у менеджера', 'deal' => 'Договор заключён', 'rejected' => 'Закрыта', 'spam' => 'Закрыта');
 
-$page_title = 'Личный кабинет — СЭРГЭ';
+$noindex = true; $page_title = 'Личный кабинет — СЭРГЭ';
 $active = '';
 require __DIR__ . '/includes/header.php';
 ?>

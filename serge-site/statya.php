@@ -27,6 +27,7 @@ if (!$s) {
 
 $page_title = $s['title'] . ' — СЭРГЭ';
 $page_desc = $s['preview'];
+$og_type = 'article'; $og_image = $s['image']; $ld_extra = article_ld($s);
 $crumbs = array(array('Главная', 'index.php'), array('Журнал', 'zhurnal.php'), array($s['title'], 'statya.php?id=' . $s['slug']));
 require_once __DIR__ . '/includes/header.php';
 

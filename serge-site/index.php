@@ -3,6 +3,8 @@ $page_title = 'СЭРГЭ — строительство домов в Якут�
 $page_desc = 'Проектируем и строим частные дома в Якутии. Подберите проект и рассчитайте предварительную стоимость дома онлайн.';
 $active = 'index';
 $dark = true;
+require_once __DIR__ . '/includes/functions.php';
+$ld_extra = organization_ld();
 $preload_hero = true;   // фон первого экрана загружается с повышенным приоритетом (быстрее LCP)
 require_once 'includes/header.php';
 

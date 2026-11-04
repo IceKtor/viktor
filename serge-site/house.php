@@ -26,6 +26,7 @@ if (!$h) {
 
 $page_title = $h['name'] . ' — проект дома, ' . $h['area'] . ' м² — СЭРГЭ';
 $page_desc = $h['description'] . ' Площадь ' . $h['area'] . ' м², ' . floors_text($h['floors']) . '.';
+if (!empty($h['gallery'][0])) $og_image = $h['gallery'][0];
 $crumbs = array(array('Главная', 'index.php'), array('Проекты домов', 'catalog.php'), array($h['name'], 'house.php?id=' . $h['id']));
 require_once 'includes/header.php';
 $scripts = array('carousel.js');

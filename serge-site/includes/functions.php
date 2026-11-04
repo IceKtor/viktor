@@ -217,6 +217,21 @@ function breadcrumbs_ld($crumbs) {
     return '<script type="application/ld+json">' . json_encode($ld, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . '</script>';
 }
 
+// разметка Schema.org: организация (главная) и статья (журнал)
+function ld_script($ld) { return '<script type="application/ld+json">' . json_encode($ld, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . '</script>'; }
+function organization_ld() {
+    $c = site_contacts();
+    return ld_script(array('@context' => 'https://schema.org', '@type' => 'HomeAndConstructionBusiness', 'name' => 'СЭРГЭ', 'url' => site_url() . '/',
+        'logo' => site_url() . '/assets/img/favicon.svg', 'telephone' => $c['phone'], 'email' => $c['email'],
+        'address' => array('@type' => 'PostalAddress', 'streetAddress' => $c['address'], 'addressCountry' => 'RU'),
+        'areaServed' => 'Республика Саха (Якутия)', 'openingHours' => $c['hours']));
+}
+function article_ld($s) {
+    return ld_script(array('@context' => 'https://schema.org', '@type' => 'Article', 'headline' => $s['title'], 'description' => $s['preview'],
+        'image' => site_url() . '/' . ltrim($s['image'], '/'), 'datePublished' => $s['published_at'],
+        'author' => array('@type' => 'Organization', 'name' => 'СЭРГЭ'), 'publisher' => array('@type' => 'Organization', 'name' => 'СЭРГЭ')));
+}
+
 // путь к CSS/JS: если рядом есть минимизированная версия (tools/minify.sh), берём её; добавляем версию для сброса кэша
 function asset($path) {
     $root = __DIR__ . '/../';

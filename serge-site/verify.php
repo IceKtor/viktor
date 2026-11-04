@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 if ($state === null && $wait_email) $state = 'wait';
-$page_title = 'Подтверждение почты — СЭРГЭ';
+$noindex = true; $page_title = 'Подтверждение почты — СЭРГЭ';
 $active = '';
 require __DIR__ . '/includes/header.php';
 ?>

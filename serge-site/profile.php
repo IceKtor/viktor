@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-$page_title = 'Профиль — СЭРГЭ';
+$noindex = true; $page_title = 'Профиль — СЭРГЭ';
 $active = '';
 require __DIR__ . '/includes/header.php';
 ?>

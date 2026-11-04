@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-$page_title = 'Вход — СЭРГЭ';
+$noindex = true; $page_title = 'Вход — СЭРГЭ';
 $page_desc = 'Вход в личный кабинет клиента СЭРГЭ.';
 $active = '';
 require __DIR__ . '/includes/header.php';

@@ -29,6 +29,12 @@ function pun($name, $active, $href, $text) {
     <?php if ($base_href): ?><base href="<?= e(site_url()) ?>/"><?php endif; ?>
     <title><?= e($page_title) ?></title>
     <meta name="description" content="<?= e($page_desc) ?>">
+    <meta property="og:type" content="<?= isset($og_type) ? e($og_type) : 'website' ?>">
+    <meta property="og:site_name" content="СЭРГЭ">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:url" content="<?= e($canonical) ?>">
+    <meta property="og:image" content="<?= e(site_url() . '/' . ltrim(isset($og_image) ? $og_image : 'assets/img/hero.webp', '/')) ?>">
+    <meta name="twitter:card" content="summary_large_image">
     <meta property="og:title" content="<?= e($page_title) ?>">
     <meta property="og:description" content="<?= e($page_desc) ?>">
     <?php if ($noindex): ?><meta name="robots" content="noindex"><?php else: ?><link rel="canonical" href="<?= e($canonical) ?>"><?php endif; ?>
@@ -45,7 +51,7 @@ function pun($name, $active, $href, $text) {
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"></noscript>
     <link rel="stylesheet" href="<?= e(asset('assets/css/style.css')) ?>">
     <script>document.documentElement.className += ' js';setTimeout(function(){if(!window.sergeOk){document.documentElement.className=document.documentElement.className.replace(' js','');}},2500);</script>
-    <?php if ($crumbs) echo breadcrumbs_ld($crumbs), "\n"; ?>
+    <?php if ($crumbs) echo breadcrumbs_ld($crumbs), "\n"; if (!empty($ld_extra)) echo $ld_extra, "\n"; ?>
 </head>
 <body>
 

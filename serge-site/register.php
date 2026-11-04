@@ -37,7 +37,7 @@ if (MAIL_ENABLED && $_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-$page_title = 'Регистрация — СЭРГЭ';
+$noindex = true; $page_title = 'Регистрация — СЭРГЭ';
 $active = '';
 require __DIR__ . '/includes/header.php';
 ?>
