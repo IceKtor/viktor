@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (mb_strlen($name) < 2 || mb_strlen($name) > 100) $err['name'] = 'Укажите имя: от 2 до 100 символов';
         if ($email !== '' && !$mail) $err['email'] = 'Проверьте адрес почты';
         if (!$err && $mail && db_val('SELECT id FROM users WHERE email = ? AND id <> ?', array($mail, $u['id']))) $err['email'] = 'Эта почта уже используется';
-        if (!$err) { db_exec('UPDATE users SET name = ?, email = ? WHERE id = ?', array($name, $mail, $u['id'])); $ok = 'Данные сохранены'; $u['name'] = $name; $u['email'] = $mail; }
+        if (!$err) { db_exec('UPDATE users SET name = ?, email = ? WHERE id = ?', array($name, $mail, $u['id'])); $ok = 'Данные сохранены'; $u['name'] = $name; if ($mail && $mail !== $u['email'] && MAIL_ENABLED) { $ok .= email_verify_send($u['id']) ? '. На новую почту отправлено письмо: подтвердите её, иначе при следующем входе понадобится подтверждение' : '. Письмо для подтверждения отправить не удалось'; } $u['email'] = $mail; }
     }
 }
 

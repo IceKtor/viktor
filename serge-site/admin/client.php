@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!$err && $email && db_val('SELECT id FROM users WHERE email = ? AND id <> ?', array($email, $id))) $err['email'] = 'Эта почта уже используется';
         if (!$err) {
             if ($u) {
-                db_exec('UPDATE users SET name = ?, phone = ?, email = ? WHERE id = ?', array($v['name'], $phone, $email, $id));
+                db_exec('UPDATE users SET name = ?, phone = ?, email = ?, email_verified_at = COALESCE(email_verified_at, NOW()) WHERE id = ?', array($v['name'], $phone, $email, $id));
                 audit('client_edit', 'user', $id);
                 adm_back('client.php?id=' . $id, 'ok', 'Сохранено');
             }

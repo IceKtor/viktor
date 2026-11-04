@@ -31,7 +31,7 @@ require __DIR__ . '/includes/header.php';
 
         <form class="forma forma--uzkaya" method="post" action="login.php" novalidate>
             <?= csrf_field() ?>
-            <?php if ($error): ?><p class="oshibka oshibka--obshaya" role="alert"><?= e($error) ?></p><?php endif; ?>
+            <?php if ($error): ?><p class="oshibka oshibka--obshaya" role="alert"><?= e($error) ?><?= $error === UNVERIFIED_MSG ? ' <a class="ssylka" href="verify.php">Отправить письмо ещё раз</a>' : '' ?></p><?php endif; ?>
             <div class="pole">
                 <label for="login">Телефон или e-mail</label>
                 <input type="text" id="login" name="login" autocomplete="username" inputmode="email" placeholder="+7 900 000-00-00" value="<?= e($login) ?>" required autofocus>

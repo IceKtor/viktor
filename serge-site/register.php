@@ -14,11 +14,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $v['email'] = trim(isset($_POST['email']) ? $_POST['email'] : '');
     $pass = isset($_POST['password']) ? (string)$_POST['password'] : '';
     $phone = norm_phone($v['phone']);
-    $email = $v['email'] === '' ? null : norm_email($v['email']);
+    $email = norm_email($v['email']);
     $ipk = rl_ip();
     if (mb_strlen($v['name']) < 2 || mb_strlen($v['name']) > 100) $err['name'] = 'Укажите имя: от 2 до 100 символов';
     if (!$phone) $err['phone'] = 'Укажите российский номер телефона, например +7 900 000-00-00';
-    if ($v['email'] !== '' && !$email) $err['email'] = 'Проверьте адрес почты';
+    if (!$email) $err['email'] = $v['email'] === '' ? 'Укажите почту: на неё придёт письмо для подтверждения' : 'Проверьте адрес почты';
     if (($m = password_problem($pass)) !== null) $err['password'] = $m;
     if (empty($_POST['consent'])) $err['consent'] = 'Нужно согласие на обработку данных';
     if (!$err && rl_count('register', $ipk, 3600) >= 5) $err['common'] = 'Слишком много регистраций с вашего адреса. Попробуйте позже или позвоните нам.';
@@ -29,6 +29,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!$err) {
         rl_hit('register', $ipk);
         $id = user_create('client', $v['name'], $phone, $email, $pass, 'self', 0);
+        if (MAIL_ENABLED) {
+            $sent = email_verify_send($id);
+            flash_set($sent ? 'ok' : 'err', $sent ? 'Аккаунт создан. Мы отправили письмо на ' . $email . ': откройте ссылку в нём, чтобы войти (проверьте и папку «Спам»).' : 'Аккаунт создан, но письмо отправить не удалось. Запросите его ещё раз на странице подтверждения.');
+            redirect($sent ? 'login.php' : 'verify.php');
+        }
         session_regenerate_id(true);
         acc_session(); $_SESSION['uid'] = $id;
         flash_set('ok', 'Аккаунт создан. Добро пожаловать!');
@@ -60,8 +65,9 @@ require __DIR__ . '/includes/header.php';
                 <?= f_err($err, 'phone') ?>
             </div>
             <div class="pole<?= isset($err['email']) ? ' est-oshibka' : '' ?>">
-                <label for="email">Почта <span class="melko">(необязательно)</span></label>
-                <input type="email" id="email" name="email" autocomplete="email" placeholder="name@mail.ru" value="<?= e($v['email']) ?>">
+                <label for="email">Почта</label>
+                <input type="email" id="email" name="email" autocomplete="email" placeholder="name@mail.ru" value="<?= e($v['email']) ?>" required>
+                <?= MAIL_ENABLED ? '<p class="melko">Пришлём письмо со ссылкой для подтверждения</p>' : '' ?>
                 <?= f_err($err, 'email') ?>
             </div>
             <div class="pole<?= isset($err['password']) ? ' est-oshibka' : '' ?>">

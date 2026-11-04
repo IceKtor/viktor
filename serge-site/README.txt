@@ -85,3 +85,7 @@ GitHub Pages не выполняет PHP, поэтому сайт выгружа
 
 Обновление существующей базы (тариф клиента, страница tarify.php):
   ALTER TABLE users ADD COLUMN tariff ENUM('free','vip') NOT NULL DEFAULT 'free' AFTER is_active;
+
+Обновление существующей базы (подтверждение почты при регистрации):
+  ALTER TABLE users ADD COLUMN email_verified_at DATETIME NULL AFTER is_active, ADD COLUMN email_token CHAR(64) NULL AFTER email_verified_at, ADD COLUMN email_token_expires DATETIME NULL AFTER email_token;
+  UPDATE users SET email_verified_at = created_at WHERE email_verified_at IS NULL;   -- уже существующие аккаунты считаются подтверждёнными

@@ -91,6 +91,9 @@ CREATE TABLE IF NOT EXISTS users (
     password_hash        VARCHAR(255) NOT NULL,
     must_change_password TINYINT(1) NOT NULL DEFAULT 0,  -- 1: пароль выдан администратором, при первом входе его нужно сменить
     is_active            TINYINT(1) NOT NULL DEFAULT 1,
+    email_verified_at    DATETIME NULL,                              -- NULL: почта не подтверждена (вход закрыт, если включена почта)
+    email_token          CHAR(64) NULL,                              -- SHA-256 от токена из письма
+    email_token_expires  DATETIME NULL,
     tariff               ENUM('free','vip') NOT NULL DEFAULT 'free',  -- VIP отмечает менеджер, онлайн-оплаты нет
     created_via          ENUM('self','admin','install') NOT NULL DEFAULT 'self',
     created_at           DATETIME NOT NULL,

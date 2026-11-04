@@ -114,6 +114,7 @@ function require_admin() {
 function site_root_rel() { return (basename(dirname($_SERVER['SCRIPT_NAME'])) === 'admin') ? '../' : ''; }
 
 // ---------- вход ----------
+define('UNVERIFIED_MSG', 'Почта ещё не подтверждена. Откройте ссылку из письма или запросите новое.');
 // возвращает array(пользователь|null, текст ошибки|null)
 function auth_login($login, $password) {
     $login = trim((string)$login);
@@ -136,6 +137,7 @@ function auth_login($login, $password) {
         return array(null, 'Неверный телефон, почта или пароль');
     }
     rl_clear('login', $kLogin);
+    if (MAIL_ENABLED && $row['role'] === 'client' && $row['email'] && !$row['email_verified_at']) return array(null, UNVERIFIED_MSG);
     session_regenerate_id(true);
     $_SESSION['uid'] = (int)$row['id'];
     db_exec('UPDATE users SET last_login_at = NOW() WHERE id = ?', array($row['id']));
@@ -151,8 +153,20 @@ function auth_logout() {
 
 // создаёт пользователя; возвращает id. $mustChange = 1, если пароль выдан администратором
 function user_create($role, $name, $phone, $email, $password, $via, $mustChange) {
-    return db_insert('INSERT INTO users (role, name, phone, email, password_hash, must_change_password, created_via, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, NOW())',
-        array($role, $name, $phone, $email, password_hash($password, PASSWORD_DEFAULT), $mustChange ? 1 : 0, $via));
+    // почту подтверждают только клиенты, зарегистрировавшиеся сами, и только если на сайте настроена отправка писем
+    $verified = ($via !== 'self' || !MAIL_ENABLED) ? 1 : 0;
+    return db_insert('INSERT INTO users (role, name, phone, email, password_hash, must_change_password, created_via, email_verified_at, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, IF(?, NOW(), NULL), NOW())',
+        array($role, $name, $phone, $email, password_hash($password, PASSWORD_DEFAULT), $mustChange ? 1 : 0, $via, $verified));
+}
+
+// ---------- подтверждение почты ----------
+// письмо со ссылкой на verify.php; токен живёт 24 часа, в базе хранится только его хэш
+function email_verify_send($uid) {
+    $u = db_row('SELECT id, name, email FROM users WHERE id = ?', array($uid));
+    if (!$u || !$u['email']) return false;
+    $t = bin2hex(random_bytes(24));
+    db_exec('UPDATE users SET email_verified_at = NULL, email_token = ?, email_token_expires = DATE_ADD(NOW(), INTERVAL 24 HOUR) WHERE id = ?', array(hash('sha256', $t), $uid));
+    return notify_verify_email($u['email'], $u['name'], site_url() . '/verify.php?t=' . $t);
 }
 
 function audit($action, $entity = null, $entityId = null, $details = null) {
