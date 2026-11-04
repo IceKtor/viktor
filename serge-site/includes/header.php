@@ -44,7 +44,7 @@ function pun($name, $active, $href, $text) {
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"></noscript>
     <link rel="stylesheet" href="<?= e(asset('assets/css/style.css')) ?>">
-    <script>document.documentElement.className += ' js';</script>
+    <script>document.documentElement.className += ' js';setTimeout(function(){if(!window.sergeOk){document.documentElement.className=document.documentElement.className.replace(' js','');}},2500);</script>
     <?php if ($crumbs) echo breadcrumbs_ld($crumbs), "\n"; ?>
 </head>
 <body>

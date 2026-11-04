@@ -1,6 +1,7 @@
 // общий скрипт: шапка, меню, появление блоков, шаги на главной
 
 (function () {
+    window.sergeOk = true; // сигнал для страховки в header.php
     var shapka = document.getElementById('shapka');
     var gamburger = document.getElementById('gamburger');
     var menyu = document.getElementById('menyu');
