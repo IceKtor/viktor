@@ -70,6 +70,15 @@ function smtp_send($to, $subject, $body, &$err) {
     return $ok;
 }
 
+// адрес сайта для писем. Яндекс отклоняет письма, где есть ссылка с http:// на нерабочий домен вроде serge.local,
+// поэтому для локальных адресов схема убирается (ссылку можно вставить в браузер); на настоящем домене остаётся https://...
+function mail_site() {
+    $u = site_url();
+    $host = parse_url($u, PHP_URL_HOST);
+    if ($host && !preg_match('/\.[a-z]{2,}$/i', $host) || preg_match('/\.(local|localhost|test|lan)$/i', (string)$host)) return preg_replace('~^https?://~i', '', $u);
+    return $u;
+}
+
 // ---------- оформление писем ----------
 // из текста письма делает два варианта: обычный (с подписью компании) и HTML (шапка, текст, реквизиты)
 function mail_wrap($body) {
@@ -93,7 +102,7 @@ function mail_wrap($body) {
 // ---------- тексты писем ----------
 // текст сообщения с выданным доступом
 function notify_access_text($name, $login, $password) {
-    return 'Здравствуйте, ' . $name . '! Ваш доступ в личный кабинет СЭРГЭ: ' . site_url() . '/login.php' . "\n"
+    return 'Здравствуйте, ' . $name . '! Ваш доступ в личный кабинет СЭРГЭ: ' . mail_site() . '/login.php' . "\n"
         . 'Логин: ' . $login . "\n" . 'Временный пароль: ' . $password . "\n"
         . 'При первом входе замените пароль на свой.';
 }
@@ -104,7 +113,7 @@ function notify_lead_confirm($email, $name, $leadId, $calcText) {
     $t = 'Здравствуйте, ' . $name . "!\n\nМы получили вашу заявку № " . (int)$leadId . ' и скоро перезвоним (' . $c['hours'] . ").\n";
     if ($calcText) $t .= "\nВаш расчёт: " . $calcText . "\nЭто предварительная оценка, а не смета: точную стоимость мы назовём после проектирования и осмотра участка.\n";
     $t .= "\nЕсли захотите что-то уточнить, позвоните нам: " . $c['phone'] . ".\n\n"
-        . 'Вы получили это письмо, потому что оставили заявку на сайте ' . site_url() . '. Если это были не вы, просто проигнорируйте письмо.';
+        . 'Вы получили это письмо, потому что оставили заявку на сайте ' . mail_site() . '. Если это были не вы, просто проигнорируйте письмо.';
     return notify_send('email', $email, $t, 'СЭРГЭ: мы получили вашу заявку № ' . (int)$leadId);
 }
 
@@ -114,7 +123,7 @@ function notify_lead_manager($leadId, $name, $phone, $message, $calcText) {
     $t = 'Новая заявка № ' . (int)$leadId . " с сайта.\n\nИмя: " . $name . "\nТелефон: " . $phone . "\n";
     if ($message) $t .= 'Сообщение: ' . $message . "\n";
     if ($calcText) $t .= 'Расчёт: ' . $calcText . "\n";
-    $t .= "\nОткрыть заявку: " . site_url() . '/admin/lead.php?id=' . (int)$leadId;
+    $t .= "\nОткрыть заявку: " . mail_site() . '/admin/lead.php?id=' . (int)$leadId;
     return notify_send('email', MAIL_NOTIFY, $t, 'СЭРГЭ: новая заявка № ' . (int)$leadId);
 }
 
@@ -129,7 +138,7 @@ function notify_lead_status($email, $name, $leadId, $status) {
 
 // клиенту: подключён VIP-тариф
 function notify_vip($email, $name) {
-    $t = 'Здравствуйте, ' . $name . "!\n\nВам подключён VIP-тариф СЭРГЭ: фотоотчёты по объекту, подробная смета, сравнение расчётов, приоритетная заявка и личный менеджер.\nЧто входит в тариф: " . site_url() . '/tarify.php';
+    $t = 'Здравствуйте, ' . $name . "!\n\nВам подключён VIP-тариф СЭРГЭ: фотоотчёты по объекту, подробная смета, сравнение расчётов, приоритетная заявка и личный менеджер.\nЧто входит в тариф: " . mail_site() . '/tarify.php';
     return notify_send('email', $email, $t, 'СЭРГЭ: подключён VIP-тариф');
 }
 

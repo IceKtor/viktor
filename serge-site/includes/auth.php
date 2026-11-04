@@ -166,7 +166,7 @@ function email_verify_send($uid) {
     if (!$u || !$u['email']) return false;
     $t = bin2hex(random_bytes(24));
     db_exec('UPDATE users SET email_verified_at = NULL, email_token = ?, email_token_expires = DATE_ADD(NOW(), INTERVAL 24 HOUR) WHERE id = ?', array(hash('sha256', $t), $uid));
-    return notify_verify_email($u['email'], $u['name'], site_url() . '/verify.php?t=' . $t);
+    return notify_verify_email($u['email'], $u['name'], mail_site() . '/verify.php?t=' . $t);
 }
 
 function audit($action, $entity = null, $entityId = null, $details = null) {
