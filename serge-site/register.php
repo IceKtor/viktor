@@ -73,7 +73,7 @@ require __DIR__ . '/includes/header.php';
                 <?= f_err($err, 'password') ?>
             </div>
             <div class="pole pole--galka<?= isset($err['consent']) ? ' est-oshibka' : '' ?>">
-                <label class="galka"><input type="checkbox" name="consent" value="1"<?= !empty($_POST['consent']) ? ' checked' : '' ?>> <span>Согласен(на) на <a class="ssylka" href="privacy.php" target="_blank" rel="noopener">обработку персональных данных</a></span></label>
+                <label class="galka"><input type="checkbox" name="consent" value="1"<?= !empty($_POST['consent']) ? ' checked' : '' ?>> <span>Даю согласие на обработку моих персональных данных (имя, телефон, почта) для связи со мной и работы с заявкой на условиях <a class="ssylka" href="privacy.php" target="_blank" rel="noopener">Политики обработки персональных данных</a>. Согласие можно отозвать, написав нам на почту</span></label>
                 <?= f_err($err, 'consent') ?>
             </div>
             <div class="knopki knopki--forma">

@@ -36,7 +36,7 @@ if (!isset($scripts)) $scripts = array();
         </div>
         <div class="futer__niz">
             <span>© СЭРГЭ, 2026</span>
-            <span>Контакты — демо-данные. Расчёт стоимости предварительный и не является сметой.<?php if (ACCOUNTS_ENABLED): ?> <a class="futer__ssylka" href="privacy.php">Политика конфиденциальности</a><?php endif; ?></span>
+            <span><?= company_is_demo() ? 'Контакты — демо-данные. ' : '' ?>Расчёт стоимости предварительный и не является сметой.<?php if (ACCOUNTS_ENABLED): ?> <a class="futer__ssylka" href="privacy.php">Политика конфиденциальности</a><?php endif; ?></span>
         </div>
     </div>
 </footer>

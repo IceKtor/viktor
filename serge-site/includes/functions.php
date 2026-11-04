@@ -217,6 +217,9 @@ function breadcrumbs_ld($crumbs) {
     return '<script type="application/ld+json">' . json_encode($ld, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . '</script>';
 }
 
+// пока в реквизитах стоят нули из демо-данных, сайт честно сообщает об этом
+function company_is_demo() { $k = repo_company(); return !isset($k['contacts']['requisites']) || strpos($k['contacts']['requisites'], '0000000000') !== false; }
+
 // разметка Schema.org: организация (главная) и статья (журнал)
 function ld_script($ld) { return '<script type="application/ld+json">' . json_encode($ld, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . '</script>'; }
 function organization_ld() {

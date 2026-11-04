@@ -94,6 +94,8 @@ CREATE TABLE IF NOT EXISTS users (
     email_verified_at    DATETIME NULL,                              -- NULL: почта не подтверждена (вход закрыт, если включена почта)
     email_token          CHAR(64) NULL,                              -- SHA-256 от токена из письма
     email_token_expires  DATETIME NULL,
+    consent_at           DATETIME NULL,                              -- когда клиент сам дал согласие на обработку данных (при регистрации)
+    consent_version      VARCHAR(20) NULL,                           -- редакция политики и согласия, которую он видел
     tariff               ENUM('free','vip') NOT NULL DEFAULT 'free',  -- vip = платное сопровождение, его отмечает менеджер, онлайн-оплаты нет
     created_via          ENUM('self','admin','install') NOT NULL DEFAULT 'self',
     created_at           DATETIME NOT NULL,
@@ -114,6 +116,7 @@ CREATE TABLE IF NOT EXISTS leads (
     user_id    INT NULL,                              -- клиент, к которому привязана заявка
     admin_note TEXT NULL,
     consent_at DATETIME NOT NULL,                     -- когда дано согласие на обработку данных
+    consent_version VARCHAR(20) NULL,                 -- редакция политики и согласия, которую видел человек
     created_at DATETIME NOT NULL,
     updated_at DATETIME NOT NULL,
     INDEX idx_leads_status (status, created_at),

@@ -29,6 +29,8 @@ if (!defined('UPLOAD_DIR')) define('UPLOAD_DIR', 'assets/uploads');
 
 // Почта (SMTP). Пусто = письма не отправляются. Для Яндекса: MAIL_HOST smtp.yandex.ru, порт 465, MAIL_SECURE 'ssl',
 // MAIL_USER - ваш адрес, MAIL_PASS - «пароль приложения» (не основной пароль). Значения - в includes/config.local.php.
+// редакция политики и текста согласия: записывается вместе с согласием; при изменении текста обновите дату
+if (!defined('CONSENT_VERSION')) define('CONSENT_VERSION', '2026-11-04');
 if (!defined('MAIL_HOST')) define('MAIL_HOST', '');
 if (!defined('MAIL_PORT')) define('MAIL_PORT', 465);
 if (!defined('MAIL_SECURE')) define('MAIL_SECURE', 'ssl');      // 'ssl' (порт 465), 'tls' (STARTTLS, порт 587) или '' (без шифрования, только для проверки)

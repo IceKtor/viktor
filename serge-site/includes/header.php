@@ -44,11 +44,7 @@ function pun($name, $active, $href, $text) {
     <link rel="preload" as="image" href="assets/img/hero-t.webp" media="(min-width: 641px) and (max-width: 1024px)" fetchpriority="high">
     <link rel="preload" as="image" href="assets/img/hero-m.webp" media="(max-width: 640px)" fetchpriority="high">
     <?php endif; ?>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <?php /* шрифт подгружается без блокировки отрисовки; пока он не пришёл, показывается Arial (display=swap) */ ?>
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"></noscript>
+    <link rel="preload" as="font" type="font/woff2" href="assets/fonts/manrope-cyrillic.woff2" crossorigin>
     <link rel="stylesheet" href="<?= e(asset('assets/css/style.css')) ?>">
     <script>document.documentElement.className += ' js';setTimeout(function(){if(!window.sergeOk){document.documentElement.className=document.documentElement.className.replace(' js','');}},2500);</script>
     <?php if ($crumbs) echo breadcrumbs_ld($crumbs), "\n"; if (!empty($ld_extra)) echo $ld_extra, "\n"; ?>

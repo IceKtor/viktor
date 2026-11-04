@@ -155,8 +155,9 @@ function auth_logout() {
 function user_create($role, $name, $phone, $email, $password, $via, $mustChange) {
     // почту подтверждают клиенты, зарегистрировавшиеся сами; созданные администратором и установщиком считаются подтверждёнными
     $verified = $via !== 'self' ? 1 : 0;
-    return db_insert('INSERT INTO users (role, name, phone, email, password_hash, must_change_password, created_via, email_verified_at, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, IF(?, NOW(), NULL), NOW())',
-        array($role, $name, $phone, $email, password_hash($password, PASSWORD_DEFAULT), $mustChange ? 1 : 0, $via, $verified));
+    $self = $via === 'self';   // согласие на обработку даёт только тот, кто регистрируется сам
+    return db_insert('INSERT INTO users (role, name, phone, email, password_hash, must_change_password, created_via, email_verified_at, consent_at, consent_version, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, IF(?, NOW(), NULL), IF(?, NOW(), NULL), ?, NOW())',
+        array($role, $name, $phone, $email, password_hash($password, PASSWORD_DEFAULT), $mustChange ? 1 : 0, $via, $verified, $self ? 1 : 0, $self ? CONSENT_VERSION : null));
 }
 
 // ---------- подтверждение почты ----------
@@ -202,6 +203,6 @@ function d_ru($s) { return $s ? date('d.m.Y', strtotime($s)) : '—'; }
 
 // заявка с сайта. $d: name, phone (только цифры), email, message, source, params (массив или null), user_id
 function lead_save($d) {
-    return db_insert('INSERT INTO leads (name, phone, email, message, source, params, status, user_id, consent_at, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, \'new\', ?, NOW(), NOW(), NOW())',
-        array($d['name'], $d['phone'], $d['email'], $d['message'], $d['source'], $d['params'] ? json_encode($d['params'], JSON_UNESCAPED_UNICODE) : null, $d['user_id']));
+    return db_insert('INSERT INTO leads (name, phone, email, message, source, params, status, user_id, consent_at, consent_version, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, \'new\', ?, NOW(), ?, NOW(), NOW())',
+        array($d['name'], $d['phone'], $d['email'], $d['message'], $d['source'], $d['params'] ? json_encode($d['params'], JSON_UNESCAPED_UNICODE) : null, $d['user_id'], CONSENT_VERSION));
 }

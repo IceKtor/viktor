@@ -88,4 +88,6 @@ GitHub Pages не выполняет PHP, поэтому сайт выгружа
 
 Обновление существующей базы (подтверждение почты при регистрации):
   ALTER TABLE users ADD COLUMN email_verified_at DATETIME NULL AFTER is_active, ADD COLUMN email_token CHAR(64) NULL AFTER email_verified_at, ADD COLUMN email_token_expires DATETIME NULL AFTER email_token;
+  ALTER TABLE users ADD COLUMN consent_at DATETIME NULL AFTER email_token_expires, ADD COLUMN consent_version VARCHAR(20) NULL AFTER consent_at;
+  ALTER TABLE leads ADD COLUMN consent_version VARCHAR(20) NULL AFTER consent_at;   -- согласие в уже сохранённых заявках остаётся без версии текста
   UPDATE users SET email_verified_at = created_at WHERE email_verified_at IS NULL;   -- уже существующие аккаунты считаются подтверждёнными

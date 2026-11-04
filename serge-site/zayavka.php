@@ -89,7 +89,7 @@ require __DIR__ . '/includes/header.php';
                 <div class="pole<?= isset($err['email']) ? ' est-oshibka' : '' ?>"><label for="email">Почта <span class="melko">(необязательно)</span></label><input type="email" id="email" name="email" autocomplete="email" value="<?= e($v['email']) ?>"><?= f_err($err, 'email') ?></div>
                 <div class="pole<?= isset($err['message']) ? ' est-oshibka' : '' ?>"><label for="message">Комментарий <span class="melko">(необязательно)</span></label><textarea id="message" name="message" rows="4" maxlength="1000"><?= e($v['message']) ?></textarea><?= f_err($err, 'message') ?></div>
                 <div class="pole pole--galka<?= isset($err['consent']) ? ' est-oshibka' : '' ?>">
-                    <label class="galka"><input type="checkbox" name="consent" value="1"<?= !empty($_POST['consent']) ? ' checked' : '' ?>> <span>Согласен(на) на <a class="ssylka" href="privacy.php" target="_blank" rel="noopener">обработку персональных данных</a></span></label>
+                    <label class="galka"><input type="checkbox" name="consent" value="1"<?= !empty($_POST['consent']) ? ' checked' : '' ?>> <span>Даю согласие на обработку моих персональных данных (имя, телефон, почта) для связи со мной и работы с заявкой на условиях <a class="ssylka" href="privacy.php" target="_blank" rel="noopener">Политики обработки персональных данных</a>. Согласие можно отозвать, написав нам на почту</span></label>
                     <?= f_err($err, 'consent') ?>
                 </div>
                 <div class="knopki knopki--forma"><button class="knopka knopka--cher" type="submit">Отправить заявку</button></div>
