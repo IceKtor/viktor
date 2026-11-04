@@ -37,6 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (mb_strlen($v['message']) > 1000) $err['message'] = 'Сообщение не длиннее 1000 символов';
     if (empty($_POST['consent'])) $err['consent'] = 'Нужно согласие на обработку данных';
     if (!empty($_POST['website'])) {            // скрытое поле-ловушка для роботов: человек его не видит и не заполняет
+        if ($topic !== 'reset') notify_lead_manager($lid, $v['name'], fmt_phone($phone), $v['message'], $calc ? $calc_text : '');
         redirect('zayavka.php?ok=1');
     }
     if (!$err && (rl_count('lead', rl_ip(), 3600) >= 5 || rl_count('lead', rl_key('ph|' . $phone), 86400) >= 3)) $err['common'] = 'Вы уже отправляли заявки. Мы свяжемся с вами, или позвоните нам по телефону.';

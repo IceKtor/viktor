@@ -80,3 +80,45 @@ function notify_lead_confirm($email, $name, $leadId, $calcText) {
         . 'Письмо отправлено автоматически, потому что вы оставили заявку на сайте ' . site_url() . '. Если это были не вы, просто проигнорируйте письмо.';
     return notify_send('email', $email, $t, 'СЭРГЭ: мы получили вашу заявку № ' . (int)$leadId);
 }
+
+// уведомление менеджеру о новой заявке (на MAIL_NOTIFY)
+function notify_lead_manager($leadId, $name, $phone, $message, $calcText) {
+    if (!MAIL_NOTIFY) return false;
+    $t = 'Новая заявка № ' . (int)$leadId . " с сайта.
+
+Имя: " . $name . "
+Телефон: " . $phone . "
+";
+    if ($message) $t .= 'Сообщение: ' . $message . "
+";
+    if ($calcText) $t .= 'Расчёт: ' . $calcText . "
+";
+    $t .= "
+Открыть: " . site_url() . '/admin/lead.php?id=' . (int)$leadId . "
+";
+    return notify_send('email', MAIL_NOTIFY, $t, 'СЭРГЭ: новая заявка № ' . (int)$leadId);
+}
+
+// клиенту: заявка взята в работу или заключён договор (для других статусов письмо не нужно)
+function notify_lead_status($email, $name, $leadId, $status) {
+    $text = array('in_work' => 'взята в работу, менеджер свяжется с вами', 'deal' => 'закрыта заключением договора, спасибо, что выбрали СЭРГЭ');
+    if (!isset($text[$status])) return false;
+    $c = site_contacts();
+    $t = 'Здравствуйте, ' . $name . "!
+
+Ваша заявка № " . (int)$leadId . ' ' . $text[$status] . ".
+Вопросы можно задать по телефону " . $c['phone'] . ".
+
+СЭРГЭ";
+    return notify_send('email', $email, $t, 'СЭРГЭ: заявка № ' . (int)$leadId . ' – статус изменён');
+}
+
+// клиенту: подключён VIP-тариф
+function notify_vip($email, $name) {
+    $t = 'Здравствуйте, ' . $name . "!
+
+Вам подключён VIP-тариф СЭРГЭ: фотоотчёты по объекту, подробная смета, сравнение расчётов, приоритетная заявка и личный менеджер. Что входит в тариф: " . site_url() . "/tarify.php
+
+СЭРГЭ";
+    return notify_send('email', $email, $t, 'СЭРГЭ: подключён VIP-тариф');
+}

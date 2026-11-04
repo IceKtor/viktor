@@ -27,13 +27,14 @@ if (!defined('ACCOUNTS_ENABLED')) define('ACCOUNTS_ENABLED', USE_DB && !defined(
 // публичная папка загрузок (фото домов, статей, этапов стройки); относительно корня сайта
 if (!defined('UPLOAD_DIR')) define('UPLOAD_DIR', 'assets/uploads');
 
-// Почта (SMTP). Пусто = письма не отправляются. Для Gmail: MAIL_HOST smtp.gmail.com, порт 465, MAIL_SECURE 'ssl',
+// Почта (SMTP). Пусто = письма не отправляются. Для Яндекса: MAIL_HOST smtp.yandex.ru, порт 465, MAIL_SECURE 'ssl',
 // MAIL_USER - ваш адрес, MAIL_PASS - «пароль приложения» (не основной пароль). Значения - в includes/config.local.php.
 if (!defined('MAIL_HOST')) define('MAIL_HOST', '');
 if (!defined('MAIL_PORT')) define('MAIL_PORT', 465);
 if (!defined('MAIL_SECURE')) define('MAIL_SECURE', 'ssl');      // 'ssl' (порт 465), 'tls' (STARTTLS, порт 587) или '' (без шифрования, только для проверки)
 if (!defined('MAIL_USER')) define('MAIL_USER', '');
 if (!defined('MAIL_PASS')) define('MAIL_PASS', '');
-if (!defined('MAIL_FROM')) define('MAIL_FROM', MAIL_USER);       // адрес отправителя; для Gmail совпадает с MAIL_USER
+if (!defined('MAIL_FROM')) define('MAIL_FROM', MAIL_USER);       // адрес отправителя; у Яндекса и Gmail совпадает с MAIL_USER
 if (!defined('MAIL_FROM_NAME')) define('MAIL_FROM_NAME', 'СЭРГЭ');
+if (!defined('MAIL_NOTIFY')) define('MAIL_NOTIFY', MAIL_USER);    // куда слать уведомления менеджеру о новых заявках
 if (!defined('MAIL_ENABLED')) define('MAIL_ENABLED', MAIL_HOST !== '' && MAIL_USER !== '' && MAIL_FROM !== '');

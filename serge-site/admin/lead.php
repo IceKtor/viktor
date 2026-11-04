@@ -11,6 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $st = post('status'); if (!isset(lead_statuses()[$st])) $st = $l['status'];
         db_exec('UPDATE leads SET status = ?, admin_note = ?, updated_at = NOW() WHERE id = ?', array($st, post('admin_note') ?: null, $id));
         audit('lead_save', 'lead', $id, 'статус: ' . $st);
+        if ($st !== $l['status'] && $l['email'] && MAIL_ENABLED) notify_lead_status($l['email'], $l['name'], $id, $st);
         adm_back('lead.php?id=' . $id, 'ok', 'Сохранено');
     } elseif ($do === 'make_account') {
         if ($l['user_id']) adm_back('lead.php?id=' . $id, 'info', 'Заявка уже привязана к клиенту');

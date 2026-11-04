@@ -47,6 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif ($u && $do === 'tariff') {
         db_exec('UPDATE users SET tariff = ? WHERE id = ?', array($u['tariff'] === 'vip' ? 'free' : 'vip', $id));
         audit('client_tariff', 'user', $id);
+        if ($u['tariff'] !== 'vip' && $u['email'] && MAIL_ENABLED) notify_vip($u['email'], $u['name']);
         adm_back('client.php?id=' . $id, 'ok', $u['tariff'] === 'vip' ? 'Тариф: бесплатный' : 'Тариф: VIP');
     } elseif ($u && $do === 'delete') {
         db_exec('DELETE FROM users WHERE id = ?', array($id));
