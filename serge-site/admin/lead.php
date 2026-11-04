@@ -103,7 +103,7 @@ adm_cred_show();
 </section>
 <?php if ($user):
     $objs = db_all('SELECT * FROM objects WHERE user_id = ? ORDER BY created_at DESC', array($user['id']));
-    $stg = repo_stages();
+    $stg = array_filter(repo_stages(), function ($s) { return isset($s['id']); });
 ?>
 <section class="adm-card">
     <h2>Ход строительства</h2>

@@ -22,10 +22,12 @@ function obj_notify($objId, $line) {
     $r = db_row('SELECT u.name, u.email, u.email_verified_at, o.title FROM objects o JOIN users u ON u.id = o.user_id WHERE o.id = ?', array($objId));
     if ($r && $r['email'] && $r['email_verified_at'] && MAIL_ENABLED) notify_object($r['email'], $r['name'], $r['title'], $line);
 }
-function obj_move($objId, $sid, $stages) {
+// сданный объект остаётся на 100 %; письмо отправляется, только если $notify
+function obj_move($objId, $sid, $stages, $notify = true) {
     $title = ''; foreach ($stages as $s) if ((int)$s['id'] === (int)$sid) $title = $s['title'];
-    db_exec("UPDATE objects SET current_stage_id = ?, progress = ?, status = IF(status = 'design', 'building', status) WHERE id = ?", array($sid, obj_progress($sid, $stages), $objId));
-    obj_notify($objId, 'Начат этап «' . $title . '», готовность ' . obj_progress($sid, $stages) . '%.');
+    $prog = obj_progress($sid, $stages);
+    db_exec("UPDATE objects SET current_stage_id = ?, progress = IF(status = 'done', 100, ?), status = IF(status = 'design', 'building', status) WHERE id = ?", array($sid, $prog, $objId));
+    if ($notify && db_val("SELECT status FROM objects WHERE id = ?", array($objId)) !== 'done') obj_notify($objId, 'Начат этап «' . $title . '», готовность ' . $prog . '%.');
 }
 function obj_progress($stageId, $stages) { $n = count($stages); foreach ($stages as $i => $s) if ((int)$s['id'] === (int)$stageId) return (int)floor($i / max(1, $n) * 100); return 0; }
 
@@ -52,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $prog = $v['progress'] !== '' ? (int)$v['progress'] : ($v['status'] === 'done' ? 100 : ($stage ? obj_progress($stage, $stages) : 0));
             if ($v['status'] === 'done') $prog = 100;
             $par = array($v['code'], (int)$v['user_id'], $v['house_id'] !== '' ? $v['house_id'] : null, $v['title'], $v['address'] ?: null, $v['contract_no'] ?: null, $v['status'], $stage, $prog, $v['started_at'] ?: null, $v['planned_end'] ?: null);
-            if ($o) { $par[] = $id; db_exec('UPDATE objects SET code=?, user_id=?, house_id=?, title=?, address=?, contract_no=?, status=?, current_stage_id=?, progress=?, started_at=?, planned_end=? WHERE id=?', $par); audit('object_edit', 'object', $id); if ($stageMoved) obj_notify($id, 'Начат этап «' . $stageOpts[$stage] . '», готовность ' . $prog . '%.'); if ($o['status'] !== 'done' && $v['status'] === 'done') obj_notify($id, 'Ваш дом сдан. Поздравляем!'); adm_back('object.php?id=' . $id, 'ok', 'Сохранено' . ($stageMoved ? '. Клиент увидит новый этап в кабинете' : '')); }
+            if ($o) { $par[] = $id; db_exec('UPDATE objects SET code=?, user_id=?, house_id=?, title=?, address=?, contract_no=?, status=?, current_stage_id=?, progress=?, started_at=?, planned_end=? WHERE id=?', $par); audit('object_edit', 'object', $id); if ($o['status'] !== 'done' && $v['status'] === 'done') obj_notify($id, 'Ваш дом сдан. Поздравляем!'); elseif ($stageMoved && $v['status'] !== 'done') obj_notify($id, 'Начат этап «' . $stageOpts[$stage] . '», готовность ' . $prog . '%.'); adm_back('object.php?id=' . $id, 'ok', 'Сохранено' . ($stageMoved ? '. Клиент увидит новый этап в кабинете' : '')); }
             $nid = db_insert('INSERT INTO objects (code, user_id, house_id, title, address, contract_no, status, current_stage_id, progress, started_at, planned_end, created_at) VALUES (?,?,?,?,?,?,?,?,?,?,?, NOW())', $par);
             audit('object_create', 'object', $nid); adm_back('object.php?id=' . $nid, 'ok', 'Объект создан. Клиент видит его в личном кабинете.');
         }
@@ -63,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($sid && !isset($stageOpts[$sid])) $sid = null;
         if ($perr) adm_back('object.php?id=' . $id, 'err', $perr);
         db_insert('INSERT INTO object_updates (object_id, stage_id, text, photo, is_visible, created_at) VALUES (?, ?, ?, ?, 1, NOW())', array($id, $sid, $text, $photo));
-        if (post('set_stage') && $sid) obj_move($id, $sid, $stages);
+        if (post('set_stage') && $sid) obj_move($id, $sid, $stages, false);
         if (post('notify')) obj_notify($id, $text);
         audit('object_update', 'object', $id);
         adm_back('object.php?id=' . $id, 'ok', 'Новость добавлена' . (post('set_stage') && $sid ? ', этап объекта обновлён' : ''));

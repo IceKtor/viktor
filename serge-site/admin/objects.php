@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../includes/admin_ui.php';
 $rows = db_all('SELECT o.*, u.name AS uname, u.phone AS uphone FROM objects o JOIN users u ON u.id = o.user_id ORDER BY o.status = \'done\', o.created_at DESC');
-$stt = array(); foreach (repo_stages() as $s) $stt[(int)$s['id']] = $s['title'];
+$stt = array(); foreach (repo_stages() as $s) if (isset($s['id'])) $stt[(int)$s['id']] = $s['title'];
 adm_head('Объекты строительства', 'objects');
 ?>
 <p><a class="knopka knopka--derevo" href="object.php">+ Новый объект</a></p>

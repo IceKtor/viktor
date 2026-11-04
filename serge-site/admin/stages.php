@@ -13,6 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 $rows = db_all('SELECT * FROM stages ORDER BY sort_order, id');
+$cnt = array(); foreach (db_all('SELECT current_stage_id AS s, COUNT(*) AS n FROM objects WHERE current_stage_id IS NOT NULL GROUP BY current_stage_id') as $c) $cnt[$c['s']] = $c['n'];
 adm_head('Этапы строительства', 'stages');
 ?>
 <p class="melko">Этапы показываются на главной странице, на странице «Строительство» и в кабинетах клиентов (цепочка этапов объекта). Порядок — по возрастанию числа.</p>
@@ -26,7 +27,7 @@ adm_head('Этапы строительства', 'stages');
         <?= fld('text', 'Подробно (страница «Строительство»)', $r['text'], array('type' => 'textarea', 'rows' => 3)) ?>
         <div class="adm-actions"><button class="knopka knopka--cher" type="submit">Сохранить</button></div>
     </form>
-    <form method="post" data-confirm="Удалить этап?<?= ($n = (int)db_val('SELECT COUNT(*) FROM objects WHERE current_stage_id = ?', array($r['id']))) ? ' Он текущий у объектов: ' . $n . ', у них этап сбросится.' : '' ?>" style="margin-top:8px"><?= csrf_field() ?><input type="hidden" name="do" value="delete"><input type="hidden" name="sid" value="<?= (int)$r['id'] ?>"><button class="knopka knopka--ramka adm-danger" type="submit">Удалить этап</button></form>
+    <form method="post" data-confirm="Удалить этап?<?= !empty($cnt[$r['id']]) ? ' Он текущий у объектов: ' . $cnt[$r['id']] . ', у них этап сбросится.' : '' ?>" style="margin-top:8px"><?= csrf_field() ?><input type="hidden" name="do" value="delete"><input type="hidden" name="sid" value="<?= (int)$r['id'] ?>"><button class="knopka knopka--ramka adm-danger" type="submit">Удалить этап</button></form>
 </details>
 <?php endforeach; ?>
 <h2>Добавить этап</h2>
