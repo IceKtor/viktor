@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $sent = notify_send('email', $l['email'], notify_access_text($l['name'], fmt_phone($l['phone']), $pass), 'Доступ в личный кабинет СЭРГЭ');
             $mailMsg = $sent ? ' Письмо с доступом отправлено на ' . $l['email'] . '.' : ' Письмо отправить не удалось (проверьте почту на странице «Почта»), передайте доступ вручную.';
         }
-        adm_back('lead.php?id=' . $id, 'ok', 'Кабинет клиента создан, статус заявки — «Договор заключён».' . $mailMsg);
+        adm_back('lead.php?id=' . $id, 'ok', 'Кабинет клиента создан, статус заявки — «Договор заключён». Ниже создайте объект: без него в кабинете не будет хода строительства.' . $mailMsg);
     } elseif ($do === 'link') {
         $uid = post_int('user_id');
         if ($uid && db_val("SELECT id FROM users WHERE id = ? AND role = 'client'", array($uid))) {
@@ -101,5 +101,25 @@ adm_cred_show();
         <?php endif; ?>
     <?php endif; ?>
 </section>
+<?php if ($user):
+    $objs = db_all('SELECT * FROM objects WHERE user_id = ? ORDER BY created_at DESC', array($user['id']));
+    $stg = repo_stages();
+?>
+<section class="adm-card">
+    <h2>Ход строительства</h2>
+    <?php if (!$objs): ?>
+        <p>У клиента ещё нет объекта, поэтому в кабинете нет хода строительства. Создайте объект: клиент и проект подставятся из заявки.</p>
+    <?php else: foreach ($objs as $o): ?>
+        <div class="adm-obj">
+            <p><a class="ssylka" href="object.php?id=<?= (int)$o['id'] ?>"><b><?= h($o['code']) ?></b> · <?= h($o['title']) ?></a> — <?= h(object_statuses()[$o['status']]) ?>, <?= (int)$o['progress'] ?>%</p>
+            <form class="adm-actions" method="post" action="object.php?id=<?= (int)$o['id'] ?>"><?= csrf_field() ?><input type="hidden" name="do" value="quick_stage"><input type="hidden" name="lead" value="<?= $id ?>">
+                <select name="stage_id" aria-label="Этап"><option value="">— перевести на этап —</option><?php foreach ($stg as $s): ?><option value="<?= (int)$s['id'] ?>"<?= (int)$s['id'] === (int)$o['current_stage_id'] ? ' selected' : '' ?>><?= h($s['title']) ?></option><?php endforeach; ?></select>
+                <button class="knopka knopka--derevo" type="submit">Сменить этап</button>
+                <a class="knopka knopka--ramka" href="object.php?id=<?= (int)$o['id'] ?>">Новости и фото</a></form>
+        </div>
+    <?php endforeach; endif; ?>
+    <p><a class="knopka knopka--ramka" href="object.php?lead=<?= $id ?>">+ Создать объект по заявке</a></p>
+</section>
+<?php endif; ?>
 <form method="post" data-confirm="Удалить заявку № <?= $id ?>? Это нельзя отменить."><?= csrf_field() ?><input type="hidden" name="do" value="delete"><button class="knopka knopka--ramka adm-danger" type="submit">Удалить заявку</button></form>
 <?php adm_foot();

@@ -136,6 +136,12 @@ function notify_lead_status($email, $name, $leadId, $status) {
     return notify_send('email', $email, $t, 'СЭРГЭ: заявка № ' . (int)$leadId . ' – статус изменён');
 }
 
+// клиенту: новое по объекту строительства (смена этапа, новость)
+function notify_object($email, $name, $title, $line) {
+    $t = 'Здравствуйте, ' . $name . "!\n\nПо вашему объекту «" . $title . "» есть новости:\n" . $line . "\n\nПодробности и фотографии в личном кабинете: " . mail_site() . '/cabinet.php';
+    return notify_send('email', $email, $t, 'СЭРГЭ: новости по объекту');
+}
+
 // клиенту: подключено платное сопровождение
 function notify_vip($email, $name) {
     $t = 'Здравствуйте, ' . $name . "!\n\nВам подключено сопровождение СЭРГЭ: проверка сметы, технадзор на этапах строительства, расчёт фундамента и личный менеджер. Состав и условия: " . mail_site() . '/tarify.php';

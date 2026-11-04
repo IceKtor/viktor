@@ -26,7 +26,7 @@ adm_head('Этапы строительства', 'stages');
         <?= fld('text', 'Подробно (страница «Строительство»)', $r['text'], array('type' => 'textarea', 'rows' => 3)) ?>
         <div class="adm-actions"><button class="knopka knopka--cher" type="submit">Сохранить</button></div>
     </form>
-    <form method="post" data-confirm="Удалить этап?" style="margin-top:8px"><?= csrf_field() ?><input type="hidden" name="do" value="delete"><input type="hidden" name="sid" value="<?= (int)$r['id'] ?>"><button class="knopka knopka--ramka adm-danger" type="submit">Удалить этап</button></form>
+    <form method="post" data-confirm="Удалить этап?<?= ($n = (int)db_val('SELECT COUNT(*) FROM objects WHERE current_stage_id = ?', array($r['id']))) ? ' Он текущий у объектов: ' . $n . ', у них этап сбросится.' : '' ?>" style="margin-top:8px"><?= csrf_field() ?><input type="hidden" name="do" value="delete"><input type="hidden" name="sid" value="<?= (int)$r['id'] ?>"><button class="knopka knopka--ramka adm-danger" type="submit">Удалить этап</button></form>
 </details>
 <?php endforeach; ?>
 <h2>Добавить этап</h2>
