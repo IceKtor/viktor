@@ -425,6 +425,10 @@ h3, .h3 { font-size: 20px; line-height: 1.25; font-weight: 700; }
 
 /* калькулятор */
 .podskazka { margin-top: 22px; padding: 12px 18px; background: rgba(128,106,84,.12); border-left: 4px solid var(--derevo); border-radius: 8px; font-size: 14px; max-width: 620px; }
+.podskazka + .knopki, .podskazka + p, .podskazka + form, .podskazka + .forma { margin-top: 32px; }
+.vnutri--forma { padding-bottom: 56px; }
+.vnutri--forma .knopki { margin-top: 28px; }
+.vnutri--forma .knopki--forma { margin-top: 10px; }
 .calc { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 34px; align-items: start; }
 .forma { background: var(--sneg); border: 1px solid var(--liniya); border-radius: 24px; padding: 34px; display: flex; flex-direction: column; gap: 20px; }
 .pole { display: flex; flex-direction: column; gap: 7px; }
