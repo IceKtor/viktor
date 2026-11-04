@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Проекты домов — каталог СЭРГЭ</title>
+    <meta name="description" content="Каталог проектов частных домов для Якутии: площадь, этажность, материал стен и тип фундамента. Выберите проект и рассчитайте стоимость.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="СЭРГЭ">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:url" content="https://icektor.github.io/viktor/catalog.html">
+    <meta property="og:image" content="https://icektor.github.io/viktor/assets/img/hero.webp">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="og:title" content="Проекты домов — каталог СЭРГЭ">
+    <meta property="og:description" content="Каталог проектов частных домов для Якутии: площадь, этажность, материал стен и тип фундамента. Выберите проект и рассчитайте стоимость.">
+    <link rel="canonical" href="https://icektor.github.io/viktor/catalog.html">    <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+        <link rel="preload" as="font" type="font/woff2" href="assets/fonts/manrope-cyrillic.woff2" crossorigin>
+    <link rel="stylesheet" href="assets/css/style.min.css?v=1793797243">
+    <script>document.documentElement.className += ' js';setTimeout(function(){if(!window.sergeOk){document.documentElement.className=document.documentElement.className.replace(' js','');}},2500);</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://icektor.github.io/viktor/index.html"},{"@type":"ListItem","position":2,"name":"Проекты домов","item":"https://icektor.github.io/viktor/catalog.html"}]}</script>
+</head>
+<body>
+
+<header class="shapka" id="shapka">
+    <div class="vnutri shapka__vnutri">
+        <a class="logo" href="index.html">
+            <b>СЭРГЭ</b>
+            <span>строительство домов</span>
+        </a>
+
+        <nav class="menyu" id="menyu" aria-label="Главное меню">
+            <a href="catalog.html" class="aktiv" aria-current="page">Дома</a>            <a href="stroitelstvo.html">Строительство</a>            <a href="catalog.html">Проекты</a>            <a href="company.html">О компании</a>            <a href="zhurnal.html">Журнал</a>                        <a class="knopka knopka--derevo menyu__knopka" href="calculator.html">Рассчитать стоимость →</a>
+        </nav>
+
+        <div class="shapka__pravo">
+            <a class="tel" href="tel:+79999999999">+7 (999) 999-99-99</a>
+            <a class="knopka knopka--cher shapka__knopka" href="calculator.html">Рассчитать стоимость →</a>
+                        <button class="gamburger" id="gamburger" type="button" aria-label="Открыть меню" aria-expanded="false">
+                <i></i><i></i><i></i>
+            </button>
+        </div>
+    </div>
+</header>
+
+<main class="stranica">
+    <div class="vnutri">
+        <div class="nadpis nadpis--derevo">КАТАЛОГ</div>
+        <h1 class="zag-stranicy">Проекты домов</h1>
+        <p class="seryj seryj--shirokij">Выберите готовую концепцию или адаптируйте проект под свой участок.</p>
+
+                <div class="filtry" id="filtry">
+            <label>Сортировка
+                <select id="f-sort">
+                    <option value="">По умолчанию</option>
+                    <option value="area-up">Площадь: по возрастанию</option>
+                    <option value="area-down">Площадь: по убыванию</option>
+                    <option value="price-up">Цена: по возрастанию</option>
+                    <option value="price-down">Цена: по убыванию</option>
+                </select>
+            </label>
+            <label>Этажность
+                <select id="f-floors">
+                    <option value="">Любая</option>
+                                        <option value="1">1 этаж</option>
+                                        <option value="2">2 этажа</option>
+                                    </select>
+            </label>
+            <label>Спальни
+                <select id="f-bedrooms">
+                    <option value="">Любое число</option>
+                                        <option value="2">2 спальни</option>
+                                        <option value="3">3 спальни</option>
+                                        <option value="4">4 спальни</option>
+                                        <option value="5">5 спален</option>
+                                    </select>
+            </label>
+            <label>Материал стен
+                <select id="f-material">
+                    <option value="">Любой</option>
+                                        <option value="gazobeton">Газобетон</option>
+                                        <option value="brus">Брус</option>
+                                    </select>
+            </label>
+            <label>Фундамент
+                <select id="f-foundation">
+                    <option value="">Любой</option>
+                                        <option value="svai">Свайно-ростверковый</option>
+                                        <option value="lenta">Ленточный</option>
+                                    </select>
+            </label>
+            <label>Цена, до
+                <select id="f-price">
+                    <option value="">Любая</option>
+                                        <option value="2000000">2 000 000 ₽</option>
+                                        <option value="4000000">4 000 000 ₽</option>
+                                        <option value="6000000">6 000 000 ₽</option>
+                                        <option value="8000000">8 000 000 ₽</option>
+                                        <option value="10000000">10 000 000 ₽</option>
+                                        <option value="12000000">12 000 000 ₽</option>
+                                        <option value="14000000">14 000 000 ₽</option>
+                                    </select>
+            </label>
+            <div class="filtry__galki">
+                <label class="galka"><input type="checkbox" id="f-garage"> Гараж</label>
+                <label class="galka"><input type="checkbox" id="f-terrace"> Терраса</label>
+            </div>
+            <button class="knopka knopka--ramka filtry__sbros" id="f-sbros" type="button">Сбросить</button>
+        </div>
+
+        <div class="naideno">Найдено проектов: <b id="naideno">6</b></div>
+
+        <div class="doma doma--katalog" id="spisok">
+                <a class="dom" href="house-serge-120.html"
+       data-area="120" data-floors="2"
+       data-material="gazobeton" data-foundation="svai"
+       data-bedrooms="3" data-garage="0" data-terrace="0"
+       data-price="5865000">
+        <div class="dom__foto"><img src="assets/img/serge-120-1.webp" alt="СЭРГЭ 120" width="1000" height="750" loading="lazy"></div>
+        <div class="dom__tekst">
+            <h2 class="h3">СЭРГЭ 120</h2>
+            <div class="para">
+                <span>120 м²</span>
+                <span>2 этажа</span>
+                <span>3 спальни</span>
+            </div>
+            <div class="para para--melko para--tekst">Газобетон · фундамент свайно-ростверковый</div>
+            <div class="cena">от <b>5 865 000 ₽</b></div>
+            <span class="ssylka">Смотреть дом →</span>
+        </div>
+    </a>
+        <a class="dom" href="house-serge-90.html"
+       data-area="90" data-floors="1"
+       data-material="brus" data-foundation="svai"
+       data-bedrooms="2" data-garage="0" data-terrace="0"
+       data-price="5400000">
+        <div class="dom__foto"><img src="assets/img/serge-90-1.webp" alt="СЭРГЭ 90" width="1000" height="750" loading="lazy"></div>
+        <div class="dom__tekst">
+            <h2 class="h3">СЭРГЭ 90</h2>
+            <div class="para">
+                <span>90 м²</span>
+                <span>1 этаж</span>
+                <span>2 спальни</span>
+            </div>
+            <div class="para para--melko para--tekst">Брус · фундамент свайно-ростверковый</div>
+            <div class="cena">от <b>5 400 000 ₽</b></div>
+            <span class="ssylka">Смотреть дом →</span>
+        </div>
+    </a>
+        <a class="dom" href="house-serge-160.html"
+       data-area="160" data-floors="2"
+       data-material="brus" data-foundation="svai"
+       data-bedrooms="4" data-garage="0" data-terrace="1"
+       data-price="9660000">
+        <div class="dom__foto"><img src="assets/img/serge-160-1.webp" alt="СЭРГЭ 160" width="1000" height="750" loading="lazy"></div>
+        <div class="dom__tekst">
+            <h2 class="h3">СЭРГЭ 160</h2>
+            <div class="para">
+                <span>160 м²</span>
+                <span>2 этажа</span>
+                <span>4 спальни</span>
+            </div>
+            <div class="para para--melko para--tekst">Брус · фундамент свайно-ростверковый</div>
+            <div class="cena">от <b>9 660 000 ₽</b></div>
+            <span class="ssylka">Смотреть дом →</span>
+        </div>
+    </a>
+        <a class="dom" href="house-serge-140.html"
+       data-area="140" data-floors="2"
+       data-material="gazobeton" data-foundation="lenta"
+       data-bedrooms="3" data-garage="1" data-terrace="0"
+       data-price="6601000">
+        <div class="dom__foto"><img src="assets/img/serge-140-1.webp" alt="СЭРГЭ 140" width="1000" height="750" loading="lazy"></div>
+        <div class="dom__tekst">
+            <h2 class="h3">СЭРГЭ 140</h2>
+            <div class="para">
+                <span>140 м²</span>
+                <span>2 этажа</span>
+                <span>3 спальни</span>
+            </div>
+            <div class="para para--melko para--tekst">Газобетон · фундамент ленточный</div>
+            <div class="cena">от <b>6 601 000 ₽</b></div>
+            <span class="ssylka">Смотреть дом →</span>
+        </div>
+    </a>
+        <a class="dom" href="house-serge-100.html"
+       data-area="100" data-floors="1"
+       data-material="gazobeton" data-foundation="lenta"
+       data-bedrooms="3" data-garage="0" data-terrace="0"
+       data-price="4700000">
+        <div class="dom__foto"><img src="assets/img/serge-100-1.webp" alt="СЭРГЭ 100" width="1000" height="750" loading="lazy"></div>
+        <div class="dom__tekst">
+            <h2 class="h3">СЭРГЭ 100</h2>
+            <div class="para">
+                <span>100 м²</span>
+                <span>1 этаж</span>
+                <span>3 спальни</span>
+            </div>
+            <div class="para para--melko para--tekst">Газобетон · фундамент ленточный</div>
+            <div class="cena">от <b>4 700 000 ₽</b></div>
+            <span class="ssylka">Смотреть дом →</span>
+        </div>
+    </a>
+        <a class="dom" href="house-serge-200.html"
+       data-area="200" data-floors="2"
+       data-material="brus" data-foundation="svai"
+       data-bedrooms="5" data-garage="1" data-terrace="1"
+       data-price="12075000">
+        <div class="dom__foto"><img src="assets/img/serge-200-1.webp" alt="СЭРГЭ 200" width="1000" height="750" loading="lazy"></div>
+        <div class="dom__tekst">
+            <h2 class="h3">СЭРГЭ 200</h2>
+            <div class="para">
+                <span>200 м²</span>
+                <span>2 этажа</span>
+                <span>5 спален</span>
+            </div>
+            <div class="para para--melko para--tekst">Брус · фундамент свайно-ростверковый</div>
+            <div class="cena">от <b>12 075 000 ₽</b></div>
+            <span class="ssylka">Смотреть дом →</span>
+        </div>
+    </a>
+            </div>
+
+        <div class="pusto" id="pusto" hidden>
+            <h2 class="h3">По таким параметрам ничего не нашлось</h2>
+            <p>Попробуйте убрать часть фильтров.</p>
+            <button class="knopka knopka--cher" id="pusto-sbros" type="button">Сбросить фильтры</button>
+        </div>
+
+        <div class="primechanie">
+            Цена «от» посчитана по той же модели, что и в калькуляторе, на расценках от 01.10.2023. Это ориентир, а не смета.
+        </div>
+    </div>
+</main>
+
+<footer class="futer">
+    <div class="vnutri">
+        <div class="futer__setka">
+            <div class="futer__brend">
+                <b>СЭРГЭ</b>
+                <p>Дом, рассчитанный на Север.</p>
+            </div>
+            <div class="futer__kol">
+                <div class="futer__zag">Разделы</div>
+                <a href="index.html">Главная</a>
+                <a href="catalog.html">Каталог проектов</a>
+                <a href="calculator.html">Калькулятор стоимости</a>
+                <a href="stroitelstvo.html">Строительство</a>
+                <a href="company.html">О компании</a>
+                <a href="zhurnal.html">Журнал</a>
+                <a href="tarify.php">Тарифы</a>
+            </div>
+            <div class="futer__kol">
+                <div class="futer__zag">Проекты</div>
+                                    <a href="house-serge-120.html">СЭРГЭ 120</a>
+                                    <a href="house-serge-90.html">СЭРГЭ 90</a>
+                                    <a href="house-serge-160.html">СЭРГЭ 160</a>
+                                    <a href="house-serge-140.html">СЭРГЭ 140</a>
+                            </div>
+            <div class="futer__kol">
+                <div class="futer__zag">Контакты</div>
+                <a href="tel:+79999999999">+7 (999) 999-99-99</a>
+                <a href="mailto:info@serge-house.ru">info@serge-house.ru</a>
+                <span>г. Якутск, ул. Ленина, 1</span>
+                <span>Пн–Сб, 9:00–19:00</span>
+                            </div>
+        </div>
+        <div class="futer__niz">
+            <span>© СЭРГЭ, 2026</span>
+            <span>Контакты — демо-данные. Расчёт стоимости предварительный и не является сметой.</span>
+        </div>
+    </div>
+</footer>
+
+<div class="nizpanel">
+    <a class="nizpanel__zvonok" href="tel:+79999999999">Позвонить</a>
+    <a class="nizpanel__schet" href="calculator.html">Рассчитать</a>
+</div>
+
+<script src="assets/js/main.min.js?v=1793797243" defer></script>
+<script src="assets/js/modal.min.js?v=1793797243" defer></script>
+<script src="assets/js/catalog.min.js?v=1793797243" defer></script>
+</body>
+</html>
