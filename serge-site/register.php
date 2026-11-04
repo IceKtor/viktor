@@ -7,7 +7,9 @@ require_once __DIR__ . '/includes/account_page.php';
 if (current_user()) redirect('cabinet.php');
 
 $err = array(); $v = array('name' => '', 'phone' => '', 'email' => '');
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+// без настроенной почты подтвердить адрес нельзя, поэтому регистрация закрыта
+if (!MAIL_ENABLED) $err['common'] = 'Регистрация временно недоступна: на сайте не настроена отправка писем для подтверждения почты. Позвоните нам или оставьте заявку.';
+if (MAIL_ENABLED && $_SERVER['REQUEST_METHOD'] === 'POST') {
     csrf_require();
     $v['name'] = trim(isset($_POST['name']) ? $_POST['name'] : '');
     $v['phone'] = trim(isset($_POST['phone']) ? $_POST['phone'] : '');
@@ -29,15 +31,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!$err) {
         rl_hit('register', $ipk);
         $id = user_create('client', $v['name'], $phone, $email, $pass, 'self', 0);
-        if (MAIL_ENABLED) {
-            $sent = email_verify_send($id);
-            acc_session(); $_SESSION['verify_email'] = $email; $_SESSION['verify_sent'] = $sent ? 1 : 0;
-            redirect('verify.php');
-        }
-        session_regenerate_id(true);
-        acc_session(); $_SESSION['uid'] = $id;
-        flash_set('ok', 'Аккаунт создан. Добро пожаловать!');
-        redirect('cabinet.php');
+        $sent = email_verify_send($id);
+        acc_session(); $_SESSION['verify_email'] = $email; $_SESSION['verify_sent'] = $sent ? 1 : 0;
+        redirect('verify.php');
     }
 }
 
@@ -81,7 +77,7 @@ require __DIR__ . '/includes/header.php';
                 <?= f_err($err, 'consent') ?>
             </div>
             <div class="knopki knopki--forma">
-                <button class="knopka knopka--cher" type="submit">Создать аккаунт</button>
+                <button class="knopka knopka--cher" type="submit"<?= MAIL_ENABLED ? '' : ' disabled' ?>>Создать аккаунт</button>
             </div>
         </form>
         <div class="vspom"><p>Уже есть аккаунт? <a class="ssylka" href="login.php">Войти</a></p></div>

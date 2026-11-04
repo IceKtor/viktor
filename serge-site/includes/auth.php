@@ -137,7 +137,7 @@ function auth_login($login, $password) {
         return array(null, 'Неверный телефон, почта или пароль');
     }
     rl_clear('login', $kLogin);
-    if (MAIL_ENABLED && $row['role'] === 'client' && $row['email'] && !$row['email_verified_at']) return array(null, UNVERIFIED_MSG);
+    if ($row['role'] === 'client' && $row['email'] && !$row['email_verified_at']) return array(null, UNVERIFIED_MSG);
     session_regenerate_id(true);
     $_SESSION['uid'] = (int)$row['id'];
     db_exec('UPDATE users SET last_login_at = NOW() WHERE id = ?', array($row['id']));
@@ -153,8 +153,8 @@ function auth_logout() {
 
 // создаёт пользователя; возвращает id. $mustChange = 1, если пароль выдан администратором
 function user_create($role, $name, $phone, $email, $password, $via, $mustChange) {
-    // почту подтверждают только клиенты, зарегистрировавшиеся сами, и только если на сайте настроена отправка писем
-    $verified = ($via !== 'self' || !MAIL_ENABLED) ? 1 : 0;
+    // почту подтверждают клиенты, зарегистрировавшиеся сами; созданные администратором и установщиком считаются подтверждёнными
+    $verified = $via !== 'self' ? 1 : 0;
     return db_insert('INSERT INTO users (role, name, phone, email, password_hash, must_change_password, created_via, email_verified_at, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, IF(?, NOW(), NULL), NOW())',
         array($role, $name, $phone, $email, password_hash($password, PASSWORD_DEFAULT), $mustChange ? 1 : 0, $via, $verified));
 }
