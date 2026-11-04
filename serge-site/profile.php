@@ -21,6 +21,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             flash_set('ok', 'Пароль изменён');
             redirect($u['role'] === 'admin' ? 'admin/' : 'cabinet.php');
         }
+    } elseif ($do === 'delete' && !$force && $u['role'] === 'client') {
+        if (!password_verify(isset($_POST['pass']) ? (string)$_POST['pass'] : '', $u['password_hash'])) $err['del'] = 'Пароль указан неверно';
+        elseif (empty($_POST['sure'])) $err['del'] = 'Отметьте, что понимаете последствия';
+        if (!$err) {
+            audit('account_delete', 'user', $u['id']);
+            db_exec('DELETE FROM users WHERE id = ?', array($u['id']));   // объекты и новости удаляются каскадом, заявки остаются без привязки
+            auth_logout();
+            acc_session(); flash_set('ok', 'Аккаунт удалён');
+            redirect('login.php');
+        }
     } elseif ($do === 'data' && !$force) {
         $name = trim(isset($_POST['name']) ? $_POST['name'] : '');
         $email = trim(isset($_POST['email']) ? $_POST['email'] : '');
@@ -61,6 +71,16 @@ require __DIR__ . '/includes/header.php';
             <div class="pole<?= isset($err['new']) ? ' est-oshibka' : '' ?>"><label for="new">Новый пароль</label><input type="password" id="new" name="new" autocomplete="new-password" required><p class="melko">Не короче 8 символов, с буквой и цифрой</p><?= f_err($err, 'new') ?></div>
             <div class="knopki knopki--forma"><button class="knopka knopka--cher" type="submit">Сменить пароль</button></div>
         </form>
+        <?php if (!$force && $u['role'] === 'client'): ?>
+        <form class="forma forma--uzkaya" method="post" action="profile.php" novalidate onsubmit="return confirm('Удалить аккаунт? Это нельзя отменить.')">
+            <?= csrf_field() ?><input type="hidden" name="do" value="delete">
+            <h2 class="h3">Удаление аккаунта</h2>
+            <p class="melko">Будут удалены ваш аккаунт, объекты строительства и новости по ним. Заявки останутся у компании без привязки к аккаунту и хранятся по правилам <a class="ssylka" href="privacy.php">политики конфиденциальности</a>.</p>
+            <div class="pole<?= isset($err['del']) ? ' est-oshibka' : '' ?>"><label for="pass">Пароль для подтверждения</label><input type="password" id="pass" name="pass" autocomplete="current-password" required><?= f_err($err, 'del') ?></div>
+            <div class="pole pole--galka"><label class="galka"><input type="checkbox" name="sure" value="1"> <span>Понимаю, что это нельзя отменить</span></label></div>
+            <div class="knopki knopki--forma"><button class="knopka knopka--ramka" type="submit">Удалить аккаунт</button></div>
+        </form>
+        <?php endif; ?>
         <p class="melko"><a class="ssylka" href="<?= $u['role'] === 'admin' ? 'admin/' : 'cabinet.php' ?>">← Назад</a></p>
     </div>
 </main>
