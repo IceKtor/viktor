@@ -44,6 +44,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         db_exec('UPDATE users SET is_active = 1 - is_active WHERE id = ?', array($id));
         audit('client_toggle', 'user', $id);
         adm_back('client.php?id=' . $id, 'ok', $u['is_active'] ? 'Доступ отключён' : 'Доступ включён');
+    } elseif ($u && $do === 'tariff') {
+        db_exec('UPDATE users SET tariff = ? WHERE id = ?', array($u['tariff'] === 'vip' ? 'free' : 'vip', $id));
+        audit('client_tariff', 'user', $id);
+        adm_back('client.php?id=' . $id, 'ok', $u['tariff'] === 'vip' ? 'Тариф: бесплатный' : 'Тариф: VIP');
     } elseif ($u && $do === 'delete') {
         db_exec('DELETE FROM users WHERE id = ?', array($id));
         audit('client_delete', 'user', $id, $u['name']);
@@ -75,12 +79,14 @@ adm_cred_show();
         <dt>Создан</dt><dd><?= h(dt_ru($u['created_at'])) ?> (<?= $u['created_via'] === 'self' ? 'зарегистрировался сам' : 'создан администратором' ?>)</dd>
         <dt>Последний вход</dt><dd><?= h(dt_ru($u['last_login_at'])) ?></dd>
         <dt>Пароль</dt><dd><?= $u['must_change_password'] ? 'выдан администратором, клиент ещё не сменил' : 'задан клиентом' ?></dd>
+        <dt>Тариф</dt><dd><?= $u['tariff'] === 'vip' ? 'VIP' : 'бесплатный' ?></dd>
         <dt>Состояние</dt><dd><?= $u['is_active'] ? 'доступ включён' : 'доступ отключён' ?></dd>
     </dl>
     <div class="adm-actions" style="margin-top:14px">
         <form method="post" onsubmit="return confirm('Выдать новый пароль? Старый перестанет работать.')"><?= csrf_field() ?><input type="hidden" name="do" value="reset"><button class="knopka knopka--derevo" type="submit">Сбросить пароль</button>
             <?php if ($u['email'] && MAIL_ENABLED): ?><?= chk('send_mail', 'отправить письмом на ' . $u['email'], 0) ?><?php endif; ?></form>
         <form method="post"><?= csrf_field() ?><input type="hidden" name="do" value="toggle"><button class="knopka knopka--ramka" type="submit"><?= $u['is_active'] ? 'Отключить доступ' : 'Включить доступ' ?></button></form>
+        <form method="post"><?= csrf_field() ?><input type="hidden" name="do" value="tariff"><button class="knopka knopka--ramka" type="submit"><?= $u['tariff'] === 'vip' ? 'Снять VIP' : 'Выдать VIP' ?></button></form>
         <form method="post" onsubmit="return confirm('Удалить клиента и все его объекты? Это нельзя отменить.')"><?= csrf_field() ?><input type="hidden" name="do" value="delete"><button class="knopka knopka--ramka adm-danger" type="submit">Удалить</button></form>
     </div>
 </section>

@@ -39,7 +39,7 @@ foreach (glob($out . '/assets/js/*.js') as $f) file_put_contents($f, fix(file_ge
 
 $houses = json_decode(file_get_contents($root . '/data/houses.json'), true);
 if (isset($houses['houses'])) $houses = $houses['houses'];
-$pages = array('index', 'catalog', 'calculator', 'stroitelstvo', 'company', 'zhurnal', '404');
+$pages = array('index', 'catalog', 'calculator', 'stroitelstvo', 'company', 'zhurnal', 'tarify', '404');
 $urls = array('', 'catalog.html', 'calculator.html', 'stroitelstvo.html', 'company.html', 'zhurnal.html');
 foreach ($pages as $p) file_put_contents("$out/$p.html", fix(render($root, "$p.php")));
 foreach ($houses as $h) {

@@ -82,3 +82,6 @@ GitHub Pages не выполняет PHP, поэтому сайт выгружа
   если отметить галочку «отправить письмом». Ошибки почты на приём заявок не влияют (пишутся в журнал ошибок PHP).
   Если в Open Server письма не уходят из-за сертификатов, в php.ini задайте openssl.cafile (путь к cacert.pem).
   SMS пока заглушка (includes/notify.php, TODO(SMS)).
+
+Обновление существующей базы (тариф клиента, страница tarify.php):
+  ALTER TABLE users ADD COLUMN tariff ENUM('free','vip') NOT NULL DEFAULT 'free' AFTER is_active;

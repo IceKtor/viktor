@@ -17,6 +17,7 @@ if (!isset($scripts)) $scripts = array();
                 <a href="stroitelstvo.php">Строительство</a>
                 <a href="company.php">О компании</a>
                 <a href="zhurnal.php">Журнал</a>
+                <a href="tarify.php">Тарифы</a>
             </div>
             <div class="futer__kol">
                 <div class="futer__zag">Проекты</div>

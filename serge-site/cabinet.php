@@ -23,6 +23,7 @@ require __DIR__ . '/includes/header.php';
                 <form method="post" action="logout.php"><?= csrf_field() ?><button class="knopka knopka--ramka" type="submit">Выйти</button></form>
             </div>
         </div>
+        <p class="seryj">Тариф: <?= $u['tariff'] === 'vip' ? 'VIP' : 'бесплатный' ?>. <a href="tarify.php">Что входит в тарифы</a></p>
         <?php foreach (flash_get() as $f): ?><div class="<?= $f[0] === 'ok' ? 'uspeh' : 'podskazka' ?>"><?= e($f[1]) ?></div><?php endforeach; ?>
 
         <h2 class="h2--malenkij cab-zag">Мои объекты</h2>
