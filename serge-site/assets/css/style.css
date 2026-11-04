@@ -905,3 +905,4 @@ code { font-family: 'Courier New', monospace; background: rgba(17,18,17,.06); pa
 .tarif__spisok { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; font-size: 14px; }
 .tarif__spisok li::before { content: "– "; }
 @media (max-width: 720px) { .tarify { grid-template-columns: 1fr; } }
+.tarif__note { margin: 14px 0 28px; }
