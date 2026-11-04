@@ -18,8 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $uid = db_val('SELECT id FROM users WHERE email = ? AND role = \'client\' AND email_verified_at IS NULL AND is_active = 1', array($email));
         // не чаще 3 писем в сутки на адрес; ответ один и тот же, чтобы страница не выдавала, есть ли такой адрес
         if ($uid && rl_count('mail', rl_key('vf|' . $email), 86400) < 3) {
-            rl_hit('mail', rl_key('vf|' . $email));
-            email_verify_send((int)$uid);
+            if (email_verify_send((int)$uid)) rl_hit('mail', rl_key('vf|' . $email));   // в лимит идут только отправленные письма
         }
         $state = $wait_email ? 'wait' : 'sent';
         if ($wait_email) $_SESSION['verify_sent'] = 1;
