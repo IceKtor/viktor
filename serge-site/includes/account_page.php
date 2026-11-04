@@ -20,3 +20,4 @@ if (!ACCOUNTS_ENABLED || !repo_db_ok()) {
 }
 require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/notify.php';
+acc_session(); // cookie сессии должен уйти до вывода страницы, иначе без output_buffering первая форма даёт «Форма устарела»
