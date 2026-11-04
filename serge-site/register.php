@@ -31,8 +31,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $id = user_create('client', $v['name'], $phone, $email, $pass, 'self', 0);
         if (MAIL_ENABLED) {
             $sent = email_verify_send($id);
-            flash_set($sent ? 'ok' : 'err', $sent ? 'Аккаунт создан. Мы отправили письмо на ' . $email . ': откройте ссылку в нём, чтобы войти (проверьте и папку «Спам»).' : 'Аккаунт создан, но письмо отправить не удалось. Запросите его ещё раз на странице подтверждения.');
-            redirect($sent ? 'login.php' : 'verify.php');
+            acc_session(); $_SESSION['verify_email'] = $email; $_SESSION['verify_sent'] = $sent ? 1 : 0;
+            redirect('verify.php');
         }
         session_regenerate_id(true);
         acc_session(); $_SESSION['uid'] = $id;

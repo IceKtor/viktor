@@ -2,10 +2,12 @@
 // подтверждение почты: переход по ссылке из письма и повторная отправка письма
 require_once __DIR__ . '/includes/account_page.php';
 
-$state = null; $msg = null;   // state: ok | bad | sent
+$state = null; $msg = null;   // state: ok | bad | sent | wait
+acc_session();
+$wait_email = isset($_SESSION['verify_email']) ? $_SESSION['verify_email'] : null;   // адрес из только что пройденной регистрации
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     csrf_require();
-    $email = norm_email(isset($_POST['email']) ? $_POST['email'] : '');
+    $email = norm_email(isset($_POST['email']) ? $_POST['email'] : ($wait_email ?: ''));
     $ipk = rl_ip();
     if (!$email) {
         $msg = 'Проверьте адрес почты';
@@ -19,18 +21,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             rl_hit('mail', rl_key('vf|' . $email));
             email_verify_send((int)$uid);
         }
-        $state = 'sent';
+        $state = $wait_email ? 'wait' : 'sent';
+        if ($wait_email) $_SESSION['verify_sent'] = 1;
     }
 } elseif (!empty($_GET['t']) && is_string($_GET['t'])) {
     $uid = db_val('SELECT id FROM users WHERE email_token = ? AND email_token_expires > NOW() AND email_verified_at IS NULL', array(hash('sha256', $_GET['t'])));
     if ($uid) {
         db_exec('UPDATE users SET email_verified_at = NOW(), email_token = NULL, email_token_expires = NULL WHERE id = ?', array($uid));
         $state = 'ok';
+        unset($_SESSION['verify_email'], $_SESSION['verify_sent']);
     } else {
         $state = 'bad';
     }
 }
 
+if ($state === null && $wait_email) $state = 'wait';
 $page_title = 'Подтверждение почты — СЭРГЭ';
 $active = '';
 require __DIR__ . '/includes/header.php';
@@ -44,6 +49,15 @@ require __DIR__ . '/includes/header.php';
         <?php if ($state === 'ok'): ?>
             <div class="uspeh">Почта подтверждена. Теперь можно войти в личный кабинет.</div>
             <div class="knopki"><a class="knopka knopka--cher" href="login.php">Войти →</a></div>
+        <?php elseif ($state === 'wait'): ?>
+            <p class="seryj">Последний шаг регистрации: подтвердите почту. <?= !empty($_SESSION['verify_sent']) ? 'Мы отправили письмо со ссылкой на <strong>' . e($wait_email) . '</strong>.' : 'Не удалось отправить письмо на <strong>' . e($wait_email) . '</strong>.' ?> Откройте ссылку в письме (проверьте и папку «Спам»), после этого можно войти.</p>
+            <form class="forma forma--uzkaya" method="post" action="verify.php" novalidate>
+                <?= csrf_field() ?>
+                <div class="knopki knopki--forma">
+                    <button class="knopka knopka--cher" type="submit">Отправить письмо ещё раз</button>
+                    <a class="knopka knopka--ramka" href="login.php">Войти</a>
+                </div>
+            </form>
         <?php else: ?>
             <?php if ($state === 'bad'): ?><p class="oshibka oshibka--obshaya" role="alert">Ссылка недействительна или устарела. Запросите новое письмо.</p><?php endif; ?>
             <?php if ($state === 'sent'): ?><div class="uspeh">Если такой адрес ждёт подтверждения, мы отправили на него письмо. Проверьте и папку «Спам».</div><?php endif; ?>
