@@ -224,7 +224,7 @@ function organization_ld() {
     return ld_script(array('@context' => 'https://schema.org', '@type' => 'HomeAndConstructionBusiness', 'name' => 'СЭРГЭ', 'url' => site_url() . '/',
         'logo' => site_url() . '/assets/img/favicon.svg', 'telephone' => $c['phone'], 'email' => $c['email'],
         'address' => array('@type' => 'PostalAddress', 'streetAddress' => $c['address'], 'addressCountry' => 'RU'),
-        'areaServed' => 'Республика Саха (Якутия)', 'openingHours' => $c['hours']));
+        'areaServed' => 'Республика Саха (Якутия)'));   // часы работы не выводим: у них свободный текст, а схеме нужен формат Mo-Sa 09:00-19:00
 }
 function article_ld($s) {
     return ld_script(array('@context' => 'https://schema.org', '@type' => 'Article', 'headline' => $s['title'], 'description' => $s['preview'],
