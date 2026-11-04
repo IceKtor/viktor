@@ -921,3 +921,4 @@ code { font-family: 'Courier New', monospace; background: rgba(17,18,17,.06); pa
 .modal__knopki { display: flex; justify-content: flex-end; gap: 10px; margin-top: 22px; flex-wrap: wrap; }
 body.modal-otkryto { overflow: hidden; }
 @media (max-width: 520px) { .modal__okno { padding: 26px 20px 20px; border-radius: 20px; } .modal__knopki .knopka { flex: 1; } }
+.princip h3 + .tarif__spisok { margin-top: 14px; }

@@ -94,7 +94,7 @@ CREATE TABLE IF NOT EXISTS users (
     email_verified_at    DATETIME NULL,                              -- NULL: почта не подтверждена (вход закрыт, если включена почта)
     email_token          CHAR(64) NULL,                              -- SHA-256 от токена из письма
     email_token_expires  DATETIME NULL,
-    tariff               ENUM('free','vip') NOT NULL DEFAULT 'free',  -- VIP отмечает менеджер, онлайн-оплаты нет
+    tariff               ENUM('free','vip') NOT NULL DEFAULT 'free',  -- vip = платное сопровождение, его отмечает менеджер, онлайн-оплаты нет
     created_via          ENUM('self','admin','install') NOT NULL DEFAULT 'self',
     created_at           DATETIME NOT NULL,
     last_login_at        DATETIME NULL
