@@ -50,17 +50,44 @@ function smtp_send($to, $subject, $body, &$err) {
     if ($ok && MAIL_PASS !== '') $ok = smtp_cmd($fp, 'AUTH LOGIN', 334, $err) && smtp_cmd($fp, base64_encode(MAIL_USER), 334, $err) && smtp_cmd($fp, base64_encode(MAIL_PASS), 235, $err);
     $ok = $ok && smtp_cmd($fp, 'MAIL FROM:<' . MAIL_FROM . '>', 250, $err) && smtp_cmd($fp, 'RCPT TO:<' . $to . '>', array(250, 251), $err) && smtp_cmd($fp, 'DATA', 354, $err);
     if ($ok) {
+        $bd = 'b' . bin2hex(random_bytes(8));
+        list($plain, $html) = mail_wrap($body);
+        $b64 = function ($t) { return chunk_split(base64_encode($t), 76, "\r\n"); };
         $h = 'From: =?UTF-8?B?' . base64_encode(MAIL_FROM_NAME) . '?= <' . MAIL_FROM . ">\r\n"
             . 'To: <' . $to . ">\r\n"
             . 'Subject: =?UTF-8?B?' . base64_encode($subject) . "?=\r\n"
             . 'Date: ' . date('r') . "\r\n"
-            . 'Message-ID: <' . bin2hex(random_bytes(8)) . '@' . ($domain ?: 'localhost') . ">\r\n"
-            . "MIME-Version: 1.0\r\nContent-Type: text/plain; charset=UTF-8\r\nContent-Transfer-Encoding: base64\r\n\r\n";
-        fwrite($fp, $h . chunk_split(base64_encode($body), 76, "\r\n") . "\r\n.\r\n");
+            . 'Message-ID: <' . bin2hex(random_bytes(8)) . '@' . substr(strrchr(MAIL_FROM, '@'), 1) . ">\r\n"
+            . "Auto-Submitted: auto-generated\r\n"
+            . "MIME-Version: 1.0\r\nContent-Type: multipart/alternative; boundary=\"$bd\"\r\n\r\n";
+        $msg = "--$bd\r\nContent-Type: text/plain; charset=UTF-8\r\nContent-Transfer-Encoding: base64\r\n\r\n" . $b64($plain)
+            . "--$bd\r\nContent-Type: text/html; charset=UTF-8\r\nContent-Transfer-Encoding: base64\r\n\r\n" . $b64($html)
+            . "--$bd--\r\n";
+        fwrite($fp, $h . $msg . ".\r\n");
         $ok = smtp_cmd($fp, null, 250, $err);
     }
     if ($fp) { @fwrite($fp, "QUIT\r\n"); @fclose($fp); }
     return $ok;
+}
+
+// ---------- оформление писем ----------
+// из текста письма делает два варианта: обычный (с подписью компании) и HTML (шапка, текст, реквизиты)
+function mail_wrap($body) {
+    $c = function_exists('site_contacts') ? site_contacts() : array('phone' => '', 'address' => '');
+    $co = function_exists('repo_company') ? repo_company() : array();
+    $req = isset($co['contacts']['requisites']) ? $co['contacts']['requisites'] : '';
+    $sig = array_filter(array('СЭРГЭ — дом, рассчитанный на Север', $req, trim($c['address'] . ', ' . $c['phone'], ', '), 'Письмо отправлено автоматически, отвечать на него не нужно.'), 'strlen');
+    $plain = $body . "\n\n-- \n" . implode("\n", $sig) . "\n";
+    $esc = function ($t) { return htmlspecialchars($t, ENT_QUOTES, 'UTF-8'); };
+    $text = preg_replace('~(https?://[^\s<]+)~u', '<a href="$1" style="color:#7a5a3c">$1</a>', nl2br($esc($body)));
+    $foot = implode('<br>', array_map($esc, $sig));
+    $html = '<!DOCTYPE html><html lang="ru"><body style="margin:0;padding:24px 12px;background:#f2f0eb;font-family:Arial,Helvetica,sans-serif;color:#111">'
+        . '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden">'
+        . '<tr><td style="background:#111;color:#fff;padding:22px 28px;font-size:22px;letter-spacing:3px;font-weight:bold">СЭРГЭ<div style="font-size:11px;letter-spacing:2px;font-weight:normal;color:#bbb;margin-top:4px">СТРОИТЕЛЬСТВО ДОМОВ</div></td></tr>'
+        . '<tr><td style="padding:28px;font-size:15px;line-height:1.6">' . $text . '</td></tr>'
+        . '<tr><td style="padding:18px 28px;background:#faf9f6;border-top:1px solid #e5e1d8;font-size:12px;line-height:1.6;color:#777">' . $foot . '</td></tr>'
+        . '</table></body></html>';
+    return array($plain, $html);
 }
 
 // ---------- тексты писем ----------
@@ -76,26 +103,18 @@ function notify_lead_confirm($email, $name, $leadId, $calcText) {
     $c = site_contacts();
     $t = 'Здравствуйте, ' . $name . "!\n\nМы получили вашу заявку № " . (int)$leadId . ' и скоро перезвоним (' . $c['hours'] . ").\n";
     if ($calcText) $t .= "\nВаш расчёт: " . $calcText . "\nЭто предварительная оценка, а не смета: точную стоимость мы назовём после проектирования и осмотра участка.\n";
-    $t .= "\nЕсли захотите что-то уточнить, позвоните нам: " . $c['phone'] . ".\n\nСЭРГЭ — дом, рассчитанный на Север.\n" . $c['address'] . "\n\n"
-        . 'Письмо отправлено автоматически, потому что вы оставили заявку на сайте ' . site_url() . '. Если это были не вы, просто проигнорируйте письмо.';
+    $t .= "\nЕсли захотите что-то уточнить, позвоните нам: " . $c['phone'] . ".\n\n"
+        . 'Вы получили это письмо, потому что оставили заявку на сайте ' . site_url() . '. Если это были не вы, просто проигнорируйте письмо.';
     return notify_send('email', $email, $t, 'СЭРГЭ: мы получили вашу заявку № ' . (int)$leadId);
 }
 
 // уведомление менеджеру о новой заявке (на MAIL_NOTIFY)
 function notify_lead_manager($leadId, $name, $phone, $message, $calcText) {
     if (!MAIL_NOTIFY) return false;
-    $t = 'Новая заявка № ' . (int)$leadId . " с сайта.
-
-Имя: " . $name . "
-Телефон: " . $phone . "
-";
-    if ($message) $t .= 'Сообщение: ' . $message . "
-";
-    if ($calcText) $t .= 'Расчёт: ' . $calcText . "
-";
-    $t .= "
-Открыть: " . site_url() . '/admin/lead.php?id=' . (int)$leadId . "
-";
+    $t = 'Новая заявка № ' . (int)$leadId . " с сайта.\n\nИмя: " . $name . "\nТелефон: " . $phone . "\n";
+    if ($message) $t .= 'Сообщение: ' . $message . "\n";
+    if ($calcText) $t .= 'Расчёт: ' . $calcText . "\n";
+    $t .= "\nОткрыть заявку: " . site_url() . '/admin/lead.php?id=' . (int)$leadId;
     return notify_send('email', MAIL_NOTIFY, $t, 'СЭРГЭ: новая заявка № ' . (int)$leadId);
 }
 
@@ -104,21 +123,12 @@ function notify_lead_status($email, $name, $leadId, $status) {
     $text = array('in_work' => 'взята в работу, менеджер свяжется с вами', 'deal' => 'закрыта заключением договора, спасибо, что выбрали СЭРГЭ');
     if (!isset($text[$status])) return false;
     $c = site_contacts();
-    $t = 'Здравствуйте, ' . $name . "!
-
-Ваша заявка № " . (int)$leadId . ' ' . $text[$status] . ".
-Вопросы можно задать по телефону " . $c['phone'] . ".
-
-СЭРГЭ";
+    $t = 'Здравствуйте, ' . $name . "!\n\nВаша заявка № " . (int)$leadId . ' ' . $text[$status] . ".\nВопросы можно задать по телефону " . $c['phone'] . '.';
     return notify_send('email', $email, $t, 'СЭРГЭ: заявка № ' . (int)$leadId . ' – статус изменён');
 }
 
 // клиенту: подключён VIP-тариф
 function notify_vip($email, $name) {
-    $t = 'Здравствуйте, ' . $name . "!
-
-Вам подключён VIP-тариф СЭРГЭ: фотоотчёты по объекту, подробная смета, сравнение расчётов, приоритетная заявка и личный менеджер. Что входит в тариф: " . site_url() . "/tarify.php
-
-СЭРГЭ";
+    $t = 'Здравствуйте, ' . $name . "!\n\nВам подключён VIP-тариф СЭРГЭ: фотоотчёты по объекту, подробная смета, сравнение расчётов, приоритетная заявка и личный менеджер.\nЧто входит в тариф: " . site_url() . '/tarify.php';
     return notify_send('email', $email, $t, 'СЭРГЭ: подключён VIP-тариф');
 }
