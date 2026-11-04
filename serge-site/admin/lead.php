@@ -101,5 +101,5 @@ adm_cred_show();
         <?php endif; ?>
     <?php endif; ?>
 </section>
-<form method="post" onsubmit="return confirm('Удалить заявку № <?= $id ?>? Это нельзя отменить.')"><?= csrf_field() ?><input type="hidden" name="do" value="delete"><button class="knopka knopka--ramka adm-danger" type="submit">Удалить заявку</button></form>
+<form method="post" data-confirm="Удалить заявку № <?= $id ?>? Это нельзя отменить."><?= csrf_field() ?><input type="hidden" name="do" value="delete"><button class="knopka knopka--ramka adm-danger" type="submit">Удалить заявку</button></form>
 <?php adm_foot();

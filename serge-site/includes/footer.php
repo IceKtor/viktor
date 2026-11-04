@@ -47,6 +47,7 @@ if (!isset($scripts)) $scripts = array();
 </div>
 
 <script src="<?= e(asset('assets/js/main.js')) ?>" defer></script>
+<script src="<?= e(asset('assets/js/modal.js')) ?>" defer></script>
 <?php foreach ($scripts as $s): ?>
 <script src="<?= e(asset('assets/js/' . $s)) ?>" defer></script>
 <?php endforeach; ?>

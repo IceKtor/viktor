@@ -29,7 +29,7 @@ adm_cred_show();
 <div class="adm-scroll"><table class="atab"><tr><th>Имя</th><th>Почта (логин)</th><th>Последний вход</th><th>Состояние</th><th></th></tr>
 <?php foreach ($rows as $r): ?><tr><td><?= h($r['name']) ?></td><td><?= h($r['email']) ?></td><td><?= h(dt_ru($r['last_login_at'])) ?></td>
 <td><?= $r['is_active'] ? 'активен' : '<span class="st">отключён</span>' ?><?= $r['must_change_password'] ? ' <span class="st st--in_work">временный пароль</span>' : '' ?></td>
-<td class="adm-actions"><form method="post" onsubmit="return confirm('Выдать новый пароль?')"><?= csrf_field() ?><input type="hidden" name="do" value="reset"><input type="hidden" name="uid" value="<?= (int)$r['id'] ?>"><button class="knopka knopka--ramka" type="submit">Сбросить пароль</button></form>
+<td class="adm-actions"><form method="post" data-confirm="Выдать новый пароль?"><?= csrf_field() ?><input type="hidden" name="do" value="reset"><input type="hidden" name="uid" value="<?= (int)$r['id'] ?>"><button class="knopka knopka--ramka" type="submit">Сбросить пароль</button></form>
 <?php if ((int)$r['id'] !== (int)$ADM['id']): ?><form method="post"><?= csrf_field() ?><input type="hidden" name="do" value="toggle"><input type="hidden" name="uid" value="<?= (int)$r['id'] ?>"><button class="knopka knopka--ramka" type="submit"><?= $r['is_active'] ? 'Отключить' : 'Включить' ?></button></form><?php endif; ?></td></tr>
 <?php endforeach; ?></table></div>
 <h2>Новый администратор</h2>

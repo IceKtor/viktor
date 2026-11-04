@@ -53,7 +53,7 @@ require __DIR__ . '/includes/header.php';
 
         <form class="forma forma--uzkaya" method="post" action="register.php" novalidate>
             <?= csrf_field() ?>
-            <?= isset($err['common']) ? '<p class="oshibka oshibka--obshaya" role="alert">' . e($err['common']) . '</p>' : '' ?>
+            <?= isset($err['common']) ? '<p class="oshibka oshibka--obshaya" role="alert" data-modal="err">' . e($err['common']) . '</p>' : '' ?>
             <div class="pole<?= isset($err['name']) ? ' est-oshibka' : '' ?>">
                 <label for="name">Имя</label>
                 <input type="text" id="name" name="name" autocomplete="name" value="<?= e($v['name']) ?>" required>

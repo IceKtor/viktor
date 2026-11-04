@@ -44,10 +44,10 @@ require __DIR__ . '/includes/header.php';
     <div class="vnutri vnutri--forma">
         <div class="nadpis nadpis--derevo">ЛИЧНЫЙ КАБИНЕТ</div>
         <h1 class="zag-stranicy">Подтверждение почты</h1>
-        <?php foreach (flash_get() as $f): ?><div class="<?= $f[0] === 'ok' ? 'uspeh' : 'podskazka' ?>"><?= e($f[1]) ?></div><?php endforeach; ?>
+        <?php foreach (flash_get() as $f): ?><div class="<?= $f[0] === 'ok' ? 'uspeh' : 'podskazka' ?>" data-modal="<?= $f[0] === 'ok' ? 'ok' : ($f[0] === 'err' ? 'err' : 'info') ?>"><?= e($f[1]) ?></div><?php endforeach; ?>
 
         <?php if ($state === 'ok'): ?>
-            <div class="uspeh">Почта подтверждена. Теперь можно войти в личный кабинет.</div>
+            <div class="uspeh" data-modal="ok">Почта подтверждена. Теперь можно войти в личный кабинет.</div>
             <div class="knopki"><a class="knopka knopka--cher" href="login.php">Войти →</a></div>
         <?php elseif ($state === 'wait'): ?>
             <p class="seryj">Последний шаг регистрации: подтвердите почту. <?= !empty($_SESSION['verify_sent']) ? 'Мы отправили письмо со ссылкой на <strong>' . e($wait_email) . '</strong>.' : 'Не удалось отправить письмо на <strong>' . e($wait_email) . '</strong>.' ?> Откройте ссылку в письме (проверьте и папку «Спам»), после этого можно войти.</p>
@@ -59,12 +59,12 @@ require __DIR__ . '/includes/header.php';
                 </div>
             </form>
         <?php else: ?>
-            <?php if ($state === 'bad'): ?><p class="oshibka oshibka--obshaya" role="alert">Ссылка недействительна или устарела. Запросите новое письмо.</p><?php endif; ?>
-            <?php if ($state === 'sent'): ?><div class="uspeh">Если такой адрес ждёт подтверждения, мы отправили на него письмо. Проверьте и папку «Спам».</div><?php endif; ?>
+            <?php if ($state === 'bad'): ?><p class="oshibka oshibka--obshaya" role="alert" data-modal="err">Ссылка недействительна или устарела. Запросите новое письмо.</p><?php endif; ?>
+            <?php if ($state === 'sent'): ?><div class="uspeh" data-modal="ok">Если такой адрес ждёт подтверждения, мы отправили на него письмо. Проверьте и папку «Спам».</div><?php endif; ?>
             <p class="seryj">Не пришло письмо со ссылкой? Укажите почту, которую вы вводили при регистрации.</p>
             <form class="forma forma--uzkaya" method="post" action="verify.php" novalidate>
                 <?= csrf_field() ?>
-                <?= $msg ? '<p class="oshibka oshibka--obshaya" role="alert">' . e($msg) . '</p>' : '' ?>
+                <?= $msg ? '<p class="oshibka oshibka--obshaya" role="alert" data-modal="err">' . e($msg) . '</p>' : '' ?>
                 <div class="pole">
                     <label for="email">Почта</label>
                     <input type="email" id="email" name="email" autocomplete="email" placeholder="name@mail.ru" required>

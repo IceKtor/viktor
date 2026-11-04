@@ -51,7 +51,7 @@ require __DIR__ . '/includes/header.php';
         <div class="nadpis nadpis--derevo">ПРОФИЛЬ</div>
         <h1 class="zag-stranicy"><?= $force ? 'Смените пароль' : 'Мой профиль' ?></h1>
         <?php if ($force): ?><div class="podskazka">Вам выдан временный пароль. Придумайте свой, чтобы продолжить.</div><?php endif; ?>
-        <?php if ($ok): ?><div class="uspeh"><?= e($ok) ?></div><?php endif; ?>
+        <?php if ($ok): ?><div class="uspeh" data-modal="ok"><?= e($ok) ?></div><?php endif; ?>
 
         <?php if (!$force): ?>
         <form class="forma forma--uzkaya" method="post" action="profile.php" novalidate>
@@ -72,7 +72,7 @@ require __DIR__ . '/includes/header.php';
             <div class="knopki knopki--forma"><button class="knopka knopka--cher" type="submit">Сменить пароль</button></div>
         </form>
         <?php if (!$force && $u['role'] === 'client'): ?>
-        <form class="forma forma--uzkaya" method="post" action="profile.php" novalidate onsubmit="return confirm('Удалить аккаунт? Это нельзя отменить.')">
+        <form class="forma forma--uzkaya" method="post" action="profile.php" novalidate data-confirm="Удалить аккаунт? Это нельзя отменить.">
             <?= csrf_field() ?><input type="hidden" name="do" value="delete">
             <h2 class="h3">Удаление аккаунта</h2>
             <p class="melko">Будут удалены ваш аккаунт, объекты строительства и новости по ним. Заявки останутся у компании без привязки к аккаунту и хранятся по правилам <a class="ssylka" href="privacy.php">политики конфиденциальности</a>.</p>

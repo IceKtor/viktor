@@ -65,7 +65,7 @@ require __DIR__ . '/includes/header.php';
         <div class="nadpis nadpis--derevo">ЗАЯВКА</div>
         <?php if (isset($_GET['ok'])): ?>
             <h1 class="zag-stranicy">Заявка принята</h1>
-            <div class="uspeh">Спасибо! Мы перезвоним вам в рабочее время (пн–сб, 9:00–19:00).</div>
+            <div class="uspeh" data-modal="ok">Спасибо! Мы перезвоним вам в рабочее время (пн–сб, 9:00–19:00).</div>
             <?php if (!$u): ?>
                 <div class="vspom">
                     <p>Чтобы следить за заявкой и ходом строительства, <a class="ssylka" href="register.php">создайте аккаунт</a> или войдите. Если вы заключите с нами договор, менеджер сам выдаст доступ в кабинет.</p>
@@ -83,7 +83,7 @@ require __DIR__ . '/includes/header.php';
                 <input type="hidden" name="topic" value="<?= e($topic) ?>"><input type="hidden" name="house" value="<?= e($house ? $house['id'] : '') ?>">
                 <?php if ($calc) foreach ($src as $k): ?><input type="hidden" name="<?= e($k) ?>" value="<?= e($in[$k]) ?>"><?php endforeach; ?>
                 <div class="lovushka" aria-hidden="true"><label>Сайт<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
-                <?= isset($err['common']) ? '<p class="oshibka oshibka--obshaya" role="alert">' . e($err['common']) . '</p>' : '' ?>
+                <?= isset($err['common']) ? '<p class="oshibka oshibka--obshaya" role="alert" data-modal="err">' . e($err['common']) . '</p>' : '' ?>
                 <div class="pole<?= isset($err['name']) ? ' est-oshibka' : '' ?>"><label for="name">Имя</label><input type="text" id="name" name="name" autocomplete="name" value="<?= e($v['name']) ?>" required><?= f_err($err, 'name') ?></div>
                 <div class="pole<?= isset($err['phone']) ? ' est-oshibka' : '' ?>"><label for="phone">Телефон</label><input type="tel" id="phone" name="phone" autocomplete="tel" inputmode="tel" placeholder="+7 900 000-00-00" value="<?= e($v['phone']) ?>" required><?= f_err($err, 'phone') ?></div>
                 <div class="pole<?= isset($err['email']) ? ' est-oshibka' : '' ?>"><label for="email">Почта <span class="melko">(необязательно)</span></label><input type="email" id="email" name="email" autocomplete="email" value="<?= e($v['email']) ?>"><?= f_err($err, 'email') ?></div>

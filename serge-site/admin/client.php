@@ -84,11 +84,11 @@ adm_cred_show();
         <dt>Состояние</dt><dd><?= $u['is_active'] ? 'доступ включён' : 'доступ отключён' ?></dd>
     </dl>
     <div class="adm-actions" style="margin-top:14px">
-        <form method="post" onsubmit="return confirm('Выдать новый пароль? Старый перестанет работать.')"><?= csrf_field() ?><input type="hidden" name="do" value="reset"><button class="knopka knopka--derevo" type="submit">Сбросить пароль</button>
+        <form method="post" data-confirm="Выдать новый пароль? Старый перестанет работать."><?= csrf_field() ?><input type="hidden" name="do" value="reset"><button class="knopka knopka--derevo" type="submit">Сбросить пароль</button>
             <?php if ($u['email'] && MAIL_ENABLED): ?><?= chk('send_mail', 'отправить письмом на ' . $u['email'], 0) ?><?php endif; ?></form>
         <form method="post"><?= csrf_field() ?><input type="hidden" name="do" value="toggle"><button class="knopka knopka--ramka" type="submit"><?= $u['is_active'] ? 'Отключить доступ' : 'Включить доступ' ?></button></form>
         <form method="post"><?= csrf_field() ?><input type="hidden" name="do" value="tariff"><button class="knopka knopka--ramka" type="submit"><?= $u['tariff'] === 'vip' ? 'Снять VIP' : 'Выдать VIP' ?></button></form>
-        <form method="post" onsubmit="return confirm('Удалить клиента и все его объекты? Это нельзя отменить.')"><?= csrf_field() ?><input type="hidden" name="do" value="delete"><button class="knopka knopka--ramka adm-danger" type="submit">Удалить</button></form>
+        <form method="post" data-confirm="Удалить клиента и все его объекты? Это нельзя отменить."><?= csrf_field() ?><input type="hidden" name="do" value="delete"><button class="knopka knopka--ramka adm-danger" type="submit">Удалить</button></form>
     </div>
 </section>
 <section class="adm-card">

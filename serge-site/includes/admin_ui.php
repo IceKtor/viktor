@@ -63,10 +63,10 @@ function adm_head($title, $active) {
 </nav>
 <main class="adm-main">
 <h1><?= h($title) ?></h1>
-<?php foreach (flash_get() as $f): ?><div class="<?= $f[0] === 'ok' ? 'uspeh' : ($f[0] === 'err' ? 'oshibka oshibka--obshaya' : 'podskazka') ?>"><?= h($f[1]) ?></div><?php endforeach; ?>
+<?php foreach (flash_get() as $f): ?><div class="<?= $f[0] === 'ok' ? 'uspeh' : ($f[0] === 'err' ? 'oshibka oshibka--obshaya' : 'podskazka') ?>" data-modal="<?= $f[0] === 'ok' ? 'ok' : ($f[0] === 'err' ? 'err' : 'info') ?>"><?= h($f[1]) ?></div><?php endforeach; ?>
 <?php
 }
-function adm_foot() { echo "</main></div></body></html>"; }
+function adm_foot() { echo '</main></div><script src="../assets/js/modal.js" defer></script></body></html>'; }
 
 // одноразовый показ выданных логина и пароля (хранятся только в сессии, в базу открытым текстом не попадают)
 function adm_cred_set($name, $login, $password) { acc_session(); $_SESSION['cred'] = array('name' => $name, 'login' => $login, 'password' => $password); }

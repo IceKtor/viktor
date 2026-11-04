@@ -53,4 +53,4 @@ adm_head($p ? $p['title'] : 'Новая статья', 'journal');
     <div class="adm-actions"><?= chk('is_published', 'Показывать на сайте', $v['is_published']) ?></div>
     <div class="adm-actions"><button class="knopka knopka--cher" type="submit"><?= $p ? 'Сохранить' : 'Опубликовать' ?></button></div>
 </form>
-<?php if ($p): ?><form method="post" onsubmit="return confirm('Удалить статью?')"><?= csrf_field() ?><input type="hidden" name="do" value="delete"><button class="knopka knopka--ramka adm-danger" type="submit">Удалить статью</button></form><?php endif; adm_foot();
+<?php if ($p): ?><form method="post" data-confirm="Удалить статью?"><?= csrf_field() ?><input type="hidden" name="do" value="delete"><button class="knopka knopka--ramka adm-danger" type="submit">Удалить статью</button></form><?php endif; adm_foot();

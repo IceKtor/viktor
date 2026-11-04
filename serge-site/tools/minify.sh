@@ -7,7 +7,7 @@ set -e
 cd "$(dirname "$0")/.."
 ES=${ESBUILD:-esbuild}
 $ES assets/css/style.css --minify --outfile=assets/css/style.min.css
-for f in assets/js/main.js assets/js/catalog.js assets/js/carousel.js assets/js/calc.js; do
+for f in assets/js/main.js assets/js/catalog.js assets/js/carousel.js assets/js/calc.js assets/js/modal.js; do
   $ES "$f" --minify --target=es5 --outfile="${f%.js}.min.js"
 done
 ls -la assets/css/*.min.css assets/js/*.min.js

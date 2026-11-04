@@ -78,4 +78,4 @@ $defImg = array('img_facade' => 'assets/img/' . $v['id'] . '-1.webp', 'img_inter
     </div>
     <div class="adm-actions"><button class="knopka knopka--cher" type="submit"><?= $x ? 'Сохранить' : 'Добавить проект' ?></button></div>
 </form>
-<?php if ($x): ?><form method="post" onsubmit="return confirm('Удалить проект «<?= h($x['name']) ?>»?')"><?= csrf_field() ?><input type="hidden" name="do" value="delete"><button class="knopka knopka--ramka adm-danger" type="submit">Удалить проект</button></form><?php endif; adm_foot();
+<?php if ($x): ?><form method="post" data-confirm="Удалить проект «<?= h($x['name']) ?>»?"><?= csrf_field() ?><input type="hidden" name="do" value="delete"><button class="knopka knopka--ramka adm-danger" type="submit">Удалить проект</button></form><?php endif; adm_foot();

@@ -24,7 +24,7 @@ require __DIR__ . '/includes/header.php';
             </div>
         </div>
         <p class="seryj">Тариф: <?= $u['tariff'] === 'vip' ? 'VIP' : 'бесплатный' ?>. <a href="tarify.php">Что входит в тарифы</a></p>
-        <?php foreach (flash_get() as $f): ?><div class="<?= $f[0] === 'ok' ? 'uspeh' : 'podskazka' ?>"><?= e($f[1]) ?></div><?php endforeach; ?>
+        <?php foreach (flash_get() as $f): ?><div class="<?= $f[0] === 'ok' ? 'uspeh' : 'podskazka' ?>" data-modal="<?= $f[0] === 'ok' ? 'ok' : ($f[0] === 'err' ? 'err' : 'info') ?>"><?= e($f[1]) ?></div><?php endforeach; ?>
 
         <h2 class="h2--malenkij cab-zag">Мои объекты</h2>
         <?php if (!$objects): ?>

@@ -94,8 +94,8 @@ adm_head($o ? 'Объект ' . $o['code'] : 'Новый объект', 'objects
     <?php foreach ($ups as $up): ?><tr><td><?= h(dt_ru($up['created_at'])) ?></td><td><?= h($up['st'] ?: '—') ?></td>
         <td><?= nl2br(h($up['text'])) ?><?= $up['photo'] ? '<br><a href="../' . h($up['photo']) . '" target="_blank" rel="noopener">фото</a>' : '' ?></td>
         <td class="adm-actions"><form method="post"><?= csrf_field() ?><input type="hidden" name="do" value="update_toggle"><input type="hidden" name="uid" value="<?= (int)$up['id'] ?>"><button class="knopka knopka--ramka" type="submit"><?= $up['is_visible'] ? 'Скрыть' : 'Показать' ?></button></form>
-        <form method="post" onsubmit="return confirm('Удалить новость?')"><?= csrf_field() ?><input type="hidden" name="do" value="update_delete"><input type="hidden" name="uid" value="<?= (int)$up['id'] ?>"><button class="knopka knopka--ramka adm-danger" type="submit">Удалить</button></form></td></tr>
+        <form method="post" data-confirm="Удалить новость?"><?= csrf_field() ?><input type="hidden" name="do" value="update_delete"><input type="hidden" name="uid" value="<?= (int)$up['id'] ?>"><button class="knopka knopka--ramka adm-danger" type="submit">Удалить</button></form></td></tr>
     <?php endforeach; ?></table></div><?php endif; ?>
 </section>
-<form method="post" onsubmit="return confirm('Удалить объект вместе с новостями?')"><?= csrf_field() ?><input type="hidden" name="do" value="delete"><button class="knopka knopka--ramka adm-danger" type="submit">Удалить объект</button></form>
+<form method="post" data-confirm="Удалить объект вместе с новостями?"><?= csrf_field() ?><input type="hidden" name="do" value="delete"><button class="knopka knopka--ramka adm-danger" type="submit">Удалить объект</button></form>
 <?php endif; adm_foot();
