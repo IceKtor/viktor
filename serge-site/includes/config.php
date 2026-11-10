@@ -1,7 +1,7 @@
 <?php
 // Настройки сайта. Свои значения (доступы к базе, ключ установки) кладите в includes/config.local.php
 // (образец - config.local.php.example). Этот файл в git не попадает, поэтому пароли в репозиторий не уходят.
-if (!defined('STATIC_BUILD') && is_file(__DIR__ . '/config.local.php')) require_once __DIR__ . '/config.local.php';   // в статической выгрузке всегда берутся data/*.json
+if (!defined('STATIC_BUILD') && is_file(__DIR__ . '/config.local.php')) { ob_start(); require_once __DIR__ . '/config.local.php'; ob_end_clean(); }   // ob_*: отбрасываем BOM/пробелы, если редактор их добавил в начало файла   // в статической выгрузке всегда берутся data/*.json
 
 // true = данные и личные кабинеты берутся из MySQL (схема - database/schema.sql). false = данные из data/*.json, без кабинетов.
 if (!defined('USE_DB')) define('USE_DB', false);
