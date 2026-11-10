@@ -67,12 +67,12 @@ function pun($name, $active, $href, $text) {
             <?php if (ACCOUNTS_ENABLED): ?>
             <a class="menyu__vhod" href="<?= $hu ? ($hu['role'] === 'admin' ? 'admin/' : 'cabinet.php') : 'login.php' ?>"><?= $hu ? ($hu['role'] === 'admin' ? 'Админ-панель' : 'Личный кабинет') : 'Войти' ?></a>
             <?php endif; ?>
-            <a class="knopka knopka--derevo menyu__knopka" href="calculator.php">Рассчитать стоимость →</a>
+            <a class="knopka knopka--derevo menyu__knopka" href="calculator.php">Рассчитать стоимость</a>
         </nav>
 
         <div class="shapka__pravo">
             <a class="tel" href="tel:<?= e(site_contacts()["phone_href"]) ?>"><?= e(site_contacts()["phone"]) ?></a>
-            <a class="knopka knopka--cher shapka__knopka" href="calculator.php">Рассчитать стоимость →</a>
+            <a class="knopka knopka--cher shapka__knopka" href="calculator.php">Рассчитать стоимость</a>
             <?php if (ACCOUNTS_ENABLED): ?>
             <a class="vhod<?= $hu ? ' vhod--est' : '' ?>" href="<?= $hu ? ($hu['role'] === 'admin' ? 'admin/' : 'cabinet.php') : 'login.php' ?>" title="<?= $hu ? ($hu['role'] === 'admin' ? 'Админ-панель' : 'Личный кабинет') : 'Войти' ?>" aria-label="<?= $hu ? ($hu['role'] === 'admin' ? 'Админ-панель' : 'Личный кабинет') : 'Войти в личный кабинет' ?>"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.2" r="3.6"/><path d="M4.8 20c.9-3.7 3.7-5.6 7.2-5.6s6.3 1.9 7.2 5.6"/></svg></a>
             <?php endif; ?>

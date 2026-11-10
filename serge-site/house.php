@@ -70,7 +70,6 @@ $ssylka_calc = 'calculator.php?' . http_build_query(array(
             </div>
 
             <div class="dom-info">
-                <div class="nadpis nadpis--derevo">ПРОЕКТ</div>
                 <h1 class="zag-stranicy zag-stranicy--dom"><?= e($h['name']) ?></h1>
                 <p class="seryj"><?= e($h['description']) ?></p>
                 <div class="dom-cena">от <?= rub($h['price']) ?></div>
@@ -88,7 +87,7 @@ $ssylka_calc = 'calculator.php?' . http_build_query(array(
                 </table>
 
                 <div class="knopki knopki--dom">
-                    <a class="knopka knopka--derevo" href="<?= e($ssylka_calc) ?>">Рассчитать для моего участка →</a>
+                    <a class="knopka knopka--derevo" href="<?= e($ssylka_calc) ?>">Рассчитать для моего участка</a>
                     <a class="knopka knopka--ramka" href="#gallery" data-slide="2">Получить планировку</a>
                     <?php if (ACCOUNTS_ENABLED): ?><a class="knopka knopka--ramka" href="zayavka.php?house=<?= e($h['id']) ?>">Оставить заявку</a><?php endif; ?>
                 </div>
@@ -100,7 +99,7 @@ $ssylka_calc = 'calculator.php?' . http_build_query(array(
         <div class="vnutri">
             <div class="golova">
                 <h2 class="h2--malenkij">Другие проекты</h2>
-                <a class="knopka knopka--ramka" href="catalog.php">Весь каталог →</a>
+                <a class="knopka knopka--ramka" href="catalog.php">Весь каталог</a>
             </div>
             <div class="doma">
                 <?php

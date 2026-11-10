@@ -11,7 +11,6 @@ $k = repo_company(); $c = $k['contacts'];
 ?>
 <main class="stranica">
     <article class="vnutri vnutri--uzko statya">
-        <div class="nadpis nadpis--derevo">ДОКУМЕНТЫ</div>
         <h1 class="zag-stranicy zag-stranicy--dom">Политика обработки персональных данных</h1>
         <?php if (company_is_demo()): ?><p class="melko">Реквизиты оператора в этой копии сайта демонстрационные. Перед запуском замените их настоящими на странице «О компании» в админ-панели.</p><?php endif; ?>
         <p class="melko">Редакция от <?= e(date('d.m.Y', strtotime(CONSENT_VERSION))) ?></p>

@@ -9,10 +9,9 @@ if (!ACCOUNTS_ENABLED || !repo_db_ok()) {
     require __DIR__ . '/header.php';
     ?>
     <main class="stranica"><div class="vnutri nenaiden">
-        <div class="nadpis nadpis--derevo">ЛИЧНЫЙ КАБИНЕТ</div>
         <h1 class="zag-stranicy">Раздел недоступен</h1>
         <p class="seryj">Личные кабинеты и приём заявок работают на основном сайте, подключённом к базе данных. В демонстрационной версии они отключены.</p>
-        <a class="knopka knopka--cher" href="catalog.php">Смотреть проекты →</a>
+        <a class="knopka knopka--cher" href="catalog.php">Смотреть проекты</a>
     </div></main>
     <?php
     require __DIR__ . '/footer.php';

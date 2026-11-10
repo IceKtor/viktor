@@ -41,13 +41,12 @@ require __DIR__ . '/includes/header.php';
 ?>
 <main class="stranica">
     <div class="vnutri vnutri--forma">
-        <div class="nadpis nadpis--derevo">ЛИЧНЫЙ КАБИНЕТ</div>
         <h1 class="zag-stranicy">Подтверждение почты</h1>
         <?php foreach (flash_get() as $f): ?><div class="<?= $f[0] === 'ok' ? 'uspeh' : 'podskazka' ?>" data-modal="<?= $f[0] === 'ok' ? 'ok' : ($f[0] === 'err' ? 'err' : 'info') ?>"><?= e($f[1]) ?></div><?php endforeach; ?>
 
         <?php if ($state === 'ok'): ?>
             <div class="uspeh" data-modal="ok">Почта подтверждена. Теперь можно войти в личный кабинет.</div>
-            <div class="knopki"><a class="knopka knopka--cher" href="login.php">Войти →</a></div>
+            <div class="knopki"><a class="knopka knopka--cher" href="login.php">Войти</a></div>
         <?php elseif ($state === 'wait'): ?>
             <p class="seryj">Последний шаг регистрации: подтвердите почту. <?= !empty($_SESSION['verify_sent']) ? 'Мы отправили письмо со ссылкой на <strong>' . e($wait_email) . '</strong>.' : 'Не удалось отправить письмо на <strong>' . e($wait_email) . '</strong>.' ?> Откройте ссылку в письме (проверьте и папку «Спам»), после этого можно войти.</p>
             <form class="forma forma--uzkaya" method="post" action="verify.php" novalidate>

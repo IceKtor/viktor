@@ -48,7 +48,6 @@ require __DIR__ . '/includes/header.php';
 ?>
 <main class="stranica">
     <div class="vnutri vnutri--forma">
-        <div class="nadpis nadpis--derevo">ПРОФИЛЬ</div>
         <h1 class="zag-stranicy"><?= $force ? 'Смените пароль' : 'Мой профиль' ?></h1>
         <?php if ($force): ?><div class="podskazka">Вам выдан временный пароль. Придумайте свой, чтобы продолжить.</div><?php endif; ?>
         <?php if ($ok): ?><div class="uspeh" data-modal="ok"><?= e($ok) ?></div><?php endif; ?>

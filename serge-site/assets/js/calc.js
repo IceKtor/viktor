@@ -182,9 +182,9 @@
         var zayavka = forma.getAttribute('data-zayavka');
         if (zayavka) {
             var q = polya.map(function (p) { return p + '=' + encodeURIComponent(document.getElementById(p).value); }).join('&');
-            html += '<a class="knopka knopka--derevo rez-ssylka" href="' + zayavka + '?' + q + '">Получить точный расчёт →</a> ';
+            html += '<a class="knopka knopka--derevo rez-ssylka" href="' + zayavka + '?' + q + '">Получить точный расчёт</a> ';
         }
-        html += '<a class="knopka knopka--kontur rez-ssylka" href="catalog.php">Сравнить с другими проектами →</a>';
+        html += '<a class="knopka knopka--kontur rez-ssylka" href="catalog.php">Сравнить с другими проектами</a>';
 
         rezultat.innerHTML = html;
         rezultat.hidden = false;

@@ -60,7 +60,6 @@ require __DIR__ . '/includes/header.php';
 ?>
 <main class="stranica">
     <div class="vnutri vnutri--forma">
-        <div class="nadpis nadpis--derevo">ЗАЯВКА</div>
         <?php if (isset($_GET['ok'])): ?>
             <h1 class="zag-stranicy">Заявка принята</h1>
             <div class="uspeh" data-modal="ok">Спасибо! Мы перезвоним вам в рабочее время (пн–сб, 9:00–19:00).</div>
@@ -69,7 +68,7 @@ require __DIR__ . '/includes/header.php';
                     <p>Чтобы следить за заявкой и ходом строительства, <a class="ssylka" href="register.php">создайте аккаунт</a> или войдите. Если вы заключите с нами договор, менеджер сам выдаст доступ в кабинет.</p>
                 </div>
             <?php endif; ?>
-            <div class="knopki"><a class="knopka knopka--cher" href="catalog.php">Смотреть проекты →</a><a class="knopka knopka--ramka" href="index.php">На главную</a></div>
+            <div class="knopki"><a class="knopka knopka--cher" href="catalog.php">Смотреть проекты</a><a class="knopka knopka--ramka" href="index.php">На главную</a></div>
         <?php else: ?>
             <h1 class="zag-stranicy"><?= $topic === 'reset' ? 'Восстановление доступа' : 'Оставить заявку' ?></h1>
             <p class="seryj"><?= $topic === 'reset' ? 'Оставьте номер телефона, который вы указывали при регистрации или в договоре, и менеджер выдаст новый пароль.' : 'Оставьте контакты, и мы перезвоним: ответим на вопросы и уточним расчёт. Регистрироваться для этого не нужно.' ?></p>

@@ -58,7 +58,7 @@ $drugie = array_slice($drugie, 0, 3);
                 <p>Сравните материалы и фундаменты в калькуляторе.</p>
             </div>
             <div class="knopki">
-                <a class="knopka knopka--derevo" href="calculator.php">Рассчитать стоимость →</a>
+                <a class="knopka knopka--derevo" href="calculator.php">Рассчитать стоимость</a>
             </div>
         </div>
     </article>
@@ -68,7 +68,7 @@ $drugie = array_slice($drugie, 0, 3);
         <div class="vnutri">
             <div class="golova">
                 <h2 class="h2--malenkij">Читайте также</h2>
-                <a class="knopka knopka--ramka" href="zhurnal.php">Весь журнал →</a>
+                <a class="knopka knopka--ramka" href="zhurnal.php">Весь журнал</a>
             </div>
             <div class="stati">
                 <?php foreach ($drugie as $p) echo karto4ka_stati($p, 3); ?>

@@ -9,7 +9,6 @@ $scripts = array('catalog.js');
 
 <main class="stranica">
     <div class="vnutri">
-        <div class="nadpis nadpis--derevo">КАТАЛОГ</div>
         <h1 class="zag-stranicy">Проекты домов</h1>
         <p class="seryj seryj--shirokij">Выберите готовую концепцию или адаптируйте проект под свой участок.</p>
 

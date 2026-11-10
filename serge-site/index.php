@@ -16,11 +16,10 @@ foreach (repo_stages() as $st) $put[] = array($st['title'], $st['short']);
 <main>
 <section class="pervyj">
     <div class="vnutri pervyj__vnutri poyavlenie">
-        <div class="nadpis">СТРОИТЕЛЬСТВО ДОМОВ В ЯКУТИИ</div>
         <h1>Дом, рассчитанный на Север.</h1>
         <p class="podzag">Проектируем и строим частные дома в Якутии — от первого эскиза до ключей. Выберите проект и узнайте предварительную стоимость за пару минут.</p>
         <div class="knopki">
-            <a class="knopka knopka--derevo" href="calculator.php">Спроектировать дом →</a>
+            <a class="knopka knopka--derevo" href="calculator.php">Спроектировать дом</a>
             <a class="knopka knopka--kontur" href="catalog.php">Смотреть проекты</a>
         </div>
         <div class="cifry">
@@ -38,7 +37,7 @@ foreach (repo_stages() as $st) $put[] = array($st['title'], $st['short']);
                 <h2>Один подрядчик.<br>Весь путь.</h2>
                 <p class="seryj">От идеи и проекта до инженерии, отделки и передачи ключей.</p>
             </div>
-            <a class="knopka knopka--ramka" href="stroitelstvo.php">Как мы строим →</a>
+            <a class="knopka knopka--ramka" href="stroitelstvo.php">Как мы строим</a>
         </div>
 
         <div class="shagi poyavlenie">
@@ -57,7 +56,7 @@ foreach (repo_stages() as $st) $put[] = array($st['title'], $st['short']);
     <div class="vnutri">
         <div class="golova poyavlenie">
             <h2>Дом начинается<br>с проекта.</h2>
-            <a class="knopka knopka--ramka" href="catalog.php">Смотреть все проекты →</a>
+            <a class="knopka knopka--ramka" href="catalog.php">Смотреть все проекты</a>
         </div>
         <div class="doma poyavlenie">
             <?php foreach (array_slice($houses, 0, 3) as $h) echo karto4ka($h, $rates); ?>
@@ -68,7 +67,7 @@ foreach (repo_stages() as $st) $put[] = array($st['title'], $st['short']);
 <section class="prizyv">
     <div class="vnutri prizyv__vnutri">
         <h3>Хотите узнать, сколько стоит ваш дом?</h3>
-        <a class="knopka knopka--cher" href="calculator.php">Рассчитать стоимость →</a>
+        <a class="knopka knopka--cher" href="calculator.php">Рассчитать стоимость</a>
     </div>
 </section>
 
@@ -131,7 +130,7 @@ foreach (repo_stages() as $st) $put[] = array($st['title'], $st['short']);
             <div class="obnovlenie">
                 <div class="obnovlenie__foto"></div>
                 <div>
-                    <div class="melko">Обновлено 08 сентября 2026 · демо-данные</div>
+                    <div class="melko">Обновлено 8 сентября 2026, демо-данные</div>
                     <div>Установлена система вентиляции первого этажа.</div>
                 </div>
             </div>

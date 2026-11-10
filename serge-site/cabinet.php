@@ -15,7 +15,6 @@ require __DIR__ . '/includes/header.php';
 ?>
 <main class="stranica">
     <div class="vnutri">
-        <div class="nadpis nadpis--derevo">ЛИЧНЫЙ КАБИНЕТ</div>
         <div class="cab-golova">
             <h1 class="zag-stranicy">Здравствуйте, <?= e($u['name']) ?></h1>
             <div class="cab-deistviya">
@@ -31,7 +30,7 @@ require __DIR__ . '/includes/header.php';
             <div class="zaglushka">
                 <h3 class="h3">Здесь появится ход строительства</h3>
                 <p>Когда вы заключите договор, менеджер добавит ваш дом в кабинет: вы увидите текущий этап, процент готовности и фотоотчёты. Пока можно посчитать стоимость или оставить заявку.</p>
-                <div class="knopki"><a class="knopka knopka--cher" href="calculator.php">Рассчитать стоимость →</a><a class="knopka knopka--ramka" href="zayavka.php">Оставить заявку</a></div>
+                <div class="knopki"><a class="knopka knopka--cher" href="calculator.php">Рассчитать стоимость</a><a class="knopka knopka--ramka" href="zayavka.php">Оставить заявку</a></div>
             </div>
         <?php endif; ?>
 
@@ -43,7 +42,7 @@ require __DIR__ . '/includes/header.php';
         <section class="panel cab-obekt">
             <div class="panel__verh">
                 <div>
-                    <div class="melko">Проект №<?= e($o['code']) ?> · <?= e($os[$o['status']]) ?></div>
+                    <div class="melko">Проект №<?= e($o['code']) ?>, <?= e(mb_strtolower($os[$o['status']])) ?></div>
                     <div class="etap cab-nazvanie"><?= e($o['title']) ?></div>
                     <?php if ($o['address']): ?><div class="melko"><?= e($o['address']) ?></div><?php endif; ?>
                 </div>
@@ -73,7 +72,7 @@ require __DIR__ . '/includes/header.php';
                 <article class="lenta__zapis">
                     <?php if ($up['photo']): ?><a href="<?= e($up['photo']) ?>" target="_blank" rel="noopener"><img class="lenta__foto" src="<?= e($up['photo']) ?>" alt="Фото с объекта" width="160" height="120" loading="lazy"></a><?php endif; ?>
                     <div>
-                        <div class="melko"><?= e(dt_ru($up['created_at'])) ?><?= $up['stage_title'] ? ' · ' . e($up['stage_title']) : '' ?></div>
+                        <div class="melko"><?= e(dt_ru($up['created_at'])) ?><?= $up['stage_title'] ? ', ' . e($up['stage_title']) : '' ?></div>
                         <div><?= nl2br(e($up['text'])) ?></div>
                     </div>
                 </article>

@@ -23,7 +23,6 @@ require __DIR__ . '/includes/header.php';
 ?>
 <main class="stranica">
     <div class="vnutri vnutri--forma">
-        <div class="nadpis nadpis--derevo">ЛИЧНЫЙ КАБИНЕТ</div>
         <h1 class="zag-stranicy">Вход</h1>
         <p class="seryj">Следите за ходом строительства вашего дома и статусом заявок.</p>
 

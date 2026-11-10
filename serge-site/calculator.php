@@ -16,7 +16,6 @@ $iz_kartochki = ($z_area !== '' || $z_floors !== '' || $z_mat !== '' || $z_fnd !
 
 <main class="stranica">
     <div class="vnutri">
-        <div class="nadpis nadpis--derevo">КАЛЬКУЛЯТОР</div>
         <h1 class="zag-stranicy">Калькулятор стоимости</h1>
         <p class="seryj seryj--shirokij">Укажите параметры дома — расчёт выполняется сразу, без перезагрузки страницы.</p>
 

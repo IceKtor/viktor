@@ -164,7 +164,7 @@ function karto4ka($h, $rates, $hl = 3) {
             </div>
             <div class="para para--melko para--tekst"><?= e($mat) ?> · фундамент <?= e(mb_strtolower($fnd)) ?></div>
             <div class="cena">от <b><?= rub($h['price']) ?></b></div>
-            <span class="ssylka">Смотреть дом →</span>
+            <span class="ssylka">Смотреть дом</span>
         </div>
     </a>
     <?php
@@ -189,7 +189,7 @@ function karto4ka_stati($p, $hl = 2) {
             <div class="statya__meta"><span class="metka"><?= e($p['category']) ?></span><?= data_ru($p['published_at']) ?></div>
             <h<?= (int)$hl ?> class="h3"><?= e($p['title']) ?></h<?= (int)$hl ?>>
             <p><?= e($p['preview']) ?></p>
-            <span class="ssylka">Читать →</span>
+            <span class="ssylka">Читать</span>
         </div>
     </a>
     <?php

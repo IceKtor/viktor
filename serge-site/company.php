@@ -20,7 +20,6 @@ function inicialy($name) {
 
 <main class="stranica">
     <div class="vnutri">
-        <div class="nadpis nadpis--derevo">О КОМПАНИИ</div>
         <h1 class="zag-stranicy">Строим дома, рассчитанные на Север</h1>
 
         <div class="o-nas">
@@ -29,7 +28,7 @@ function inicialy($name) {
                 <p><?= e($abz) ?></p>
                 <?php endforeach; ?>
                 <div class="knopki">
-                    <a class="knopka knopka--cher" href="catalog.php">Наши проекты →</a>
+                    <a class="knopka knopka--cher" href="catalog.php">Наши проекты</a>
                     <a class="knopka knopka--ramka" href="stroitelstvo.php">Как мы строим</a>
                 </div>
             </div>
@@ -51,7 +50,6 @@ function inicialy($name) {
             <div class="principy poyavlenie">
                 <?php foreach ($c['principles'] as $i => $pr): ?>
                 <div class="princip">
-                    <i><?= sprintf('%02d', $i + 1) ?></i>
                     <h3><?= e($pr['title']) ?></h3>
                     <p><?= e($pr['text']) ?></p>
                 </div>

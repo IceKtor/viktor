@@ -50,22 +50,6 @@
         if (window.innerWidth > 1024) zakryt();
     });
 
-    // плавное появление блоков
-    var bloki = document.querySelectorAll('.poyavlenie');
-    if ('IntersectionObserver' in window) {
-        var sled = new IntersectionObserver(function (zapisi) {
-            zapisi.forEach(function (z) {
-                if (z.isIntersecting) {
-                    z.target.classList.add('vid');
-                    sled.unobserve(z.target);
-                }
-            });
-        }, { threshold: 0.12 });
-        bloki.forEach(function (b) { sled.observe(b); });
-    } else {
-        // старый браузер - просто показываем всё
-        bloki.forEach(function (b) { b.classList.add('vid'); });
-    }
 
     // стрелка в конце кнопок и ссылок оборачивается в span, чтобы при наведении она чуть сдвигалась (стиль .strelka)
     document.querySelectorAll('.knopka, .ssylka, .nazad').forEach(function (el) {

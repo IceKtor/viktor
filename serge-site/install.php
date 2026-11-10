@@ -28,7 +28,6 @@ $noindex = true; $page_title = 'Установка — СЭРГЭ'; $active = ''
 require __DIR__ . '/includes/header.php';
 ?>
 <main class="stranica"><div class="vnutri vnutri--forma">
-    <div class="nadpis nadpis--derevo">УСТАНОВКА</div>
     <h1 class="zag-stranicy">Первый администратор</h1>
     <?php if ($have > 0): ?>
         <div class="podskazka">Администратор уже создан, установка закрыта. <a class="ssylka" href="login.php">Войти</a></div>

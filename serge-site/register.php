@@ -43,7 +43,6 @@ require __DIR__ . '/includes/header.php';
 ?>
 <main class="stranica">
     <div class="vnutri vnutri--forma">
-        <div class="nadpis nadpis--derevo">ЛИЧНЫЙ КАБИНЕТ</div>
         <h1 class="zag-stranicy">Регистрация</h1>
         <p class="seryj">Аккаунт нужен, чтобы видеть свои заявки и ход строительства.</p>
 

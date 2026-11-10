@@ -22,7 +22,6 @@ $voprosy = array(
 
 <main class="stranica">
     <div class="vnutri">
-        <div class="nadpis nadpis--derevo">СТРОИТЕЛЬСТВО</div>
         <h1 class="zag-stranicy">Как мы строим дом</h1>
         <p class="seryj seryj--shirokij">Восемь этапов — от первой встречи до передачи ключей. На каждом этапе понятно, что происходит, сколько это длится и что вы получаете в итоге.</p>
 
@@ -80,7 +79,7 @@ $voprosy = array(
                     <h2>Стены — тёплые и надёжные</h2>
                     <p class="seryj">Оба материала проверены северными зимами. Выбор зависит от ваших приоритетов.</p>
                 </div>
-                <a class="knopka knopka--ramka" href="zhurnal.php">Сравнение в журнале →</a>
+                <a class="knopka knopka--ramka" href="zhurnal.php">Сравнение в журнале</a>
             </div>
             <div class="vybor poyavlenie">
                 <article class="vybor__karta">
@@ -135,7 +134,7 @@ $voprosy = array(
                 <p>Площадь, этажность, стены и фундамент — расчёт займёт минуту.</p>
             </div>
             <div class="knopki">
-                <a class="knopka knopka--derevo" href="calculator.php">Рассчитать стоимость →</a>
+                <a class="knopka knopka--derevo" href="calculator.php">Рассчитать стоимость</a>
                 <a class="knopka knopka--kontur" href="catalog.php">Смотреть проекты</a>
             </div>
         </div>

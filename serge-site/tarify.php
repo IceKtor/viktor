@@ -13,7 +13,6 @@ require __DIR__ . '/includes/header.php';
 ?>
 <main class="stranica">
     <div class="vnutri">
-        <div class="nadpis nadpis--derevo">ТАРИФЫ</div>
         <h1 class="zag-stranicy">Тарифы и услуги</h1>
         <p class="seryj">Подобрать проект и оценить стоимость можно бесплатно. Платим мы за работу специалистов, а не за доступ к сайту.</p>
 
@@ -50,7 +49,7 @@ require __DIR__ . '/includes/header.php';
         <h2 class="h2--malenkij cab-zag">Как зарабатывает платформа</h2>
         <p class="seryj">Основной доход приносят строительные компании: они платят за размещение проектов и за заявки, которые калькулятор собирает с готовым бюджетом. Второй источник – платные услуги специалистов для клиентов. Третий – комиссии партнёров за приведённых клиентов.</p>
         <p class="melko tarif__note">Размеры платежей условные и подлежат уточнению. Онлайн-оплата не подключена: услуги оформляет менеджер при заключении договора и отмечает в личном кабинете клиента.</p>
-        <div class="knopki"><a class="knopka knopka--cher" href="zayavka.php">Оставить заявку →</a><a class="knopka knopka--ramka" href="calculator.php">Рассчитать стоимость</a></div>
+        <div class="knopki"><a class="knopka knopka--cher" href="zayavka.php">Оставить заявку</a><a class="knopka knopka--ramka" href="calculator.php">Рассчитать стоимость</a></div>
     </div>
 </main>
 <?php require __DIR__ . '/includes/footer.php'; ?>
