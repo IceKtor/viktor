@@ -35,7 +35,7 @@ if (!isset($scripts)) $scripts = array();
             </div>
         </div>
         <div class="futer__niz">
-            <span>© СЭРГЭ, 2026</span>
+            <span class="futer__levo">© СЭРГЭ, 2026 <button class="tema" id="tema" type="button" aria-pressed="false"><svg class="tema__luna" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg><svg class="tema__solnce" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6l1.4 1.4M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4L6 18M18 6l1.4-1.4"/></svg><span class="tema__tekst">Тёмная тема</span></button></span>
             <span><?= company_is_demo() ? 'Контакты — демо-данные. ' : '' ?>Расчёт стоимости предварительный и не является сметой.<?php if (ACCOUNTS_ENABLED): ?> <a class="futer__ssylka" href="privacy.php">Политика конфиденциальности</a><?php endif; ?></span>
         </div>
     </div>

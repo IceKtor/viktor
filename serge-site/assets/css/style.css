@@ -1018,15 +1018,15 @@ html[data-theme="dark"] .princip--vip, html[data-theme="dark"] .shag.aktiv { box
 html[data-theme="dark"] img { filter: brightness(.92); }
 html[data-theme="dark"] .vhod--est::after { border-color: var(--teplyj); }
 
-/* переключатель темы: такой же кружок, как вход */
-.tema { display: inline-flex; align-items: center; justify-content: center; width: 42px; height: 42px; border-radius: 50%; border: 1px solid currentColor; background: none; color: inherit; cursor: pointer; opacity: .85; transition: background .25s, color .25s, border-color .25s, opacity .25s; }
-.tema:hover, .tema:focus-visible { background: var(--derevo); border-color: var(--derevo); color: #fff; opacity: 1; }
-html[data-theme="dark"] .tema:hover, html[data-theme="dark"] .tema:focus-visible { color: #151614; }
+/* переключатель темы: в подвале, рядом с копирайтом (подвал тёмный в обеих темах) */
+.futer__levo { display: inline-flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+.tema { display: inline-flex; align-items: center; gap: 7px; background: none; border: 0; padding: 4px 0; font: inherit; font-size: 13px; color: rgba(255,255,255,.7); cursor: pointer; transition: color .2s; }
+.tema:hover, .tema:focus-visible { color: #fff; }
+.tema__tekst { text-decoration: underline; text-underline-offset: 3px; }
 /* в светлой теме видна луна (переключить на тёмную), в тёмной - солнце */
 .tema .tema__solnce { display: none; }
 html[data-theme="dark"] .tema .tema__luna { display: none; }
 html[data-theme="dark"] .tema .tema__solnce { display: block; }
-@media (max-width: 640px) { .tema { width: 38px; height: 38px; } }
 
 /* кнопка «Наверх» */
 .naverh { position: fixed; right: 24px; bottom: 24px; z-index: 40; width: 48px; height: 48px; border-radius: 50%; border: 1px solid var(--tonkaya); background: var(--sneg); color: var(--tekst); display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 10px 30px -12px rgba(0,0,0,.35); opacity: 0; visibility: hidden; transform: translateY(8px); transition: opacity .25s, transform .25s, visibility .25s, background .25s; }

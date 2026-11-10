@@ -71,8 +71,9 @@
     function podpisTemy() {
         if (!tema) return;
         var temnaya = html.getAttribute('data-theme') === 'dark';
-        tema.setAttribute('aria-label', temnaya ? 'Включить светлую тему' : 'Включить тёмную тему');
-        tema.setAttribute('title', temnaya ? 'Светлая тема' : 'Тёмная тема');
+        var tekst = tema.querySelector('.tema__tekst');
+        if (tekst) tekst.textContent = temnaya ? 'Светлая тема' : 'Тёмная тема';
+        tema.setAttribute('aria-pressed', temnaya ? 'true' : 'false');
     }
     podpisTemy();
     if (tema) {
