@@ -41,6 +41,7 @@ if (!isset($scripts)) $scripts = array();
     </div>
 </footer>
 
+<button class="naverh" id="naverh" type="button" aria-label="Наверх страницы" title="Наверх"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5.5 11.5L12 5l6.5 6.5"/></svg></button>
 <div class="nizpanel">
     <a class="nizpanel__zvonok" href="tel:<?= e(site_contacts()["phone_href"]) ?>">Позвонить</a>
     <a class="nizpanel__schet" href="calculator.php">Рассчитать</a>

@@ -46,7 +46,7 @@ function pun($name, $active, $href, $text) {
     <?php endif; ?>
     <link rel="preload" as="font" type="font/woff2" href="assets/fonts/manrope-cyrillic.woff2" crossorigin>
     <link rel="stylesheet" href="<?= e(asset('assets/css/style.css')) ?>">
-    <script>document.documentElement.className += ' js';setTimeout(function(){if(!window.sergeOk){document.documentElement.className=document.documentElement.className.replace(' js','');}},2500);</script>
+    <script>(function(){var d=document.documentElement,t=null;d.className+=' js';try{t=localStorage.getItem('serge-tema');}catch(e){}if(t!=='light'&&t!=='dark'){t=window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}d.setAttribute('data-theme',t);})();</script>
     <?php if ($crumbs) echo breadcrumbs_ld($crumbs), "\n"; if (!empty($ld_extra)) echo $ld_extra, "\n"; ?>
 </head>
 <body>
@@ -73,6 +73,7 @@ function pun($name, $active, $href, $text) {
         <div class="shapka__pravo">
             <a class="tel" href="tel:<?= e(site_contacts()["phone_href"]) ?>"><?= e(site_contacts()["phone"]) ?></a>
             <a class="knopka knopka--cher shapka__knopka" href="calculator.php">Рассчитать стоимость</a>
+            <button class="tema" id="tema" type="button" aria-label="Включить тёмную тему" title="Тёмная тема"><svg class="tema__luna" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg><svg class="tema__solnce" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6l1.4 1.4M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4L6 18M18 6l1.4-1.4"/></svg></button>
             <?php if (ACCOUNTS_ENABLED): ?>
             <a class="vhod<?= $hu ? ' vhod--est' : '' ?>" href="<?= $hu ? ($hu['role'] === 'admin' ? 'admin/' : 'cabinet.php') : 'login.php' ?>" title="<?= $hu ? ($hu['role'] === 'admin' ? 'Админ-панель' : 'Личный кабинет') : 'Войти' ?>" aria-label="<?= $hu ? ($hu['role'] === 'admin' ? 'Админ-панель' : 'Личный кабинет') : 'Войти в личный кабинет' ?>"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.2" r="3.6"/><path d="M4.8 20c.9-3.7 3.7-5.6 7.2-5.6s6.3 1.9 7.2 5.6"/></svg></a>
             <?php endif; ?>

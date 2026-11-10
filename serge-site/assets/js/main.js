@@ -65,6 +65,52 @@
         el.appendChild(s);
     });
 
+    // тема: светлая / тёмная. Выбор хранится в браузере; без выбора - как в системе
+    var html = document.documentElement;
+    var tema = document.getElementById('tema');
+    function podpisTemy() {
+        if (!tema) return;
+        var temnaya = html.getAttribute('data-theme') === 'dark';
+        tema.setAttribute('aria-label', temnaya ? 'Включить светлую тему' : 'Включить тёмную тему');
+        tema.setAttribute('title', temnaya ? 'Светлая тема' : 'Тёмная тема');
+    }
+    podpisTemy();
+    if (tema) {
+        tema.addEventListener('click', function () {
+            var nov = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', nov);
+            try { localStorage.setItem('serge-tema', nov); } catch (e) {}
+            podpisTemy();
+        });
+    }
+    if (window.matchMedia) {
+        var sist = window.matchMedia('(prefers-color-scheme: dark)');
+        var sledit = function (e) {
+            var vybor = null;
+            try { vybor = localStorage.getItem('serge-tema'); } catch (er) {}
+            if (vybor === 'light' || vybor === 'dark') return;   // посетитель выбрал сам - систему не слушаем
+            html.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+            podpisTemy();
+        };
+        if (sist.addEventListener) sist.addEventListener('change', sledit); else if (sist.addListener) sist.addListener(sledit);
+    }
+
+    // кнопка «Наверх»: появляется, когда пролистали больше полутора экранов
+    var naverh = document.getElementById('naverh');
+    if (naverh) {
+        var pokazat = function () {
+            naverh.classList.toggle('vidno', window.scrollY > window.innerHeight * 1.5);
+        };
+        window.addEventListener('scroll', pokazat, { passive: true });
+        pokazat();
+        naverh.addEventListener('click', function () {
+            var plavno = !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+            window.scrollTo({ top: 0, behavior: plavno ? 'smooth' : 'auto' });
+            var logo = document.querySelector('.logo');
+            if (logo) logo.focus({ preventScroll: true });   // фокус клавиатуры тоже возвращаем наверх
+        });
+    }
+
     // шаги на главной: активный один
     var shagi = document.querySelectorAll('.shag');
     function sdelatAktivnym(shag) {
