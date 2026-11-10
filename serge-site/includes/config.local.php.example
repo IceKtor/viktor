@@ -1,7 +1,8 @@
 <?php
 // Скопируйте этот файл в includes/config.local.php и впишите свои значения. config.local.php в git не добавляется.
 define('USE_DB', true);
-define('DB_HOST', 'localhost');
+define('DB_HOST', '127.0.0.1');
+define('DB_PORT', 3306);           // Open Server: часто 3307 (узнать: phpMyAdmin → SQL → SHOW VARIABLES LIKE 'port')
 define('DB_NAME', 'serge');
 define('DB_USER', 'root');          // Open Server: root без пароля; на хостинге - свой пользователь
 define('DB_PASS', '');

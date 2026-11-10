@@ -7,6 +7,7 @@ if (!defined('STATIC_BUILD') && is_file(__DIR__ . '/config.local.php')) { ob_sta
 if (!defined('USE_DB')) define('USE_DB', false);
 
 if (!defined('DB_HOST')) define('DB_HOST', 'localhost');
+if (!defined('DB_PORT')) define('DB_PORT', 3306);   // в Open Server MySQL часто на 3307: порт смотрите в phpMyAdmin (SHOW VARIABLES LIKE 'port')
 if (!defined('DB_NAME')) define('DB_NAME', 'serge');
 if (!defined('DB_USER')) define('DB_USER', 'root');   // в Open Server по умолчанию root без пароля, на хостинге заменить
 if (!defined('DB_PASS')) define('DB_PASS', '');
