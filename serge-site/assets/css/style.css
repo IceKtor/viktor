@@ -1035,3 +1035,8 @@ html[data-theme="dark"] .tema .tema__solnce { display: block; }
 @media (max-width: 640px) { .naverh { right: 16px; bottom: 88px; width: 44px; height: 44px; } }   /* над нижней панелью «Позвонить / Рассчитать» */
 @media (prefers-reduced-motion: reduce) { .naverh { transition: none; } html { scroll-behavior: auto; } }
 @media print { .naverh, .tema { display: none; } }
+
+/* посетители с настройкой «уменьшить движение»: переходы и анимации отключаются */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}
