@@ -1,0 +1,31 @@
+Источники изображений (ТЗ, п. 9.5). Все фото - Unsplash, лицензия Unsplash (https://unsplash.com/license):
+свободное использование, в том числе коммерческое; указание автора не обязательно, но принято.
+Файлы пережаты (WebP) и обрезаны под блоки сайта.
+
+hero.webp, hero-t.webp, hero-m.webp - Clay Banks (три размера одного снимка: компьютер, планшет, телефон), https://unsplash.com/photos/modern-house-with-wooden-deck-in-snowy-landscape-Wd8Nm8iXglQ (современный дом с террасой в снегу)
+klimat.webp       - Sijmen van Hooff, https://unsplash.com/photos/wooden-cabin-in-a-snowy-landscape-with-distant-houses-JRQZP7X_-vk
+osnovanie.webp    - Troy Mortier, https://unsplash.com/photos/a-house-being-built-with-wooden-framing-dUYELbt-H-E
+etap.webp         - Troy Mortier (тот же снимок, другой кадр)
+teplo.webp        - Julian Hochgesang, https://unsplash.com/photos/ihx1LdtnGXw
+inzheneriya.webp  - Mark Kats, https://unsplash.com/photos/white-circuit-breakers-oj1zW_PNI4k
+
+Проекты (assets/img/serge-N-1.webp фасад, serge-N-2.webp интерьер; serge-N-3.svg планировка - собственный чертёж):
+serge-120-1  - Troy Mortier, https://unsplash.com/photos/modern-two-story-house-with-a-dark-garage-door-HckCpdBDeDk
+serge-140-1  - Stephan Bechert, https://unsplash.com/photos/landscape-photo-of-2-storey-house-yFV39g6AZ5o
+serge-100-1  - Sean C Davis, https://unsplash.com/photos/cozy-cabin-glowing-in-the-snowy-woods-at-night-EwwVAaxZ4DM
+serge-90-1   - Jon Flobrant, https://unsplash.com/photos/a-small-wooden-house-surrounded-by-trees-on-a-sunny-day-zSu5hgaEx2Q
+serge-160-1  - Aldo Vukaj, https://unsplash.com/photos/log-cabin-with-brown-timber-walls-tm1qqeuhbLE
+serge-200-1  - Eli Chamoun, https://unsplash.com/photos/modern-house-with-deck-and-patio-iJ6uh2pJD9U
+serge-120-2  - Clay Banks, https://unsplash.com/photos/a-living-room-filled-with-furniture-and-a-fire-place-jczU03g4QIs
+serge-160-2, serge-200-2 - Clay Banks, https://unsplash.com/photos/cozy-living-room-with-sectional-sofa-and-fireplace-4iTQFfuiFzc (разные кадры одного снимка)
+serge-140-2  - Prydumano Design, https://unsplash.com/photos/a-large-kitchen-with-a-wooden-floor-and-a-dining-table-t0uOEEuAy1M
+serge-90-2, serge-100-2 - Caroline Badran, https://unsplash.com/photos/a-cozy-wooden-bedroom-with-modern-design-aH_EykwSvFk (разные кадры одного снимка)
+
+Фото проектов - иллюстративные стоковые снимки, а не реальные объекты СЭРГЭ, и не из Якутии.
+Замените на реальные фото/рендеры своих проектов под теми же именами файлов (1000x750, WebP).
+favicon.svg и serge-*-3.svg - собственные.
+Фото на главной - иллюстративные, не показывают реальные объекты СЭРГЭ и не находятся в Якутии.
+
+fund-svai.webp, fund-lenta.webp - чертежи фундаментов, сгенерированы ИИ по заказу автора сайта (не стоковые фото).
+
+Шрифт Manrope (SIL Open Font License 1.1), файлы в assets/fonts/ отдаются с нашего сервера.
